@@ -1,0 +1,14 @@
+Save the three transparent PNGs you just provided here with these
+EXACT filenames (PNG with transparency, no background):
+
+  1. photo-left.png    — the leopard-coat girl doing peace sign (full body)
+  2. photo-right.png   — the long-coat girl, back view (walking)
+  3. usyd-shield.png   — the University of Sydney coat-of-arms shield
+
+The HTML in index.html already references these paths:
+  assets/images/photo-left.png
+  assets/images/photo-right.png
+  assets/images/usyd-shield.png
+
+After saving them, refresh the page — both figures will float in front of
+the CRT monitor, and the shield will sit next to the yellow USYD pill.

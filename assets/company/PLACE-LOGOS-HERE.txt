@@ -1,0 +1,14 @@
+Save the four Selected Experience logos here with these EXACT filenames:
+
+  1. forbes-china.png       — Forbes China (green "Forbes" + 福布斯)
+  2. career-executive.png   — Career Executive (blue A + tagline)
+  3. suede.png              — SUEDE (purple circle, white [s])
+  4. rcc.png                — Retail & Commercial Consultancy (black square, white text)
+
+PNG or JPG both work — keep the basenames unchanged (forbes-china, career-executive,
+suede, rcc).  index.html already references them; once saved, the cards will
+render automatically and the whole card becomes a clickable link to the
+official LinkedIn / Instagram page.
+
+If you ever want to swap to different filenames, edit the four <img src="...">
+lines inside the .exp-grid block in index.html.

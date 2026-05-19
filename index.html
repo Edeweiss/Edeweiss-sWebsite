@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EDEWEISS'S PORTFOLIO — Jiajing Ding</title>
+  <meta name="description" content="Jiajing (Edeweiss) Ding — Interaction Design portfolio: Echo Ritual, Helensburgh Glow Worm Microsite, AI Music Learning System." />
+
+  <!-- ========== Pixel / retro fonts ========== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=JetBrains+Mono:wght@400;600;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <!-- ========== Site CSS ========== -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Pixel cursor (svg data URI) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23000'/><text x='2' y='13' font-family='monospace' font-size='12' fill='%2300ffd5'>E</text></svg>" />
+</head>
+
+<body class="theme-y2k">
+
+  <!-- FIX 8: background <audio> element removed along with the music sphere.
+       To re-enable music in future, restore:
+       <audio id="bgm" src="assets/audio/bgm.mp3" preload="none" loop></audio>
+       and re-add the sphere wiring in script.js. -->
+
+  <!-- ============================================================
+       FIREFLY / PIXEL DOT BACKGROUND LAYER
+  ============================================================ -->
+  <div class="firefly" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- Scanline overlay (subtle) -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       STICKY TOP NAV (with hover dropdowns + nav audio sphere)
+  ============================================================ -->
+  <header class="site-header">
+    <div class="nav-container">
+      <div class="nav-left">
+        <!-- FIX 1: brand logo links back to Home (index.html#home) -->
+        <a href="index.html#home" class="brand" id="brandHome" title="Back to Home">
+          <span class="brand-icon" aria-hidden="true">▣</span>
+          <span class="brand-text">EDEWEISS<span class="brand-dot">.</span>file</span>
+        </a>
+      </div>
+
+      <nav class="nav-right" aria-label="Primary">
+        <a href="#home" class="nav-link" data-target="home">Home</a>
+        <a href="#about" class="nav-link" data-target="about">About</a>
+
+        <div class="dropdown">
+          <a href="#projects" class="nav-link">Projects ▾</a>
+          <div class="dropdown-menu">
+            <a href="#project-echo">01 — Echo Ritual</a>
+            <a href="#project-glow">02 — Helensburgh Glow Worm</a>
+            <a href="#project-ai">03 — AI Music Learning</a>
+          </div>
+        </div>
+
+        <!-- NEW: Experience entry in the top nav -->
+        <a href="#experience" class="nav-link" data-target="experience">Experience</a>
+
+        <a href="#contact" class="nav-link" data-target="contact">Contact</a>
+
+        <!-- FIX 8: functional Search bar (filters projects + jumps; no music sphere) -->
+        <div class="nav-search">
+          <input id="searchInput" type="text" placeholder="search project..." aria-label="Search" />
+          <button id="searchBtn" aria-label="Search">⌕</button>
+          <span class="search-status" id="searchStatus" aria-live="polite"></span>
+        </div>
+        <!-- FIX 8: Removed music sphere ball — was decorative-only, kept search instead -->
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HOME — retro CRT desktop (PDF page 1)
+  ============================================================ -->
+  <section id="home" class="section home-section" aria-label="Home">
+    <!-- Person decorations (transparent PNGs) — restored above the CRT layer.
+         Required files (transparent background, drop them into assets/images/):
+            photo-left.png    — leopard-coat girl (peace sign, full body)
+            photo-right.png   — long-coat girl, back view
+            usyd-shield.png   — University of Sydney coat-of-arms shield
+         The shield is positioned as a small badge next to the yellow pill,
+         echoing the PDF cover composition. -->
+    <div class="home-deco home-deco-left">
+      <!-- NEW: shield + pill together link to USYD homepage -->
+      <a class="home-tag-row usyd-link"
+         href="https://www.sydney.edu.au/"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Visit The University of Sydney website">
+        <img class="usyd-shield" src="assets/images/usyd-shield.png" alt="University of Sydney shield"
+             onerror="this.style.display='none'">
+        <span class="home-tag tag-yellow">The University Of Sydney</span>
+      </a>
+      <img class="home-photo home-photo-left" src="assets/images/photo-left.png" alt=""
+           onerror="this.style.display='none'">
+      <span class="pixel-sparkle">✦</span>
+    </div>
+
+    <!-- photo-right.png moved out so it can sit BEHIND the CRT layer
+         (its own z-index: 3, below the CRT's z-index: 5). -->
+    <img class="home-photo home-photo-right behind-crt"
+         src="assets/images/photo-right.png" alt=""
+         onerror="this.style.display='none'">
+
+    <div class="home-deco home-deco-right">
+      <span class="home-tag tag-yellow tag-bottom">edeweiss@outlook.com</span>
+    </div>
+
+    <!-- Desktop icons -->
+    <button class="desktop-icon icon-about" data-open="about" aria-label="Open About">
+      <span class="icon-badge">1</span>
+      <span class="icon-pixel">ℹ</span>
+      <span class="icon-label">About</span>
+    </button>
+
+    <button class="desktop-icon icon-projects" data-open="projects" aria-label="Open Projects">
+      <span class="icon-badge badge-pink">4</span>
+      <span class="icon-folder" aria-hidden="true">
+        <!-- pixel folder -->
+        <svg viewBox="0 0 64 48" width="68" height="52" aria-hidden="true">
+          <rect x="2" y="10" width="60" height="34" fill="#ffe35a" stroke="#3a2a00" stroke-width="2"/>
+          <polygon points="2,10 24,10 30,4 2,4" fill="#ffe35a" stroke="#3a2a00" stroke-width="2"/>
+        </svg>
+      </span>
+      <span class="icon-label">Projects</span>
+    </button>
+
+    <button class="desktop-icon icon-contact" data-open="contact" aria-label="Open Contact">
+      <span class="icon-badge badge-orange">6</span>
+      <span class="icon-envelope" aria-hidden="true">
+        <svg viewBox="0 0 64 48" width="60" height="46">
+          <rect x="2" y="6" width="60" height="36" fill="#9ca3af" stroke="#1a1a1a" stroke-width="2"/>
+          <polyline points="2,6 32,30 62,6" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+        </svg>
+      </span>
+      <span class="icon-label">Contact</span>
+    </button>
+
+    <!-- CRT monitor + Win98 paint window -->
+    <div class="crt-stage">
+      <div class="crt-monitor">
+        <div class="crt-screen">
+
+          <!-- Win98 window -->
+          <div class="win98-window" id="paintWindow">
+            <div class="win98-titlebar">
+              <span class="win98-titlebar-icon">▣</span>
+              <span class="win98-titlebar-text">Edeweiss Ding - Designer.file</span>
+              <div class="win98-titlebar-controls">
+                <button aria-label="minimize">_</button>
+                <button aria-label="maximize">▢</button>
+                <button class="close" aria-label="close">×</button>
+              </div>
+            </div>
+
+            <div class="win98-menubar">
+              <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span>
+              <span><u>I</u>mage</span><span><u>O</u>ptions</span><span><u>H</u>elp</span>
+            </div>
+
+            <div class="win98-body">
+              <div class="paint-toolbox" aria-hidden="true">
+                <span>✂</span><span>▢</span>
+                <span>✎</span><span>▣</span>
+                <span>◉</span><span>🔍</span>
+                <span>🖊</span><span>🖌</span>
+                <span>✷</span><span>A</span>
+                <span>╱</span><span>⌒</span>
+                <span>□</span><span>◇</span>
+                <span>○</span><span>▭</span>
+              </div>
+
+              <!-- NEW: whole pixel title is now a link to the About section -->
+              <a href="#about" class="paint-canvas portfolio-link"
+                 aria-label="Go to About page">
+                <h1 class="portfolio-title" data-text="EDEWEISS'S">EDEWEISS'S</h1>
+                <h1 class="portfolio-title portfolio-title-2" data-text="PORTFOLIO">PORTFOLIO</h1>
+              </a>
+
+              <div class="paint-scroll" aria-hidden="true"></div>
+            </div>
+
+            <div class="win98-startbar">
+              <button class="start-btn" id="startBtn">
+                <span class="start-flag">▣</span> Start
+              </button>
+              <span class="start-cursor" aria-hidden="true">▲</span>
+            </div>
+          </div>
+
+          <span class="crt-burst" aria-hidden="true">✸</span>
+        </div>
+        <div class="crt-stand"></div>
+        <div class="crt-base"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT — neon dark profile panel (PDF page 2)
+  ============================================================ -->
+  <section id="about" class="section about-section" aria-label="About">
+    <div class="about-tags">
+      <span class="pill pill-purple">Human-Centred Design</span>
+      <span class="pill pill-purple">Creative Technology</span>
+    </div>
+
+    <div class="about-grid">
+      <!-- left big card -->
+      <article class="about-card terminal-window">
+        <div class="terminal-bar">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+          <span class="terminal-title">~/about/jiajing-ding.txt</span>
+        </div>
+        <div class="about-card-body">
+          <div class="about-photo">
+            <img src="assets/images/about-photo.jpg" alt="Jiajing Ding playing music"
+                 onerror="this.parentNode.classList.add('img-missing'); this.style.display='none'">
+            <span class="img-missing-label">assets/images/about-photo.jpg</span>
+          </div>
+
+          <div class="about-text">
+            <!-- FIX 2: Removed the small cursor/hand decoration next to the name -->
+            <h2 class="glitch-text" data-text="JIAJING DING">JIAJING DING</h2>
+
+            <p>I am a second-year Interaction Design student at the University of Sydney, interested in <u class="neon-u">UI/UX, music, creative technology, and digital systems</u>.</p>
+            <p>My work combines human-centred design with prototyping, sound interaction, environmental experiences, and responsive digital systems.</p>
+            <p>I aim to design playful and emotionally engaging experiences across both digital and physical contexts.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- right sidebar -->
+      <aside class="about-side">
+        <p class="about-intro">
+          Alongside interaction design, I work with DAWs and Max/MSP to explore music
+          production, sound interaction, and experimental creative coding systems.
+        </p>
+
+        <h3 class="side-h">DESIGN TOOLS</h3>
+        <div class="tool-grid">
+          <div class="tool-row"><span class="tool-icon" title="Figma">◐</span><span class="tool-bar"><i style="width:70%"></i></span></div>
+          <div class="tool-row"><span class="tool-icon" title="Blender">◓</span><span class="tool-bar"><i style="width:55%"></i></span></div>
+          <div class="tool-row"><span class="tool-icon" title="InDesign">Id</span><span class="tool-bar"><i style="width:60%"></i></span></div>
+          <div class="tool-row"><span class="tool-icon ps" title="Photoshop">Ps</span><span class="tool-bar"><i style="width:75%"></i></span></div>
+          <div class="tool-row"><span class="tool-icon" title="After Effects">▶</span><span class="tool-bar"><i style="width:45%"></i></span></div>
+          <div class="tool-row"><span class="tool-icon" title="Unreal">U</span><span class="tool-bar"><i style="width:40%"></i></span></div>
+        </div>
+
+        <h3 class="side-h">MY INTERESTS :</h3>
+        <ul class="interests">
+          <li>Sound Interaction</li>
+          <li>Sketching</li>
+          <li>Creative Coding</li>
+          <li>Environmental UX</li>
+          <li>Music + Digital Systems</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECTS INDEX (PDF "CONTENTS" page)
+  ============================================================ -->
+  <section id="projects" class="section contents-section" aria-label="Projects index">
+    <h2 class="contents-h">CONTENTS</h2>
+
+    <div class="contents-list">
+      <a href="#project-echo" class="content-row" data-search="echo ritual emotional ritual memorial speculative">
+        <div class="content-band">
+          <span>Project 01 — ECHO RITUAL</span>
+          <span class="content-date">2026.03 - 2026.05</span>
+        </div>
+        <ul class="content-tags">
+          <li>Speculative Interaction Design</li>
+          <li>Emotional Ritual Experience</li>
+          <li>Spatial Memorial System</li>
+        </ul>
+        <div class="content-thumb">
+          <img src="assets/images/p1-cover.jpg" alt="Echo Ritual cover" loading="lazy">
+        </div>
+      </a>
+
+      <a href="#project-glow" class="content-row" data-search="helensburgh glow worm microsite web responsive ecology">
+        <div class="content-band">
+          <span>Project 02 — HELENSBURGH MICROWEBSITE</span>
+          <span class="content-date">2025.10 - 2025.11</span>
+        </div>
+        <ul class="content-tags">
+          <li>Responsive Web Design</li>
+          <li>Information Architecture</li>
+          <li>Front-end Prototype</li>
+        </ul>
+        <div class="content-thumb">
+          <img src="assets/images/p2-cover.jpg" alt="Glow Worm Microsite cover" loading="lazy">
+        </div>
+      </a>
+
+      <a href="#project-ai" class="content-row" data-search="ai music learning generative feedback adaptive">
+        <div class="content-band">
+          <span>Project 03 — AI MUSIC LEARNING SYSTEM</span>
+          <span class="content-date">2025.03 - 2025.05</span>
+        </div>
+        <ul class="content-tags">
+          <li>Generative AI</li>
+          <li>Music Learning Experience</li>
+          <li>Interactive Feedback System</li>
+        </ul>
+        <div class="content-thumb">
+          <img src="assets/images/p3-cover.jpg" alt="AI Music Learning cover" loading="lazy">
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECT 01 — ECHO RITUAL
+       Two-column layout: left sticky menu + right scroll content
+  ============================================================ -->
+  <section id="project-echo" class="section project-section project-echo" aria-label="Project 01 - Echo Ritual">
+    <div class="project-cover-band">
+      <div class="folder-chip-row">
+        <span class="folder-chip-folder" aria-hidden="true">
+          <svg viewBox="0 0 36 26" width="36" height="26"><rect x="1" y="6" width="34" height="19" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/><polygon points="1,6 13,6 17,2 1,2" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/></svg>
+        </span>
+        <span class="folder-chip">3 Months</span>
+        <span class="folder-chip">Blender</span>
+        <span class="folder-chip">Figma</span>
+        <span class="folder-chip">Group</span>
+      </div>
+      <div class="folder-chip-row pill-row-right">
+        <span class="folder-chip pill-outline">Project 1</span>
+        <span class="folder-chip pill-outline">Service Design</span>
+      </div>
+    </div>
+
+    <div class="project-shell">
+      <!-- LEFT side menu -->
+      <aside class="project-sidemenu">
+        <p class="sm-brand">ECHO RITUAL</p>
+        <ol class="sm-list">
+          <li><a href="#echo-overview" class="sm-link active">01 · Overview</a></li>
+          <li><a href="#echo-problem" class="sm-link">02 · Problem Space</a></li>
+          <li><a href="#echo-moves" class="sm-link">03 · Design Moves</a></li>
+          <li><a href="#echo-solution" class="sm-link">04 · Final Outcome</a></li>
+          <li><a href="#echo-future" class="sm-link">05 · Future Direction</a></li>
+        </ol>
+        <p class="sm-meta">2026.03 — 2026.05 · Service Design</p>
+      </aside>
+
+      <!-- RIGHT scrolling content -->
+      <div class="project-content">
+
+        <header class="project-hero project-hero-echo">
+          <h1 class="proj-title proj-title-echo">ECHO <br>RITUAL <span class="echo-emoji" aria-hidden="true">💐</span></h1>
+          <p class="proj-tagline">Interactive memorial experience for post-funeral emotional support.</p>
+          <p class="proj-pullquote">Grief doesn't end after the funeral.<br>Support shouldn't either.</p>
+          <div class="role-identity">
+            <p class="role-h">Role identity</p>
+            <div class="role-chips">
+              <span># Ritual Space Concepting</span>
+              <span># Blender Hi-fi Rendering</span>
+              <span># Concept Development</span>
+              <span># Environmental Visualisation</span>
+            </div>
+          </div>
+          <div class="proj-hero-img">
+            <img src="assets/images/p1-cover.jpg" alt="Echo Ritual hero" loading="lazy">
+          </div>
+        </header>
+
+        <article id="echo-overview" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">PROJECT OVERVIEW</h2>
+          <div class="proj-cols-3">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">INSPIRATION</h3>
+              <p>When someone close passes away, what remains is not only loss, but unfinished conversations, regret, and memories that still need a place to exist.</p>
+              <p class="caption-italic">"The ritual ends before grief does."</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">PHENOMENON</h3>
+              <p>After traditional funerals end, emotional support often fades quickly. People return to work, routines, and daily life while grief continues privately in the background.</p>
+              <p>Many unresolved feelings — regret, unfinished conversations, or unspoken memories — remain difficult to share within existing social and cultural structures.</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">BACKGROUND</h3>
+              <p>Informed by <em>Disenfranchised Grief</em> theory (Doka, 1989), which highlights how grief can remain socially unsupported and unresolved.</p>
+              <div class="thinking-bubble">
+                <p class="bubble-h">THINKING...</p>
+                <p>How might we design an ongoing memorial experience that supports people beyond a single day of mourning?</p>
+              </div>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig" data-lightbox>
+              <img src="assets/images/p1-overview.jpg" alt="Echo Ritual project overview spread" loading="lazy">
+              <figcaption>Project Overview — research, inspiration, and framing.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article id="echo-problem" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">PROBLEM SPACE</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">PROBLEM STATEMENT</h3>
+              <p>The issue is not the absence of mourning rituals, but the lack of ongoing emotional space after formal rituals end.</p>
+              <h3 class="block-label label-purple">INTERVIEW</h3>
+              <p class="caption-italic">"There were things I never got to tell them."</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">KEY INSIGHT</h3>
+              <p>Grief often continues silently after formal rituals end. People need ongoing emotional spaces to express unresolved memories, regret, and continuing bonds.</p>
+              <h3 class="block-label label-purple">DESIGN OPPORTUNITY</h3>
+              <p>Design a slow ritual experience that supports reflection, memory, and reconnection beyond formal mourning.</p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig" data-lightbox>
+              <img src="assets/images/p1-problem.jpg" alt="Funeral experience journey map" loading="lazy">
+              <figcaption>Funeral experience journey map — collective ritual vs personal closure.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article id="echo-moves" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">DESIGN MOVES</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">DESIGN CONCEPT</h3>
+              <p>A drifting ritual experience that supports unresolved grief through memory, reflection, and collective connection.</p>
+              <h3 class="block-label label-purple">DESIGN TRANSITION</h3>
+              <p>Rather than designing a single memorial object, we designed a slow emotional journey that allows grief to unfold over time.</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">EXPERIENCE COMPONENTS</h3>
+              <ul class="exp-list">
+                <li><b>Memory Kiosk</b> — private reflection · voice / note / upload</li>
+                <li><b>Memory Wall</b> — shared archive · continuing bonds</li>
+                <li><b>Gathering Table</b> — collective remembrance, conversation, reconstruction</li>
+              </ul>
+              <h3 class="block-label label-purple">ITERATION FLOW</h3>
+              <p>① Early Concept → ② Testing + Feedback → ③ Final Experience</p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig" data-lightbox>
+              <img src="assets/images/p1-moves.jpg" alt="Echo Ritual design moves" loading="lazy">
+              <figcaption>Design Moves — storyboards, spatial sketch, iteration flow.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article id="echo-solution" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">FINAL OUTCOME</h2>
+          <p class="proj-lead">Echo Ritual transforms grieving into a slow spatial ritual. Visitors move through floating memorial spaces that support private reflection, shared remembrance, and collective reconnection. Rather than forcing closure, the experience gives grief a place to unfold over time.</p>
+
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p1-solution.jpg" alt="Echo Ritual emotional journey" loading="lazy">
+              <figcaption>Final Solution — atmosphere, emotional journey, storyboard.</figcaption>
+            </figure>
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p1-atmosphere.jpg" alt="Echo Ritual atmospheric details" loading="lazy">
+              <figcaption>Atmospheric details — before & after, key interaction logic.</figcaption>
+            </figure>
+          </div>
+
+          <h3 class="block-label label-purple">KEY INTERACTION LOGIC</h3>
+          <ol class="solution-list">
+            <li>Drifting spatial movement</li>
+            <li>Breathing ambient lighting</li>
+            <li>Memory upload and reflection</li>
+            <li>Collective remembrance table</li>
+            <li>Symbolic floating pathway</li>
+          </ol>
+        </article>
+
+        <article id="echo-future" class="proj-block">
+          <h2 class="proj-h2 proj-h2-blue">FUTURE DIRECTIONS</h2>
+          <div class="future-cols">
+            <div class="future-col">
+              <h3 class="block-label label-purple">WHAT I DID</h3>
+              <ul>
+                <li>Researched unresolved grief through interviews and journey mapping.</li>
+                <li>Designed a ritual-based memorial experience focused on reflection and reconnection.</li>
+                <li>Developed spatial concepts, storyboards, iterations, and final visualisations.</li>
+              </ul>
+              <h3 class="block-label label-purple">WHAT I LEARNED</h3>
+              <ul>
+                <li>Atmosphere and pacing can be more meaningful than screen-based interaction.</li>
+                <li>User feedback strengthened the emotional direction of the project.</li>
+                <li>Research helped guide and justify design decisions.</li>
+              </ul>
+            </div>
+            <div class="future-col">
+              <h3 class="block-label label-purple">WHAT I WOULD IMPROVE</h3>
+              <ul class="future-blocks">
+                <li>Test the experience in a more physical and interactive environment.</li>
+                <li>Refine environmental details and interaction fidelity.</li>
+                <li>Develop a higher-fidelity embodied prototype.</li>
+              </ul>
+              <figure class="proj-fig" data-lightbox>
+                <img src="assets/images/p1-future.jpg" alt="Echo Ritual future directions" loading="lazy">
+              </figure>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECT 02 — HELENSBURGH GLOW WORM MICROSITE
+  ============================================================ -->
+  <section id="project-glow" class="section project-section project-glow" aria-label="Project 02 - Helensburgh Glow Worm">
+    <div class="project-cover-band project-cover-glow">
+      <div class="folder-chip-row">
+        <span class="folder-chip-folder" aria-hidden="true">
+          <svg viewBox="0 0 36 26" width="36" height="26"><rect x="1" y="6" width="34" height="19" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/><polygon points="1,6 13,6 17,2 1,2" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/></svg>
+        </span>
+        <span class="folder-chip">3 Weeks</span>
+        <span class="folder-chip">HTML/CSS</span>
+        <span class="folder-chip">Figma</span>
+        <span class="folder-chip">Individual</span>
+      </div>
+      <div class="folder-chip-row pill-row-right">
+        <span class="folder-chip pill-outline">Project 2</span>
+        <span class="folder-chip pill-outline">Web Design</span>
+      </div>
+    </div>
+
+    <div class="project-shell theme-dark">
+      <aside class="project-sidemenu sidemenu-dark">
+        <p class="sm-brand sm-brand-green">HELENSBURGH</p>
+        <ol class="sm-list">
+          <li><a href="#glow-overview" class="sm-link active">01 · Overview</a></li>
+          <li><a href="#glow-problem" class="sm-link">02 · Problem Space</a></li>
+          <li><a href="#glow-moves" class="sm-link">03 · Design Moves</a></li>
+          <li><a href="#glow-solution" class="sm-link">04 · Final Outcome</a></li>
+          <li><a href="#glow-future" class="sm-link">05 · Future Direction</a></li>
+        </ol>
+        <p class="sm-meta">2025.10 — 2025.11 · Web Design</p>
+      </aside>
+
+      <div class="project-content content-dark">
+
+        <header class="project-hero project-hero-glow">
+          <h1 class="proj-title proj-title-glow">HELENSBURGH<br>GLOW WORM<br>MICROSITE</h1>
+          <p class="proj-tagline">Responsive ecological tourism platform for safer low-impact night exploration.</p>
+          <p class="proj-pullquote glow-quote">A responsive microsite helping visitors plan safer, low-impact visits to a fragile glow worm habitat.</p>
+          <div class="role-identity role-identity-dark">
+            <p class="role-h">Role identity</p>
+            <div class="role-chips">
+              <span># UX Research</span>
+              <span># Information Architecture</span>
+              <span># Responsive Web Design</span>
+              <span># Vibe Coding</span>
+            </div>
+          </div>
+          <div class="proj-hero-img">
+            <img src="assets/images/p2-cover.jpg" alt="Glow Worm microsite hero" loading="lazy">
+          </div>
+        </header>
+
+        <article id="glow-overview" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">PROJECT OVERVIEW</h2>
+          <div class="proj-cols-3">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">INSPIRATION</h3>
+              <p>The Glow Worm Tunnel is both a tourist destination and a fragile ecological habitat. Night visitors often lack clear guidance for safe and low-impact exploration.</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">LOCATION + HISTORY</h3>
+              <p>Located near Helensburgh, NSW, the tunnel attracts photographers, hikers, and night explorers. Historic railway infrastructure later transformed into a glow worm habitat.</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">BACKGROUND</h3>
+              <p>Visitors need accessible planning tools, environmental guidance, and clearer behavioural expectations before entering the tunnel.</p>
+              <div class="thinking-bubble">
+                <p class="bubble-h">THINKING...</p>
+                <p>How might we help visitors explore the tunnel safely while protecting a fragile glow worm colony?</p>
+              </div>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig" data-lightbox>
+              <img src="assets/images/p2-overview.jpg" alt="Helensburgh project overview" loading="lazy">
+            </figure>
+          </div>
+        </article>
+
+        <article id="glow-problem" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">PROBLEM SPACE</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">PROBLEM STATEMENT</h3>
+              <p>Visitors often arrive without clear planning support, environmental guidance, or behavioural expectations.</p>
+              <h3 class="block-label label-purple">USER NEEDS</h3>
+              <ul>
+                <li>Clear transport and access info</li>
+                <li>Real-time site status updates</li>
+                <li>Low-impact behaviour guidance</li>
+                <li>Confidence before night visits</li>
+              </ul>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">KEY INSIGHTS</h3>
+              <p>Visitors need faster trip planning, clear behavioural guidance, and confidence before arrival.</p>
+              <h3 class="block-label label-purple">DESIGN OPPORTUNITY</h3>
+              <ul>
+                <li>Explore → site history + ecology</li>
+                <li>Visit → transport + planning</li>
+                <li>Guidelines → low-impact behaviour</li>
+                <li>Gallery → community updates + photos</li>
+              </ul>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig" data-lightbox>
+              <img src="assets/images/p2-problem.jpg" alt="Helensburgh problem space" loading="lazy">
+            </figure>
+          </div>
+        </article>
+
+        <article id="glow-moves" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">DESIGN MOVES</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">DESIGN CONCEPT</h3>
+              <p>Designing a low-impact digital exploration experience for a fragile natural environment.</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">KEY DESIGN DECISIONS</h3>
+              <ul>
+                <li><b>Move 01 — Dropdown Navigation:</b> hover dropdowns let users access sub-pages quickly without overwhelming the main navigation.</li>
+                <li><b>Move 02 — Planning Support:</b> search bar, embedded map, mini map, weather/status widgets.</li>
+                <li><b>Move 03 — Eco-behaviour Guidance:</b> Do/Don't guidelines and CTA prompts toward low-impact behaviour.</li>
+                <li><b>Move 04 — Atmosphere as Interaction:</b> animated firefly/glow effects create immersion and reinforce tunnel identity.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig" data-lightbox>
+              <img src="assets/images/p2-moves.jpg" alt="Helensburgh design moves" loading="lazy">
+            </figure>
+          </div>
+        </article>
+
+        <article id="glow-solution" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">FINAL OUTCOME</h2>
+          <p class="proj-lead">A responsive microsite supporting safe, informed, and eco-conscious exploration of the Glow Worm Tunnel.</p>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">INTERFACE DETAILS</h3>
+              <ul>
+                <li><b>Real-time Visit Planning:</b> weather / map / transport / status</li>
+                <li><b>Eco-safe Visitor Guidance:</b> low-light rules / noise control / safety tips</li>
+                <li><b>Immersive Site Identity:</b> dark UI / glow particles / tunnel textures</li>
+              </ul>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">TOOLS: HTML + CSS</h3>
+              <ul>
+                <li>Responsive layouts</li>
+                <li>Hover dropdown navigation</li>
+                <li>Animated glow/firefly effects</li>
+                <li>Embedded maps and travel support</li>
+                <li>Structured information hierarchy</li>
+              </ul>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p2-solution.jpg" alt="Helensburgh final outcome" loading="lazy">
+            </figure>
+          </div>
+        </article>
+
+        <article id="glow-future" class="proj-block">
+          <h2 class="proj-h2 proj-h2-blue">FUTURE DIRECTIONS</h2>
+          <div class="future-cols">
+            <div class="future-col">
+              <h3 class="block-label label-purple">WHAT I DID</h3>
+              <p>Designed and built a responsive microsite with information architecture, visual identity, navigation, map support, visitor guidelines, and front-end implementation.</p>
+              <h3 class="block-label label-purple">WHAT I LEARNED</h3>
+              <p>How web design can guide visitor behaviour by making ecological rules, planning information, and navigation easier to access.</p>
+            </div>
+            <div class="future-col">
+              <h3 class="block-label label-purple">WHAT I WOULD IMPROVE</h3>
+              <p>Add live API data for weather/status, conduct usability testing with visitors, and further refine accessibility for mobile users.</p>
+              <p class="caption-italic">"The future of exploration is not just discovery, but protection."</p>
+              <figure class="proj-fig" data-lightbox>
+                <img src="assets/images/p2-future.jpg" alt="Helensburgh future" loading="lazy">
+              </figure>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECT 03 — AI MUSIC LEARNING SYSTEM
+  ============================================================ -->
+  <section id="project-ai" class="section project-section project-ai" aria-label="Project 03 - AI Music Learning System">
+    <div class="project-cover-band">
+      <div class="folder-chip-row">
+        <span class="folder-chip-folder" aria-hidden="true">
+          <svg viewBox="0 0 36 26" width="36" height="26"><rect x="1" y="6" width="34" height="19" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/><polygon points="1,6 13,6 17,2 1,2" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/></svg>
+        </span>
+        <span class="folder-chip">2 Months</span>
+        <span class="folder-chip">Canva</span>
+        <span class="folder-chip">Figma</span>
+        <span class="folder-chip">Individual</span>
+      </div>
+      <div class="folder-chip-row pill-row-right">
+        <span class="folder-chip pill-outline">Project 3</span>
+        <span class="folder-chip pill-outline">Product Design</span>
+      </div>
+    </div>
+
+    <div class="project-shell">
+      <aside class="project-sidemenu">
+        <p class="sm-brand sm-brand-brown">AI MUSIC LEARNING</p>
+        <ol class="sm-list">
+          <li><a href="#ai-overview" class="sm-link active">01 · Overview</a></li>
+          <li><a href="#ai-problem" class="sm-link">02 · Problem Space</a></li>
+          <li><a href="#ai-moves" class="sm-link">03 · Design Moves</a></li>
+          <li><a href="#ai-solution" class="sm-link">04 · Final Outcome</a></li>
+          <li><a href="#ai-future" class="sm-link">05 · Future Direction</a></li>
+        </ol>
+        <p class="sm-meta">2025.03 — 2025.05 · Product Design</p>
+      </aside>
+
+      <div class="project-content">
+
+        <header class="project-hero project-hero-ai">
+          <h1 class="proj-title proj-title-ai">AI MUSIC<br>LEARNING SYSTEM<br><span class="ai-small">APP</span> <span class="note-emoji" aria-hidden="true">♪</span></h1>
+          <p class="proj-tagline">AI-assisted music learning experience focused on adaptive feedback and emotional engagement.</p>
+          <p class="proj-pullquote ai-quote">Practice is not only about accuracy.<br>Motivation and emotional support matter too.</p>
+          <div class="role-identity">
+            <p class="role-h">Role identity</p>
+            <div class="role-chips">
+              <span># UX Research</span>
+              <span># Interaction Design</span>
+              <span># Interface Prototyping</span>
+              <span># User Testing</span>
+            </div>
+          </div>
+          <div class="piano-strip" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </header>
+
+        <article id="ai-overview" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">PROJECT OVERVIEW</h2>
+          <div class="proj-cols-3">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">INSPIRATION</h3>
+              <p>Many music learning apps focus only on technical correction, while motivation and emotional engagement are often ignored.</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">PHENOMENON</h3>
+              <p>Advantages of AI-supported music learning include personalised learning paths, in-time feedback, accessibility & cost-effectiveness, and enhancing the fun of learning.</p>
+              <p>Disadvantages: tech dependency, limited accuracy in feedback, lack of human nuance.</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">BACKGROUND</h3>
+              <p>With the rapid development of AI, its use in education is increasing. In music learning, however, AI is mostly used for drills and simple feedback.</p>
+              <div class="thinking-bubble">
+                <p class="bubble-h">THINKING...</p>
+                <p>How might AI support music learners through both real-time feedback and emotional engagement?</p>
+              </div>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig" data-lightbox>
+              <img src="assets/images/p3-overview.jpg" alt="AI music project overview" loading="lazy">
+            </figure>
+          </div>
+        </article>
+
+        <article id="ai-problem" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">PROBLEM SPACE</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">PROBLEM STATEMENT</h3>
+              <p>Existing music learning systems prioritise technical accuracy over emotional engagement and adaptive motivation.</p>
+              <h3 class="block-label label-purple">INTERVIEW</h3>
+              <p class="caption-italic">"AI is creative and informative but lacks emotional depth." — Rose</p>
+              <p class="caption-italic">"AI is not very good at human emotions." — Milikiauk</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">KEY INSIGHTS</h3>
+              <p>Learners value emotional guidance and adaptive feedback during repetitive practice.</p>
+              <h3 class="block-label label-purple">DESIGN OPPORTUNITY</h3>
+              <p>Design a music learning experience that supports emotional engagement, adaptive pacing, and real-time guidance.</p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig" data-lightbox>
+              <img src="assets/images/p3-problem.jpg" alt="AI music problem space" loading="lazy">
+            </figure>
+          </div>
+        </article>
+
+        <article id="ai-moves" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">DESIGN MOVES</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">DESIGN CONCEPT</h3>
+              <p>Reimagining AI as a collaborative music learning partner rather than a passive correction tool.</p>
+              <h3 class="block-label label-purple">DESIGN TRANSITION</h3>
+              <p>I started by sketching an AI-assisted practice app, then translated the concept into a clearer interaction system focused on feedback, motivation, and adaptive learning.</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">EXPERIENCE COMPONENTS</h3>
+              <ol>
+                <li><b>Real-time Feedback</b> — AI responds instantly to performance and mistakes.</li>
+                <li><b>Emotional Motivation</b> — rewards and visual feedback encourage continued practice.</li>
+                <li><b>Adaptive Learning Path</b> — practice adjusts to user progress and pacing.</li>
+              </ol>
+              <h3 class="block-label label-purple">ITERATION FLOW</h3>
+              <p>① user plays music → ② AI analyses performance → ③ emotion + performance feedback → ④ adaptive practice suggestions → ⑤ user continues practice.</p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig" data-lightbox>
+              <img src="assets/images/p3-moves.jpg" alt="AI music design moves" loading="lazy">
+            </figure>
+          </div>
+        </article>
+
+        <article id="ai-solution" class="proj-block">
+          <h2 class="proj-h2 graffiti-green">FINAL OUTCOME</h2>
+          <p class="proj-lead">An AI-supported music learning experience focused on feedback, motivation, and adaptive practice.</p>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">INTERFACE DETAILS</h3>
+              <ul>
+                <li><b>Library:</b> users can browse instruments and explore music categories through a structured filtering system.</li>
+                <li><b>Practice:</b> the screen combines sheet music, playback controls, and AI suggestions to support real-time learning feedback.</li>
+                <li><b>Furniture & Frames:</b> editable home content from the shop helps users decorate their personalised homepage.</li>
+              </ul>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">TOOLS</h3>
+              <ul>
+                <li><b>Figma</b> — to prototype interface structure, interaction flow, and adaptive feedback systems.</li>
+                <li><b>AI-assisted ideation</b> — to explore interaction concepts and emotional learning features during early development.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p3-solution.jpg" alt="AI music final outcome" loading="lazy">
+            </figure>
+          </div>
+        </article>
+
+        <article id="ai-future" class="proj-block">
+          <h2 class="proj-h2 proj-h2-blue">FUTURE DIRECTIONS</h2>
+          <div class="future-cols">
+            <div class="future-col">
+              <h3 class="block-label label-purple">WHAT I DID</h3>
+              <p>Designed and refined an AI-supported music learning experience focused on emotional engagement, adaptive feedback, and personalised practice.</p>
+              <h3 class="block-label label-purple">WHAT I LEARNED</h3>
+              <ul>
+                <li>Users preferred encouraging feedback over strict correction.</li>
+                <li>Adaptive pacing increased engagement and motivation.</li>
+                <li>Emotional interaction made practice feel more personal.</li>
+              </ul>
+            </div>
+            <div class="future-col">
+              <h3 class="block-label label-purple">WHAT I WOULD IMPROVE</h3>
+              <p>With more time, I would further develop the adaptive feedback system and test the experience with real music learners over longer periods.</p>
+              <figure class="proj-fig" data-lightbox>
+                <img src="assets/images/p3-future.jpg" alt="AI music future" loading="lazy">
+              </figure>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SELECTED EXPERIENCE — pixel cards
+  ============================================================ -->
+  <section id="experience" class="section experience-section" aria-label="Selected Experience">
+    <h2 class="exp-h">SELECTED EXPERIENCE</h2>
+    <p class="exp-sub">Early experience across media, design, events, and creative technology.</p>
+    <!-- Logos now live in assets/images/ as 1.png / 2.png / 3.png / 4.png.
+         CSS object-fit:cover makes each image fill the square frame
+         proportionally (no stretching). -->
+    <div class="exp-grid">
+
+      <!-- Forbes China — official LinkedIn (Forbes China) -->
+      <a class="exp-card" href="https://www.linkedin.com/company/forbeschina/"
+         target="_blank" rel="noopener noreferrer" aria-label="Forbes China LinkedIn">
+        <div class="exp-logo exp-img exp-logo-light">
+          <img src="assets/images/1.png" alt="Forbes China">
+        </div>
+        <h3>Forbes China</h3>
+        <p>Editorial &amp; Media Support</p>
+        <span class="exp-year">2024</span>
+      </a>
+
+      <!-- Career Executive — official LinkedIn -->
+      <a class="exp-card" href="https://www.linkedin.com/company/career-executive-inc-/"
+         target="_blank" rel="noopener noreferrer" aria-label="Career Executive LinkedIn">
+        <div class="exp-logo exp-img exp-logo-light">
+          <img src="assets/images/2.png" alt="Career Executive">
+        </div>
+        <h3>Career Executive</h3>
+        <p>Marketing &amp; Visual Design</p>
+        <span class="exp-year">2025</span>
+      </a>
+
+      <!-- SUEDE — official Instagram (@suedesociety) -->
+      <a class="exp-card" href="https://www.instagram.com/suedesociety/"
+         target="_blank" rel="noopener noreferrer" aria-label="SUEDE Instagram">
+        <div class="exp-logo exp-img exp-logo-light">
+          <img src="assets/images/3.png" alt="SUEDE">
+        </div>
+        <h3>SUEDE</h3>
+        <p>Design Community Member<br>Interaction Design Learning</p>
+        <span class="exp-year">2025 – Present</span>
+      </a>
+
+      <!-- RCC — Retail &amp; Commercial Consultancy LinkedIn -->
+      <a class="exp-card"
+         href="https://www.linkedin.com/company/retail-commercial-consultancy/posts/?feedView=all"
+         target="_blank" rel="noopener noreferrer" aria-label="Retail & Commercial Consultancy LinkedIn">
+        <div class="exp-logo exp-img exp-logo-dark">
+          <img src="assets/images/4.png" alt="Retail &amp; Commercial Consultancy">
+        </div>
+        <h3>Retail &amp; Commercial Consultancy</h3>
+        <p>Marketing Design &amp; Visual Content</p>
+        <span class="exp-year">2026 – Present</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT — retro Mac window (last PDF page)
+  ============================================================ -->
+  <section id="contact" class="section contact-section" aria-label="Contact">
+    <div class="mac-window">
+      <div class="mac-titlebar">
+        <span class="mac-dot dot-red"></span>
+        <span class="mac-dot dot-yellow"></span>
+        <span class="mac-dot dot-green"></span>
+      </div>
+      <div class="mac-body">
+        <!-- FIX 7: "R" now uses the same Press Start 2P pixel font as the rest of the heading -->
+        <h2 class="ready-h">READY TO<br>CONNECT?</h2>
+        <ul class="contact-links">
+          <li>Instagram: <a href="https://instagram.com/eds_archive" target="_blank" rel="noopener">eds_archive</a></li>
+          <li>Email: <a href="mailto:edeweiss@outlook.com">edeweiss@outlook.com</a></li>
+          <!-- LinkedIn — real profile URL -->
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/jiajing-ding-747122358/"
+                         target="_blank" rel="noopener noreferrer">Jiajing (Edeweiss) Ding</a></li>
+        </ul>
+        <a class="connect-btn" href="mailto:edeweiss@outlook.com">
+          Let's Connect! <span class="conn-cursor">▲</span>
+        </a>
+      </div>
+
+      <span class="mac-deco mac-folder" aria-hidden="true">
+        <svg viewBox="0 0 36 26" width="44" height="32"><rect x="1" y="6" width="34" height="19" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/><polygon points="1,6 13,6 17,2 1,2" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/></svg>
+      </span>
+      <span class="mac-deco mac-floppy" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="44" height="44"><rect x="2" y="2" width="36" height="36" fill="#0033ff" stroke="#000" stroke-width="2"/><rect x="10" y="2" width="20" height="14" fill="#cccccc" stroke="#000" stroke-width="1.5"/><rect x="14" y="5" width="3" height="9" fill="#000"/><rect x="10" y="24" width="20" height="14" fill="#dddddd" stroke="#000" stroke-width="1.5"/></svg>
+      </span>
+    </div>
+
+    <p class="footer-note">© Jiajing (Edeweiss) Ding · 2026 · Built with HTML / CSS / JS · pixel love</p>
+  </section>
+
+  <!-- ============================================================
+       LIGHTBOX
+  ============================================================ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
+    <button class="lb-close" aria-label="Close">×</button>
+    <img id="lightboxImg" src="" alt="" />
+    <p class="lb-caption" id="lightboxCaption"></p>
+  </div>
+
+  <!-- Floating Start menu (Win98) -->
+  <div class="start-menu" id="startMenu" aria-hidden="true">
+    <div class="start-strip">EDEWEISS 98</div>
+    <ul>
+      <li><a href="#about">📁 About</a></li>
+      <li><a href="#projects">📁 Projects</a></li>
+      <li><a href="#project-echo">📄 Echo Ritual</a></li>
+      <li><a href="#project-glow">📄 Glow Worm</a></li>
+      <li><a href="#project-ai">📄 AI Music</a></li>
+      <!-- NEW: Selected Experience entry in the Win98 Start menu -->
+      <li><a href="#experience">⭐ Selected Experience</a></li>
+      <li><a href="#contact">✉ Contact</a></li>
+      <li class="start-sep"></li>
+      <li><a href="mailto:edeweiss@outlook.com">⏻ Shut Down...</a></li>
+    </ul>
+  </div>
+
+  <!-- Site JS -->
+  <script src="script.js" defer></script>
+</body>
+</html>
