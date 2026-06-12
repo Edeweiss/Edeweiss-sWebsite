@@ -20,10 +20,76 @@
 
 <body class="theme-y2k">
 
-  <!-- FIX 8: background <audio> element removed along with the music sphere.
-       To re-enable music in future, restore:
-       <audio id="bgm" src="assets/audio/bgm.mp3" preload="none" loop></audio>
-       and re-add the sphere wiring in script.js. -->
+  <!-- ============================================================
+       LANGUAGE SELECTOR — Win98-style dialog (shows on first visit)
+  ============================================================ -->
+  <div class="lang-overlay" id="langOverlay" role="dialog" aria-modal="true" aria-labelledby="langDialogTitle">
+
+    <!-- desktop background grid faint -->
+    <div class="lang-desktop-bg" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- Win98 dialog window -->
+    <div class="lang-dialog" id="langDialog">
+      <!-- title bar -->
+      <div class="lang-titlebar">
+        <span class="lang-titlebar-icon" aria-hidden="true">🌐</span>
+        <span class="lang-titlebar-text" id="langDialogTitle">Language / 语言</span>
+        <div class="lang-titlebar-controls" aria-hidden="true">
+          <span>_</span><span>▢</span><span>×</span>
+        </div>
+      </div>
+
+      <!-- dialog body -->
+      <div class="lang-dialog-body">
+        <!-- computer icon -->
+        <div class="lang-icon-row" aria-hidden="true">
+          <svg viewBox="0 0 64 52" width="52" height="42">
+            <rect x="4" y="2" width="56" height="36" rx="3" fill="#c0c0c0" stroke="#808080" stroke-width="1.5"/>
+            <rect x="8" y="6" width="48" height="28" fill="#000080"/>
+            <rect x="14" y="10" width="36" height="20" fill="#0000aa"/>
+            <!-- cursor blink -->
+            <rect x="14" y="10" width="4" height="14" fill="#00ffd5" opacity="0.9"/>
+            <text x="20" y="22" font-family="monospace" font-size="7" fill="#ffffff">EDEWEISS.SYS</text>
+            <text x="20" y="30" font-family="monospace" font-size="6" fill="#00ffd5">SELECT LANGUAGE_</text>
+            <!-- monitor stand -->
+            <rect x="26" y="38" width="12" height="6" fill="#b0b0b0"/>
+            <rect x="20" y="44" width="24" height="4" rx="2" fill="#a0a0a0"/>
+          </svg>
+        </div>
+
+        <!-- prompt text -->
+        <p class="lang-prompt-zh">请选择你的语言</p>
+        <p class="lang-prompt-en">Choose your language</p>
+        <p class="lang-prompt-sub">/ Select language to continue /</p>
+
+        <!-- divider -->
+        <div class="lang-divider" aria-hidden="true"></div>
+
+        <!-- buttons -->
+        <div class="lang-btn-row">
+          <button class="lang-btn lang-btn-zh" id="btnZh" data-lang="zh">
+            <span class="lang-btn-flag" aria-hidden="true">🇨🇳</span>
+            <span class="lang-btn-label">中文</span>
+            <span class="lang-btn-sub">Chinese</span>
+          </button>
+          <button class="lang-btn lang-btn-en" id="btnEn" data-lang="en">
+            <span class="lang-btn-flag" aria-hidden="true">🇬🇧</span>
+            <span class="lang-btn-label">English</span>
+            <span class="lang-btn-sub">英文</span>
+          </button>
+        </div>
+
+        <!-- status bar -->
+        <div class="lang-statusbar">
+          <span class="lang-status-dot" aria-hidden="true">●</span>
+          <span class="lang-status-text">EDEWEISS PORTFOLIO OS v1.0 — Ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================================
        FIREFLY / PIXEL DOT BACKGROUND LAYER
@@ -39,12 +105,11 @@
   <div class="scanlines" aria-hidden="true"></div>
 
   <!-- ============================================================
-       STICKY TOP NAV (with hover dropdowns + nav audio sphere)
+       STICKY TOP NAV
   ============================================================ -->
   <header class="site-header">
     <div class="nav-container">
       <div class="nav-left">
-        <!-- FIX 1: brand logo links back to Home (index.html#home) -->
         <a href="index.html#home" class="brand" id="brandHome" title="Back to Home">
           <span class="brand-icon" aria-hidden="true">▣</span>
           <span class="brand-text">EDEWEISS<span class="brand-dot">.</span>file</span>
@@ -52,31 +117,50 @@
       </div>
 
       <nav class="nav-right" aria-label="Primary">
-        <a href="#home" class="nav-link" data-target="home">Home</a>
-        <a href="#about" class="nav-link" data-target="about">About</a>
+        <a href="#home"       class="nav-link" data-target="home"
+           data-en="Home"     data-zh="首页">Home</a>
+        <a href="#about"      class="nav-link" data-target="about"
+           data-en="About"    data-zh="关于">About</a>
 
         <div class="dropdown">
-          <a href="#projects" class="nav-link">Projects ▾</a>
+          <a href="#projects" class="nav-link"
+             data-en="Projects ▾" data-zh="项目 ▾">Projects ▾</a>
           <div class="dropdown-menu">
-            <a href="#project-echo">01 — Echo Ritual</a>
-            <a href="#project-glow">02 — Helensburgh Glow Worm</a>
-            <a href="#project-ai">03 — AI Music Learning</a>
+            <a href="#project-echo"
+               data-en="01 — Echo Ritual"         data-zh="01 — Echo Ritual">01 — Echo Ritual</a>
+            <a href="#project-glow"
+               data-en="02 — Helensburgh Glow Worm" data-zh="02 — 萤火虫微网站">02 — Helensburgh Glow Worm</a>
+            <a href="#project-ai"
+               data-en="03 — AI Music Learning"   data-zh="03 — AI 音乐学习">03 — AI Music Learning</a>
           </div>
         </div>
 
-        <!-- NEW: Experience entry in the top nav -->
-        <a href="#experience" class="nav-link" data-target="experience">Experience</a>
+        <a href="#experience" class="nav-link" data-target="experience"
+           data-en="Experience" data-zh="经历">Experience</a>
+        <a href="#contact"    class="nav-link" data-target="contact"
+           data-en="Contact"    data-zh="联系">Contact</a>
 
-        <a href="#contact" class="nav-link" data-target="contact">Contact</a>
-
-        <!-- FIX 8: functional Search bar (filters projects + jumps; no music sphere) -->
         <div class="nav-search">
-          <input id="searchInput" type="text" placeholder="search project..." aria-label="Search" />
+          <input id="searchInput" type="text"
+                 placeholder="search project..."
+                 data-placeholder-en="search project..."
+                 data-placeholder-zh="搜索项目…"
+                 aria-label="Search" />
           <button id="searchBtn" aria-label="Search">⌕</button>
           <span class="search-status" id="searchStatus" aria-live="polite"></span>
         </div>
-        <!-- FIX 8: Removed music sphere ball — was decorative-only, kept search instead -->
+
+        <!-- Language toggle button in nav -->
+        <button class="nav-lang-toggle" id="navLangToggle" aria-label="Switch language">
+          <span class="nav-lang-icon" aria-hidden="true">🌐</span>
+          <span class="nav-lang-label" id="navLangLabel">EN</span>
+        </button>
       </nav>
+
+      <!-- Hamburger toggle (mobile only) -->
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -84,127 +168,589 @@
        HOME — retro CRT desktop (PDF page 1)
   ============================================================ -->
   <section id="home" class="section home-section" aria-label="Home">
-    <!-- Person decorations (transparent PNGs) — restored above the CRT layer.
-         Required files (transparent background, drop them into assets/images/):
-            photo-left.png    — leopard-coat girl (peace sign, full body)
-            photo-right.png   — long-coat girl, back view
-            usyd-shield.png   — University of Sydney coat-of-arms shield
-         The shield is positioned as a small badge next to the yellow pill,
-         echoing the PDF cover composition. -->
-    <div class="home-deco home-deco-left">
-      <!-- NEW: shield + pill together link to USYD homepage -->
-      <a class="home-tag-row usyd-link"
-         href="https://www.sydney.edu.au/"
-         target="_blank" rel="noopener noreferrer"
-         aria-label="Visit The University of Sydney website">
-        <img class="usyd-shield" src="assets/images/usyd-shield.png" alt="University of Sydney shield"
-             onerror="this.style.display='none'">
-        <span class="home-tag tag-yellow">The University Of Sydney</span>
+    <div class="desktop-screen" id="desktopScreen">
+
+      <!-- Ambient background canvas (subtle grid + soft glow only) -->
+      <canvas id="deskBgCanvas" aria-hidden="true"></canvas>
+
+      <!-- Taskbar -->
+      <div class="desktop-taskbar" id="desktopTaskbar">
+        <button class="start-btn" id="startBtn"><span class="start-flag">▣</span> Start</button>
+        <div class="taskbar-divider"></div>
+        <div class="taskbar-windows" id="taskbarWindows"></div>
+        <div class="taskbar-spacer"></div>
+        <div class="taskbar-tray">
+          <div class="taskbar-clock" id="desktopClock">00:00</div>
+        </div>
+      </div>
+
+      <!-- Desktop icons grid (left column) -->
+      <div class="desktop-icons-grid" id="desktopIconsGrid">
+
+        <button class="dicon" data-win="win-about">
+          <div class="dicon-img">
+            <svg viewBox="0 0 48 48" width="38" height="38"><rect x="4" y="4" width="40" height="40" rx="2" fill="#fffde7" stroke="#ccc" stroke-width="1.5"/><rect x="8" y="10" width="32" height="3" rx="1" fill="#90a4ae"/><rect x="8" y="16" width="28" height="2" rx="1" fill="#b0bec5"/><rect x="8" y="21" width="22" height="2" rx="1" fill="#b0bec5"/><rect x="8" y="26" width="26" height="2" rx="1" fill="#b0bec5"/><rect x="8" y="31" width="18" height="2" rx="1" fill="#b0bec5"/></svg>
+          </div>
+          <span class="dicon-label" data-en="About Me.txt" data-zh="关于我.txt">About Me.txt</span>
+        </button>
+
+        <button class="dicon" data-win="win-projects">
+          <div class="dicon-img">
+            <svg viewBox="0 0 48 48" width="38" height="38"><rect x="2" y="14" width="44" height="28" rx="2" fill="#ffe35a" stroke="#c8a200" stroke-width="1.5"/><polygon points="2,14 18,14 22,8 2,8" fill="#ffe35a" stroke="#c8a200" stroke-width="1.5"/></svg>
+          </div>
+          <span class="dicon-label" data-en="Projects" data-zh="项目">Projects</span>
+        </button>
+
+        <button class="dicon" data-win="win-music">
+          <div class="dicon-img">
+            <svg viewBox="0 0 48 48" width="38" height="38"><circle cx="24" cy="24" r="20" fill="#1a1a2e" stroke="#b36dff" stroke-width="1.5"/><circle cx="24" cy="24" r="7" fill="#b36dff" opacity=".6"/><circle cx="24" cy="24" r="2.5" fill="#fff"/><path d="M24 4 A20 20 0 0 1 44 24" stroke="#ff7ce5" stroke-width="2" fill="none" opacity=".6"/><path d="M4 24 A20 20 0 0 1 24 4" stroke="#4a6fff" stroke-width="2" fill="none" opacity=".6"/></svg>
+          </div>
+          <span class="dicon-label" data-en="Music 🎵" data-zh="音乐 🎵">Music 🎵</span>
+        </button>
+
+        <button class="dicon" data-win="win-sketchbook">
+          <div class="dicon-img">
+            <svg viewBox="0 0 48 48" width="38" height="38"><rect x="6" y="4" width="36" height="40" rx="2" fill="#fff8f0" stroke="#d7a07a" stroke-width="1.5"/><rect x="4" y="4" width="6" height="40" rx="1" fill="#d7a07a"/><path d="M14 28 Q22 22 30 28 Q38 34 42 26" stroke="#ff7ce5" stroke-width="2" fill="none"/><circle cx="20" cy="18" r="4" fill="#ffe35a" opacity=".6"/></svg>
+          </div>
+          <span class="dicon-label" data-en="Sketchbook 🎨" data-zh="素描本 🎨">Sketchbook 🎨</span>
+        </button>
+
+        <button class="dicon" data-win="win-experiments">
+          <div class="dicon-img">
+            <svg viewBox="0 0 48 48" width="38" height="38"><rect x="2" y="12" width="44" height="30" rx="2" fill="#0d1117" stroke="#4a6fff" stroke-width="1.5"/><polygon points="2,12 20,12 24,6 2,6" fill="#0d1117" stroke="#4a6fff" stroke-width="1.5"/><text x="7" y="32" font-family="monospace" font-size="10" fill="#00ffd1">&gt;_</text><rect x="24" y="24" width="14" height="2" rx="1" fill="#4a6fff" opacity=".7"/><rect x="24" y="30" width="10" height="2" rx="1" fill="#b36dff" opacity=".7"/></svg>
+          </div>
+          <span class="dicon-label" data-en="Experiments 🧪" data-zh="实验室 🧪">Experiments 🧪</span>
+        </button>
+
+        <button class="dicon" data-win="win-archive">
+          <div class="dicon-img">
+            <svg viewBox="0 0 48 48" width="38" height="38"><rect x="4" y="18" width="40" height="24" rx="2" fill="#c8b8a2" stroke="#8d7358" stroke-width="1.5"/><rect x="4" y="10" width="40" height="10" rx="2" fill="#d4c4b0" stroke="#8d7358" stroke-width="1.5"/><rect x="17" y="12" width="14" height="6" rx="1" fill="#8d7358" opacity=".5"/></svg>
+          </div>
+          <span class="dicon-label" data-en="Archive 📼" data-zh="档案 📼">Archive 📼</span>
+        </button>
+
+        <button class="dicon" data-win="win-contact">
+          <div class="dicon-img">
+            <svg viewBox="0 0 48 48" width="38" height="38"><rect x="4" y="10" width="40" height="28" rx="2" fill="#e8f4f8" stroke="#7ab3cc" stroke-width="1.5"/><polyline points="4,10 24,26 44,10" fill="none" stroke="#4a6fff" stroke-width="2"/></svg>
+          </div>
+          <span class="dicon-label" data-en="Contact 📧" data-zh="联系 📧">Contact 📧</span>
+        </button>
+
+      </div><!-- /desktop-icons-grid -->
+
+      <!-- Tag row — USYD only, centered -->
+      <div class="desktop-tag-row">
+        <a class="home-tag-row usyd-link" href="https://www.sydney.edu.au/" target="_blank" rel="noopener noreferrer">
+          <img class="usyd-shield" src="assets/images/usyd-shield.png" alt="University of Sydney" onerror="this.style.display='none'">
+          <span class="home-tag tag-yellow">The University Of Sydney</span>
+        </a>
+      </div>
+
+      <!-- Fullscreen background video -->
+      <video class="desktop-bg-video" autoplay muted loop playsinline aria-hidden="true">
+        <source src="assets/videos/home-bg.mp4" type="video/mp4">
+        <source src="assets/videos/home-bg.mov" type="video/quicktime">
+      </video>
+      <!-- subtle dark overlay so icons/text stay readable -->
+      <div class="desktop-bg-overlay" aria-hidden="true"></div>
+
+      <!-- Floating title on desktop -->
+      <a href="#about" class="desktop-portfolio-title" aria-label="Go to About">
+        <h1 class="portfolio-title" data-text="EDEWEISS'S">EDEWEISS'S</h1>
+        <h1 class="portfolio-title portfolio-title-2" data-text="PORTFOLIO">PORTFOLIO</h1>
       </a>
-      <img class="home-photo home-photo-left" src="assets/images/photo-left.png" alt=""
-           onerror="this.style.display='none'">
-      <span class="pixel-sparkle">✦</span>
-    </div>
 
-    <!-- photo-right.png moved out so it can sit BEHIND the CRT layer
-         (its own z-index: 3, below the CRT's z-index: 5). -->
-    <img class="home-photo home-photo-right behind-crt"
-         src="assets/images/photo-right.png" alt=""
-         onerror="this.style.display='none'">
+      <!-- Easter egg trigger (bottom-right corner) -->
+      <button class="easter-trigger" id="easterTrigger" title="...">·</button>
 
-    <div class="home-deco home-deco-right">
-      <span class="home-tag tag-yellow tag-bottom">edeweiss@outlook.com</span>
-    </div>
-
-    <!-- Desktop icons -->
-    <button class="desktop-icon icon-about" data-open="about" aria-label="Open About">
-      <span class="icon-badge">1</span>
-      <span class="icon-pixel">ℹ</span>
-      <span class="icon-label">About</span>
-    </button>
-
-    <button class="desktop-icon icon-projects" data-open="projects" aria-label="Open Projects">
-      <span class="icon-badge badge-pink">4</span>
-      <span class="icon-folder" aria-hidden="true">
-        <!-- pixel folder -->
-        <svg viewBox="0 0 64 48" width="68" height="52" aria-hidden="true">
-          <rect x="2" y="10" width="60" height="34" fill="#ffe35a" stroke="#3a2a00" stroke-width="2"/>
-          <polygon points="2,10 24,10 30,4 2,4" fill="#ffe35a" stroke="#3a2a00" stroke-width="2"/>
-        </svg>
-      </span>
-      <span class="icon-label">Projects</span>
-    </button>
-
-    <button class="desktop-icon icon-contact" data-open="contact" aria-label="Open Contact">
-      <span class="icon-badge badge-orange">6</span>
-      <span class="icon-envelope" aria-hidden="true">
-        <svg viewBox="0 0 64 48" width="60" height="46">
-          <rect x="2" y="6" width="60" height="36" fill="#9ca3af" stroke="#1a1a1a" stroke-width="2"/>
-          <polyline points="2,6 32,30 62,6" fill="none" stroke="#1a1a1a" stroke-width="2"/>
-        </svg>
-      </span>
-      <span class="icon-label">Contact</span>
-    </button>
-
-    <!-- CRT monitor + Win98 paint window -->
-    <div class="crt-stage">
-      <div class="crt-monitor">
-        <div class="crt-screen">
-
-          <!-- Win98 window -->
-          <div class="win98-window" id="paintWindow">
-            <div class="win98-titlebar">
-              <span class="win98-titlebar-icon">▣</span>
-              <span class="win98-titlebar-text">Edeweiss Ding - Designer.file</span>
-              <div class="win98-titlebar-controls">
-                <button aria-label="minimize">_</button>
-                <button aria-label="maximize">▢</button>
-                <button class="close" aria-label="close">×</button>
-              </div>
+      <!-- Windows layer — all popup windows live here -->
+      <div class="windows-layer" id="windowsLayer">
+        <div class="win95" id="win-about" style="display:none;top:60px;left:110px;width:460px;">
+          <div class="win95-titlebar" data-win="win-about">
+            <span class="win95-icon">📄</span>
+            <span class="win95-title">About Me.txt — Notepad</span>
+            <div class="win95-controls">
+              <button class="win95-btn" data-action="min"   data-win="win-about">_</button>
+              <button class="win95-btn" data-action="max"   data-win="win-about">▢</button>
+              <button class="win95-btn win95-close" data-action="close" data-win="win-about">×</button>
             </div>
-
-            <div class="win98-menubar">
-              <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span>
-              <span><u>I</u>mage</span><span><u>O</u>ptions</span><span><u>H</u>elp</span>
+          </div>
+          <div class="win95-body win95-notepad">
+            <div class="win95-menurow"><span>File</span><span>Edit</span><span>Search</span><span>Help</span></div>
+            <div class="win95-text-area">
+              <p class="notepad-line"><span class="nc">; ─────────────────────────────────────</span></p>
+              <p class="notepad-line"><span class="nc">;  EDEWEISS.TXT  — last edited 2026.06</span></p>
+              <p class="notepad-line"><span class="nc">; ─────────────────────────────────────</span></p>
+              <p class="notepad-line">&nbsp;</p>
+              <p class="notepad-line"><span class="nk">NAME</span>        <span class="nv">= Jiajing (Edeweiss) Ding</span></p>
+              <p class="notepad-line"><span class="nk">LOCATION</span>    <span class="nv">= Sydney, Australia</span></p>
+              <p class="notepad-line"><span class="nk">DISCIPLINE</span>  <span class="nv">= Interaction Design × Creative Technology</span></p>
+              <p class="notepad-line"><span class="nk">SCHOOL</span>      <span class="nv">= University of Sydney</span></p>
+              <p class="notepad-line">&nbsp;</p>
+              <p class="notepad-line"><span class="nk">INTERESTS</span>   <span class="nv">= [</span></p>
+              <p class="notepad-line">&nbsp;&nbsp;<span class="nv">"Emotional Experience Design",</span></p>
+              <p class="notepad-line">&nbsp;&nbsp;<span class="nv">"Music Production + Sound Interaction",</span></p>
+              <p class="notepad-line">&nbsp;&nbsp;<span class="nv">"Creative Coding  + p5.js",</span></p>
+              <p class="notepad-line">&nbsp;&nbsp;<span class="nv">"Human-AI Collaboration",</span></p>
+              <p class="notepad-line">&nbsp;&nbsp;<span class="nv">"Spatial + Service Design"</span></p>
+              <p class="notepad-line"><span class="nv">]</span></p>
+              <p class="notepad-line">&nbsp;</p>
+              <p class="notepad-line"><span class="nk">TOOLS</span>       <span class="nv">= Figma · Blender · Max/MSP · Ableton</span></p>
+              <p class="notepad-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nv">p5.js · HTML/CSS · AI Tools</span></p>
+              <p class="notepad-line">&nbsp;</p>
+              <p class="notepad-line"><span class="nc">; "I design experiences that feel like</span></p>
+              <p class="notepad-line"><span class="nc">;  they always existed."</span></p>
+              <p class="notepad-line">&nbsp;</p>
+              <p class="notepad-line"><a href="#about" class="notepad-link">→ Read full bio ↓</a></p>
             </div>
+          </div>
+          <div class="win95-statusbar"><span>Ln 1, Col 1</span><span>Plain Text</span></div>
+          <div class="win95-resize-handle" data-win="win-about"></div>
+        </div>
 
-            <div class="win98-body">
-              <div class="paint-toolbox" aria-hidden="true">
-                <span>✂</span><span>▢</span>
-                <span>✎</span><span>▣</span>
-                <span>◉</span><span>🔍</span>
-                <span>🖊</span><span>🖌</span>
-                <span>✷</span><span>A</span>
-                <span>╱</span><span>⌒</span>
-                <span>□</span><span>◇</span>
-                <span>○</span><span>▭</span>
-              </div>
-
-              <!-- NEW: whole pixel title is now a link to the About section -->
-              <a href="#about" class="paint-canvas portfolio-link"
-                 aria-label="Go to About page">
-                <h1 class="portfolio-title" data-text="EDEWEISS'S">EDEWEISS'S</h1>
-                <h1 class="portfolio-title portfolio-title-2" data-text="PORTFOLIO">PORTFOLIO</h1>
+        <!-- PROJECTS window -->
+        <div class="win95" id="win-projects" style="display:none;top:70px;left:150px;width:500px;">
+          <div class="win95-titlebar" data-win="win-projects">
+            <span class="win95-icon">📁</span>
+            <span class="win95-title">Projects — File Explorer</span>
+            <div class="win95-controls">
+              <button class="win95-btn" data-action="min"   data-win="win-projects">_</button>
+              <button class="win95-btn" data-action="max"   data-win="win-projects">▢</button>
+              <button class="win95-btn win95-close" data-action="close" data-win="win-projects">×</button>
+            </div>
+          </div>
+          <div class="win95-body">
+            <div class="win95-menurow"><span>File</span><span>Edit</span><span>View</span><span>Help</span></div>
+            <div class="win95-toolbar">
+              <span class="win95-addr-label">Address:</span>
+              <span class="win95-addr">C:\Edeweiss\Projects\</span>
+            </div>
+            <div class="win95-explorer-grid">
+              <a href="#project-echo" class="win95-file-item">
+                <div class="win95-file-icon">📄</div>
+                <span class="win95-file-name">Echo Ritual</span>
+                <span class="win95-file-meta">Service Design · 2026</span>
               </a>
-
-              <div class="paint-scroll" aria-hidden="true"></div>
+              <a href="#project-glow" class="win95-file-item">
+                <div class="win95-file-icon">🌿</div>
+                <span class="win95-file-name">Glow Worm</span>
+                <span class="win95-file-meta">Web Design · 2025</span>
+              </a>
+              <a href="#project-ai" class="win95-file-item">
+                <div class="win95-file-icon">🎵</div>
+                <span class="win95-file-name">AI Music</span>
+                <span class="win95-file-meta">Product Design · 2025</span>
+              </a>
             </div>
+          </div>
+          <div class="win95-statusbar"><span>3 objects</span></div>
+          <div class="win95-resize-handle" data-win="win-projects"></div>
+        </div>
 
-            <div class="win98-startbar">
-              <button class="start-btn" id="startBtn">
-                <span class="start-flag">▣</span> Start
-              </button>
-              <span class="start-cursor" aria-hidden="true">▲</span>
+        <!-- MUSIC window -->
+        <div class="win95" id="win-music" style="display:none;width:620px;">
+          <div class="win95-titlebar" data-win="win-music">
+            <span class="win95-icon">🎵</span>
+            <span class="win95-title">Music Player.exe</span>
+            <div class="win95-controls">
+              <button class="win95-btn" data-action="min"   data-win="win-music">_</button>
+              <button class="win95-btn" data-action="max"   data-win="win-music">▢</button>
+              <button class="win95-btn win95-close" data-action="close" data-win="win-music">×</button>
+            </div>
+          </div>
+          <div class="win95-body mp-body">
+            <div class="win95-menurow"><span>File</span><span>Playback</span><span>View</span></div>
+
+            <!-- Track list — each item expandable -->
+            <div class="mp-list" id="mpList">
+
+              <div class="mp-track" data-idx="0"
+                   data-title="Sound Design"
+                   data-year="2026"
+                   data-desc="A sound redesign of Harudorobō (春泥棒) by Yorushika. Created original Foley recordings and ambient soundscapes to enhance emotional storytelling, synchronising footsteps, fabric textures, page turns, wind, and environmental sounds with animation.">
+                <div class="mp-track-row">
+                  <span class="mp-num">01</span>
+                  <span class="mp-name">Sound Design</span>
+                  <span class="mp-dur">—</span>
+                  <span class="mp-chevron">▶</span>
+                </div>
+                <div class="mp-expand">
+                  <div class="mp-expand-inner">
+                    <div class="mp-video-col">
+                      <video class="mp-video" src="assets/videos/1.MOV"
+                             loop playsinline preload="none"></video>
+                      <div class="mp-play-overlay" data-idx="0">
+                        <span class="mp-play-icon">▶</span>
+                      </div>
+                    </div>
+                    <div class="mp-text-col">
+                      <div class="mp-text-title">Sound Design</div>
+                      <div class="mp-text-year">2026 · Foley &amp; Audio-Visual Narrative</div>
+                      <div class="mp-text-desc">A sound redesign of Harudorobō (春泥棒) by Yorushika. Created original Foley recordings and ambient soundscapes to enhance emotional storytelling, synchronising footsteps, fabric textures, page turns, wind, and environmental sounds with animation.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mp-track" data-idx="1"
+                   data-title="Max MSP"
+                   data-year="2025"
+                   data-desc="Final project developed in Max/MSP, exploring real-time house music generation through algorithmic sequencing, synthesis, and audio effects processing. Built an interactive patch that transforms code into performance, combining rhythm design, live control, and electronic sound experimentation.">
+                <div class="mp-track-row">
+                  <span class="mp-num">02</span>
+                  <span class="mp-name">Max MSP</span>
+                  <span class="mp-dur">—</span>
+                  <span class="mp-chevron">▶</span>
+                </div>
+                <div class="mp-expand">
+                  <div class="mp-expand-inner">
+                    <div class="mp-video-col">
+                      <video class="mp-video" src="assets/videos/2.MP4"
+                             loop playsinline preload="none"></video>
+                      <div class="mp-play-overlay" data-idx="1">
+                        <span class="mp-play-icon">▶</span>
+                      </div>
+                    </div>
+                    <div class="mp-text-col">
+                      <div class="mp-text-title">Max MSP</div>
+                      <div class="mp-text-year">2025 · Interactive Audio Systems</div>
+                      <div class="mp-text-desc">Final project developed in Max/MSP, exploring real-time house music generation through algorithmic sequencing, synthesis, and audio effects processing. Built an interactive patch that transforms code into performance, combining rhythm design, live control, and electronic sound experimentation.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mp-track" data-idx="2"
+                   data-title="DJing"
+                   data-year="2025"
+                   data-desc="Curated and performed a live electronic DJ set featuring Vocaloid and experimental dance music, focusing on pacing, transition design, and audience experience.">
+                <div class="mp-track-row">
+                  <span class="mp-num">03</span>
+                  <span class="mp-name">DJing</span>
+                  <span class="mp-dur">—</span>
+                  <span class="mp-chevron">▶</span>
+                </div>
+                <div class="mp-expand">
+                  <div class="mp-expand-inner">
+                    <div class="mp-video-col">
+                      <video class="mp-video" src="assets/videos/3.MOV"
+                             loop playsinline preload="none"></video>
+                      <div class="mp-play-overlay" data-idx="2">
+                        <span class="mp-play-icon">▶</span>
+                      </div>
+                    </div>
+                    <div class="mp-text-col">
+                      <div class="mp-text-title">DJing</div>
+                      <div class="mp-text-year">2025 · Electronic Music Curation</div>
+                      <div class="mp-text-desc">Curated and performed a live electronic DJ set featuring Vocaloid and experimental dance music, focusing on pacing, transition design, and audience experience.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mp-track" data-idx="3"
+                   data-title="Band"
+                   data-year="2024–2025"
+                   data-desc="Performed as a keyboardist and bassist in collaborative band settings, contributing to rehearsals, arrangements, and live performances across multiple genres.">
+                <div class="mp-track-row">
+                  <span class="mp-num">04</span>
+                  <span class="mp-name">Band</span>
+                  <span class="mp-dur">—</span>
+                  <span class="mp-chevron">▶</span>
+                </div>
+                <div class="mp-expand">
+                  <div class="mp-expand-inner">
+                    <div class="mp-video-col">
+                      <video class="mp-video" src="assets/videos/4.MP4"
+                             loop playsinline preload="none"></video>
+                      <div class="mp-play-overlay" data-idx="3">
+                        <span class="mp-play-icon">▶</span>
+                      </div>
+                    </div>
+                    <div class="mp-text-col">
+                      <div class="mp-text-title">Band</div>
+                      <div class="mp-text-year">2024–2025 · Live Music Performance</div>
+                      <div class="mp-text-desc">Performed as a keyboardist and bassist in collaborative band settings, contributing to rehearsals, arrangements, and live performances across multiple genres.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /mp-list -->
+            <p class="player-note">Add .mp3 files to assets/audio/ · .mp4 to assets/videos/ to enable playback.</p>
+          </div>
+          <div class="win95-resize-handle" data-win="win-music"></div>
+        </div>
+
+        <!-- SKETCHBOOK window -->
+        <div class="win95 sketchbook-win" id="win-sketchbook" style="display:none;top:40px;left:100px;width:580px;height:520px;">
+          <div class="win95-titlebar" data-win="win-sketchbook">
+            <span class="win95-icon">🎨</span>
+            <span class="win95-title">Sketchbook.exe</span>
+            <div class="win95-controls">
+              <button class="win95-btn" data-action="min"   data-win="win-sketchbook">_</button>
+              <button class="win95-btn" data-action="max"   data-win="win-sketchbook">▢</button>
+              <button class="win95-btn win95-close" data-action="close" data-win="win-sketchbook">×</button>
             </div>
           </div>
 
-          <span class="crt-burst" aria-hidden="true">✸</span>
+          <div class="win95-body sketchbook-body" id="sketchbookBody">
+            <div class="win95-menurow sb-menurow">
+              <span>File</span><span>View</span><span>Sort</span>
+              <span class="sb-menu-tag">Personal Archive</span>
+            </div>
+
+            <!-- 2-column grid -->
+            <div class="sb-grid" id="sbGrid">
+
+              <div class="sb-cell" data-index="0"
+                   data-src="assets/sketches/sketch_01.jpg"
+                   data-type="image"
+                   data-title="Fireworks"
+                   data-year="2024"
+                   data-medium="Digital Illustration">
+                <div class="sb-thumb">
+                  <img src="assets/sketches/sketch_01.jpg" alt="Fireworks" loading="lazy">
+                  <div class="sb-hover-overlay">
+                    <span class="sb-hover-title">Fireworks</span>
+                    <span class="sb-hover-year">2024 · Digital Illustration</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sb-cell" data-index="1"
+                   data-src="assets/sketches/sketch_02.jpg"
+                   data-type="image"
+                   data-title="Afternoon"
+                   data-year="2025"
+                   data-medium="Digital Painting">
+                <div class="sb-thumb">
+                  <img src="assets/sketches/sketch_02.jpg" alt="Afternoon" loading="lazy">
+                  <div class="sb-hover-overlay">
+                    <span class="sb-hover-title">Afternoon</span>
+                    <span class="sb-hover-year">2025 · Digital Painting</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sb-cell" data-index="2"
+                   data-src="assets/sketches/sketch_03.jpg"
+                   data-type="image"
+                   data-title="Blue Memory"
+                   data-year="2020"
+                   data-medium="Digital Illustration">
+                <div class="sb-thumb">
+                  <img src="assets/sketches/sketch_03.jpg" alt="Blue Memory" loading="lazy">
+                  <div class="sb-hover-overlay">
+                    <span class="sb-hover-title">Blue Memory</span>
+                    <span class="sb-hover-year">2020 · Digital Illustration</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sb-cell" data-index="3"
+                   data-src="assets/sketches/sketch_04.jpg"
+                   data-type="image"
+                   data-title="Fountain"
+                   data-year="2025"
+                   data-medium="Digital Sketch">
+                <div class="sb-thumb">
+                  <img src="assets/sketches/sketch_04.jpg" alt="Fountain" loading="lazy">
+                  <div class="sb-hover-overlay">
+                    <span class="sb-hover-title">Fountain</span>
+                    <span class="sb-hover-year">2025 · Digital Sketch</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sb-cell" data-index="4"
+                   data-src="assets/sketches/sketch_05.jpg"
+                   data-type="image"
+                   data-title="Garden Gate"
+                   data-year="2025"
+                   data-medium="Digital Illustration">
+                <div class="sb-thumb">
+                  <img src="assets/sketches/sketch_05.jpg" alt="Garden Gate" loading="lazy">
+                  <div class="sb-hover-overlay">
+                    <span class="sb-hover-title">Garden Gate</span>
+                    <span class="sb-hover-year">2025 · Digital Illustration</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sb-cell sb-cell-video" data-index="5"
+                   data-src="assets/videos/sketch_06.mp4"
+                   data-type="video"
+                   data-title="Untitled Motion"
+                   data-year="2025"
+                   data-medium="Animation">
+                <div class="sb-thumb">
+                  <video src="assets/videos/sketch_06.mp4" muted loop playsinline preload="metadata"></video>
+                  <div class="sb-video-badge">▶ Video</div>
+                  <div class="sb-hover-overlay">
+                    <span class="sb-hover-title">Untitled Motion</span>
+                    <span class="sb-hover-year">2025 · Animation</span>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /sb-grid -->
+          </div><!-- /sketchbook-body -->
+
+          <div class="sb-statusbar">
+            <span>6 artworks archived</span>
+            <span class="sb-status-sep">|</span>
+            <span>Last updated: 2026</span>
+            <span class="sb-status-sep">|</span>
+            <span id="sbSelectedInfo">Click to select · Double-click to open</span>
+          </div>
+
+          <div class="win95-resize-handle" data-win="win-sketchbook"></div>
         </div>
-        <div class="crt-stand"></div>
-        <div class="crt-base"></div>
-      </div>
-    </div>
+
+        <!-- SKETCHBOOK LIGHTBOX -->
+        <div class="sb-lightbox" id="sbLightbox" aria-hidden="true">
+          <div class="sb-lb-backdrop" id="sbLbBackdrop"></div>
+          <div class="sb-lb-frame">
+            <button class="sb-lb-close" id="sbLbClose">×</button>
+            <button class="sb-lb-nav sb-lb-prev" id="sbLbPrev">‹</button>
+            <button class="sb-lb-nav sb-lb-next" id="sbLbNext">›</button>
+            <div class="sb-lb-media" id="sbLbMedia"></div>
+            <div class="sb-lb-info">
+              <span class="sb-lb-title" id="sbLbTitle"></span>
+              <span class="sb-lb-meta"  id="sbLbMeta"></span>
+            </div>
+            <div class="sb-lb-counter" id="sbLbCounter"></div>
+          </div>
+        </div>
+
+        <!-- EXPERIMENTS window -->
+        <div class="win95" id="win-experiments" style="display:none;top:65px;left:130px;width:480px;">
+          <div class="win95-titlebar" data-win="win-experiments">
+            <span class="win95-icon">🧪</span>
+            <span class="win95-title">Experiments.exe — Terminal</span>
+            <div class="win95-controls">
+              <button class="win95-btn" data-action="min"   data-win="win-experiments">_</button>
+              <button class="win95-btn" data-action="max"   data-win="win-experiments">▢</button>
+              <button class="win95-btn win95-close" data-action="close" data-win="win-experiments">×</button>
+            </div>
+          </div>
+          <div class="win95-body win95-terminal">
+            <p class="term-line"><span class="term-prompt">C:\Edeweiss\Experiments&gt;</span> <span class="term-cmd">dir /w</span></p>
+            <p class="term-line term-out">Directory of C:\Experiments — 4 items</p>
+            <p class="term-line">&nbsp;</p>
+            <div class="term-exp-list">
+              <div class="term-exp-item"><span class="tei-badge" style="background:#1565c0">p5</span><div><div class="tei-name">p5.js Sketches</div><div class="tei-desc">Generative visuals, particle systems, audio-reactive graphics</div></div></div>
+              <div class="term-exp-item"><span class="tei-badge" style="background:#7a1ea1">M</span><div><div class="tei-name">Max / MSP Patches</div><div class="tei-desc">Sound interaction, MIDI mapping, live performance tools</div></div></div>
+              <div class="term-exp-item"><span class="tei-badge" style="background:#00695c">AB</span><div><div class="tei-name">Ableton Projects</div><div class="tei-desc">Original compositions, sample design, ambient music</div></div></div>
+              <div class="term-exp-item"><span class="tei-badge" style="background:#b36dff">AI</span><div><div class="tei-name">AI Experiments</div><div class="tei-desc">Prompt engineering, generative imagery, video prototyping</div></div></div>
+            </div>
+            <p class="term-line" style="margin-top:14px"><span class="term-prompt">C:\&gt;</span> <span class="term-cursor">█</span></p>
+          </div>
+          <div class="win95-resize-handle" data-win="win-experiments"></div>
+        </div>
+
+        <!-- ARCHIVE window -->
+        <div class="win95" id="win-archive" style="display:none;top:75px;left:155px;width:460px;">
+          <div class="win95-titlebar" data-win="win-archive">
+            <span class="win95-icon">📼</span>
+            <span class="win95-title">Archive.exe — Personal Timeline</span>
+            <div class="win95-controls">
+              <button class="win95-btn" data-action="min"   data-win="win-archive">_</button>
+              <button class="win95-btn" data-action="max"   data-win="win-archive">▢</button>
+              <button class="win95-btn win95-close" data-action="close" data-win="win-archive">×</button>
+            </div>
+          </div>
+          <div class="win95-body win95-archive">
+            <div class="win95-menurow"><span>File</span><span>Sort</span><span>View</span></div>
+            <div class="archive-timeline">
+              <div class="archive-year"><span class="archive-yr">2026</span><div class="archive-items">
+                <div class="ai-item"><span class="ai-dot" style="background:#ff7ce5"></span>Echo Ritual — Service Design Project</div>
+                <div class="ai-item"><span class="ai-dot" style="background:#4a6fff"></span>Retail &amp; Commercial Consultancy</div>
+              </div></div>
+              <div class="archive-year"><span class="archive-yr">2025</span><div class="archive-items">
+                <div class="ai-item"><span class="ai-dot" style="background:#b36dff"></span>Helensburgh Glow Worm Microsite</div>
+                <div class="ai-item"><span class="ai-dot" style="background:#00ffd1"></span>AI Music Learning System</div>
+                <div class="ai-item"><span class="ai-dot" style="background:#ff7ce5"></span>SUEDE Design Community</div>
+                <div class="ai-item"><span class="ai-dot" style="background:#4a6fff"></span>Career Executive — Marketing &amp; Design</div>
+              </div></div>
+              <div class="archive-year"><span class="archive-yr">2024</span><div class="archive-items">
+                <div class="ai-item"><span class="ai-dot" style="background:#b36dff"></span>Forbes China — Editorial Support</div>
+                <div class="ai-item"><span class="ai-dot" style="background:#888"></span>Started Interaction Design @ USYD</div>
+              </div></div>
+              <div class="archive-year"><span class="archive-yr">earlier</span><div class="archive-items">
+                <div class="ai-item"><span class="ai-dot" style="background:#888"></span>Music production — Ableton + Max/MSP</div>
+                <div class="ai-item"><span class="ai-dot" style="background:#888"></span>First design experiments — sketching + illustration</div>
+              </div></div>
+            </div>
+          </div>
+          <div class="win95-resize-handle" data-win="win-archive"></div>
+        </div>
+
+        <!-- CONTACT window -->
+        <div class="win95" id="win-contact" style="display:none;top:90px;left:200px;width:400px;">
+          <div class="win95-titlebar" data-win="win-contact">
+            <span class="win95-icon">📧</span>
+            <span class="win95-title">Contact — New Message</span>
+            <div class="win95-controls">
+              <button class="win95-btn" data-action="min"   data-win="win-contact">_</button>
+              <button class="win95-btn" data-action="max"   data-win="win-contact">▢</button>
+              <button class="win95-btn win95-close" data-action="close" data-win="win-contact">×</button>
+            </div>
+          </div>
+          <div class="win95-body win95-mail">
+            <div class="win95-menurow"><span>File</span><span>Edit</span><span>Send</span></div>
+            <div class="mail-fields">
+              <div class="mail-field"><span class="mail-lbl">To:</span><span class="mail-val">edeweiss@outlook.com</span></div>
+              <div class="mail-field"><span class="mail-lbl">Subject:</span><span class="mail-val">Let's work together ✦</span></div>
+              <div class="mail-divider"></div>
+            </div>
+            <div class="mail-body">
+              <p>Hi Edeweiss,</p><p>&nbsp;</p>
+              <p>I came across your work and would love to connect.</p><p>&nbsp;</p>
+            </div>
+            <div class="mail-actions">
+              <a href="mailto:edeweiss@outlook.com" class="mail-send">📨 Send Email</a>
+              <a href="https://www.linkedin.com/in/jiajing-ding-747122358/" target="_blank" rel="noopener" class="mail-link">💼 LinkedIn</a>
+              <a href="https://instagram.com/eds_archive" target="_blank" rel="noopener" class="mail-link">📷 Instagram</a>
+            </div>
+          </div>
+          <div class="win95-resize-handle" data-win="win-contact"></div>
+        </div>
+
+        <!-- SECRET / Easter egg window -->
+        <div class="win95" id="win-secret" style="display:none;top:100px;left:210px;width:360px;">
+          <div class="win95-titlebar" data-win="win-secret">
+            <span class="win95-icon">🔮</span>
+            <span class="win95-title">Secret.txt — you found it</span>
+            <div class="win95-controls">
+              <button class="win95-btn win95-close" data-action="close" data-win="win-secret">×</button>
+            </div>
+          </div>
+          <div class="win95-body win95-notepad">
+            <div class="win95-text-area">
+              <p class="notepad-line"><span class="nc">; ── currently ──────────────────────</span></p>
+              <p class="notepad-line">&nbsp;</p>
+              <p class="notepad-line"><span class="nk">LISTENING</span>   <span class="nv">= Perfume Genius · Set My Heart On Fire</span></p>
+              <p class="notepad-line"><span class="nk">READING</span>     <span class="nv">= Ways of Seeing — John Berger</span></p>
+              <p class="notepad-line"><span class="nk">RESEARCHING</span> <span class="nv">= Embodied Interaction Design</span></p>
+              <p class="notepad-line"><span class="nk">MAKING</span>      <span class="nv">= ambient textures in Ableton</span></p>
+              <p class="notepad-line">&nbsp;</p>
+              <p class="notepad-line"><span class="nc">; ── one line ────────────────────────</span></p>
+              <p class="notepad-line">&nbsp;</p>
+              <p class="notepad-line"><span class="nv">"design is how I understand</span></p>
+              <p class="notepad-line"><span class="nv">&nbsp;the world back."</span></p>
+              <p class="notepad-line">&nbsp;</p>
+              <p class="notepad-line"><span class="nc">;         — edeweiss, 2026.06</span></p>
+            </div>
+          </div>
+          <div class="win95-resize-handle" data-win="win-secret"></div>
+        </div>
+
+      </div><!-- /windows-layer -->
+    </div><!-- /desktop-screen -->
   </section>
+
 
   <!-- ============================================================
        ABOUT — neon dark profile panel (PDF page 2)
@@ -278,15 +824,15 @@
     <h2 class="contents-h">CONTENTS</h2>
 
     <div class="contents-list">
-      <a href="#project-echo" class="content-row" data-search="echo ritual emotional ritual memorial speculative">
+      <a href="#project-echo" class="content-row" data-search="echo ritual emotional memorial speculative grief spatial">
         <div class="content-band">
-          <span>Project 01 — ECHO RITUAL</span>
+          <span data-en="Project 01 — ECHO RITUAL" data-zh="项目 01 — ECHO RITUAL">Project 01 — ECHO RITUAL</span>
           <span class="content-date">2026.03 - 2026.05</span>
         </div>
         <ul class="content-tags">
-          <li>Speculative Interaction Design</li>
-          <li>Emotional Ritual Experience</li>
-          <li>Spatial Memorial System</li>
+          <li data-en="Spatial Emotional Experience"    data-zh="空间情感体验设计">Spatial Emotional Experience</li>
+          <li data-en="User Research · Insight Synthesis" data-zh="用户研究 · 洞察提炼">User Research · Insight Synthesis</li>
+          <li data-en="Service Design · AI Prototype"   data-zh="服务设计 · AI 原型">Service Design · AI Prototype</li>
         </ul>
         <div class="content-thumb">
           <img src="assets/images/p1-cover.jpg" alt="Echo Ritual cover" loading="lazy">
@@ -295,13 +841,13 @@
 
       <a href="#project-glow" class="content-row" data-search="helensburgh glow worm microsite web responsive ecology">
         <div class="content-band">
-          <span>Project 02 — HELENSBURGH MICROWEBSITE</span>
+          <span data-en="Project 02 — HELENSBURGH MICROSITE" data-zh="项目 02 — 萤火虫微网站">Project 02 — HELENSBURGH MICROSITE</span>
           <span class="content-date">2025.10 - 2025.11</span>
         </div>
         <ul class="content-tags">
-          <li>Responsive Web Design</li>
-          <li>Information Architecture</li>
-          <li>Front-end Prototype</li>
+          <li data-en="Responsive Web Design"    data-zh="响应式网页设计">Responsive Web Design</li>
+          <li data-en="Information Architecture" data-zh="信息架构">Information Architecture</li>
+          <li data-en="Front-end Prototype"      data-zh="前端原型">Front-end Prototype</li>
         </ul>
         <div class="content-thumb">
           <img src="assets/images/p2-cover.jpg" alt="Glow Worm Microsite cover" loading="lazy">
@@ -310,13 +856,13 @@
 
       <a href="#project-ai" class="content-row" data-search="ai music learning generative feedback adaptive">
         <div class="content-band">
-          <span>Project 03 — AI MUSIC LEARNING SYSTEM</span>
+          <span data-en="Project 03 — AI MUSIC LEARNING" data-zh="项目 03 — AI 音乐学习">Project 03 — AI MUSIC LEARNING</span>
           <span class="content-date">2025.03 - 2025.05</span>
         </div>
         <ul class="content-tags">
-          <li>Generative AI</li>
-          <li>Music Learning Experience</li>
-          <li>Interactive Feedback System</li>
+          <li data-en="Interaction Design"               data-zh="交互设计">Interaction Design</li>
+          <li data-en="AI-assisted Learning Experience"  data-zh="AI 辅助学习体验">AI-assisted Learning Experience</li>
+          <li data-en="Adaptive Feedback System"         data-zh="自适应反馈系统">Adaptive Feedback System</li>
         </ul>
         <div class="content-thumb">
           <img src="assets/images/p3-cover.jpg" alt="AI Music Learning cover" loading="lazy">
@@ -327,7 +873,6 @@
 
   <!-- ============================================================
        PROJECT 01 — ECHO RITUAL
-       Two-column layout: left sticky menu + right scroll content
   ============================================================ -->
   <section id="project-echo" class="section project-section project-echo" aria-label="Project 01 - Echo Ritual">
     <div class="project-cover-band">
@@ -335,185 +880,363 @@
         <span class="folder-chip-folder" aria-hidden="true">
           <svg viewBox="0 0 36 26" width="36" height="26"><rect x="1" y="6" width="34" height="19" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/><polygon points="1,6 13,6 17,2 1,2" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/></svg>
         </span>
-        <span class="folder-chip">3 Months</span>
+        <span class="folder-chip" data-en="3 Months"       data-zh="3 个月">3 Months</span>
         <span class="folder-chip">Blender</span>
         <span class="folder-chip">Figma</span>
-        <span class="folder-chip">Group</span>
+        <span class="folder-chip" data-en="AI Prototyping" data-zh="AI 原型">AI Prototyping</span>
       </div>
       <div class="folder-chip-row pill-row-right">
-        <span class="folder-chip pill-outline">Project 1</span>
-        <span class="folder-chip pill-outline">Service Design</span>
+        <span class="folder-chip pill-outline" data-en="Spatial Experience" data-zh="空间体验设计">Spatial Experience</span>
+        <span class="folder-chip pill-outline" data-en="Service Design"     data-zh="服务设计">Service Design</span>
       </div>
     </div>
 
     <div class="project-shell">
-      <!-- LEFT side menu -->
       <aside class="project-sidemenu">
         <p class="sm-brand">ECHO RITUAL</p>
         <ol class="sm-list">
-          <li><a href="#echo-overview" class="sm-link active">01 · Overview</a></li>
-          <li><a href="#echo-problem" class="sm-link">02 · Problem Space</a></li>
-          <li><a href="#echo-moves" class="sm-link">03 · Design Moves</a></li>
-          <li><a href="#echo-solution" class="sm-link">04 · Final Outcome</a></li>
-          <li><a href="#echo-future" class="sm-link">05 · Future Direction</a></li>
+          <li><a href="#echo-overview"  class="sm-link active" data-en="01 · Overview"         data-zh="01 · 项目概述">01 · Overview</a></li>
+          <li><a href="#echo-problem"   class="sm-link"        data-en="02 · Problem Discovery" data-zh="02 · 问题发现">02 · Problem Discovery</a></li>
+          <li><a href="#echo-research"  class="sm-link"        data-en="03 · User Research"     data-zh="03 · 用户研究">03 · User Research</a></li>
+          <li><a href="#echo-insight"   class="sm-link"        data-en="04 · Insights"          data-zh="04 · 洞察与原则">04 · Insights</a></li>
+          <li><a href="#echo-iteration" class="sm-link"        data-en="05 · Iteration"         data-zh="05 · 方案探索">05 · Iteration</a></li>
+          <li><a href="#echo-solution"  class="sm-link"        data-en="06 · Final Design"      data-zh="06 · 最终方案">06 · Final Design</a></li>
+          <li><a href="#echo-prototype" class="sm-link"        data-en="07 · Video Prototype"   data-zh="07 · 视频原型">07 · Video Prototype</a></li>
+          <li><a href="#echo-future"    class="sm-link"        data-en="08 · Reflection"        data-zh="08 · 项目反思">08 · Reflection</a></li>
         </ol>
         <p class="sm-meta">2026.03 — 2026.05 · Service Design</p>
       </aside>
 
-      <!-- RIGHT scrolling content -->
       <div class="project-content">
 
+        <!-- HERO -->
         <header class="project-hero project-hero-echo">
           <h1 class="proj-title proj-title-echo">ECHO <br>RITUAL <span class="echo-emoji" aria-hidden="true">💐</span></h1>
-          <p class="proj-tagline">Interactive memorial experience for post-funeral emotional support.</p>
-          <p class="proj-pullquote">Grief doesn't end after the funeral.<br>Support shouldn't either.</p>
+          <p class="proj-tagline"
+             data-en="Spatial emotional experience system for unresolved grief after sudden loss"
+             data-zh="为"突发离世后未完成哀伤"设计的空间情感体验系统">Spatial emotional experience system for unresolved grief after sudden loss</p>
+          <p class="proj-pullquote"
+             data-en="The funeral ends. Grief doesn't.<br>We designed a place where grief can continue to exist."
+             data-zh="葬礼结束，并不意味着悲伤结束。<br>我们设计的，是悲伤继续存在的地方。">The funeral ends. Grief doesn't.<br>We designed a place where grief can continue to exist.</p>
           <div class="role-identity">
-            <p class="role-h">Role identity</p>
+            <p class="role-h" data-en="My Role" data-zh="我的职责">My Role</p>
             <div class="role-chips">
-              <span># Ritual Space Concepting</span>
-              <span># Blender Hi-fi Rendering</span>
-              <span># Concept Development</span>
-              <span># Environmental Visualisation</span>
+              <span data-en="# User Research &amp; Interviews"   data-zh="# 用户研究 &amp; 访谈"># User Research &amp; Interviews</span>
+              <span data-en="# Insight Synthesis &amp; Principles" data-zh="# 洞察提炼 &amp; 设计原则"># Insight Synthesis &amp; Principles</span>
+              <span data-en="# Spatial Experience Concept"       data-zh="# 空间体验概念设计"># Spatial Experience Concept</span>
+              <span data-en="# Blender Hi-fi Rendering"          data-zh="# Blender 高保真场景搭建"># Blender Hi-fi Rendering</span>
+              <span data-en="# AI Video Prototyping"             data-zh="# AI 辅助视频原型制作"># AI Video Prototyping</span>
             </div>
           </div>
           <div class="proj-hero-img">
-            <img src="assets/images/p1-cover.jpg" alt="Echo Ritual hero" loading="lazy">
+            <video controls loop playsinline>
+              <source src="assets/videos/p1-hero.mp4" type="video/mp4">
+            </video>
           </div>
         </header>
 
+        <!-- 01 Overview -->
         <article id="echo-overview" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">PROJECT OVERVIEW</h2>
+          <h2 class="proj-h2 graffiti-green"
+              data-en="01 · Project Overview"
+              data-zh="01 · 项目概述">01 · Project Overview</h2>
+          <p class="proj-lead"
+             data-en="Echo Ritual is a spatial experience design project focused on unresolved grief after sudden loss. Through user research, insight synthesis, and systematic spatial design, it builds an emotional experience system where grief can be accepted, expressed, and witnessed."
+             data-zh="Echo Ritual 是一个聚焦于"突发离世后未完成哀伤"的空间体验设计项目。通过用户研究、洞察提炼和系统化空间设计，构建了一套让悲伤得以被接纳、被表达、被见证的情感体验系统。">Echo Ritual is a spatial experience design project focused on unresolved grief after sudden loss. Through user research, insight synthesis, and systematic spatial design, it builds an emotional experience system where grief can be accepted, expressed, and witnessed.</p>
           <div class="proj-cols-3">
             <div class="proj-col">
-              <h3 class="block-label label-purple">INSPIRATION</h3>
-              <p>When someone close passes away, what remains is not only loss, but unfinished conversations, regret, and memories that still need a place to exist.</p>
-              <p class="caption-italic">"The ritual ends before grief does."</p>
+              <h3 class="block-label label-purple" data-en="Background" data-zh="项目背景">Background</h3>
+              <p data-en="Existing grief support centres on a single funeral ritual. Once it ends, emotional support abruptly disappears. The words left unsaid, unfinished farewells, and memories with nowhere to go lack any space within existing social structures."
+                 data-zh="现有哀伤支持体系以单次葬礼仪式为核心，而葬礼结束后，大多数人的情感支持随即断裂。那些来不及说出口的话、未完成的道别、无处安放的记忆，在现有社会结构中缺乏承接的空间。">Existing grief support centres on a single funeral ritual. Once it ends, emotional support abruptly disappears. The words left unsaid, unfinished farewells, and memories with nowhere to go lack any space within existing social structures.</p>
             </div>
             <div class="proj-col">
-              <h3 class="block-label label-purple">PHENOMENON</h3>
-              <p>After traditional funerals end, emotional support often fades quickly. People return to work, routines, and daily life while grief continues privately in the background.</p>
-              <p>Many unresolved feelings — regret, unfinished conversations, or unspoken memories — remain difficult to share within existing social and cultural structures.</p>
+              <h3 class="block-label label-purple" data-en="Value" data-zh="项目价值">Value</h3>
+              <p data-en="Translating the psychological concept of 'unresolved grief' into a perceivable, interactive spatial experience, exploring the design boundaries of emotional-support service experiences, and providing a referenceable design framework for related fields."
+                 data-zh="将"未完成哀伤"这一心理学概念转化为可感知、可交互的空间体验设计，探索情感支持类服务体验的设计边界，为相关领域提供可参考的设计框架。">Translating the psychological concept of 'unresolved grief' into a perceivable, interactive spatial experience, exploring the design boundaries of emotional-support service experiences.</p>
             </div>
             <div class="proj-col">
-              <h3 class="block-label label-purple">BACKGROUND</h3>
-              <p>Informed by <em>Disenfranchised Grief</em> theory (Doka, 1989), which highlights how grief can remain socially unsupported and unresolved.</p>
+              <h3 class="block-label label-purple" data-en="Tools &amp; Timeline" data-zh="工具 &amp; 周期">Tools &amp; Timeline</h3>
+              <p><b data-en="Duration:" data-zh="周期：">Duration:</b> <span data-en="3 months" data-zh="3 个月">3 months</span></p>
+              <p><b data-en="Research:" data-zh="研究工具：">Research:</b> <span data-en="Semi-structured interviews · Journey Map · Affinity Map" data-zh="半结构化访谈 · Journey Map · Affinity Map">Semi-structured interviews · Journey Map · Affinity Map</span></p>
+              <p><b data-en="Design:" data-zh="设计工具：">Design:</b> Figma · Blender · AI Video</p>
+              <p><b data-en="Collaboration:" data-zh="协作方式：">Collaboration:</b> <span data-en="Group project · individually led research &amp; spatial design" data-zh="小组协作 · 个人主导研究与空间设计">Group project · individually led research &amp; spatial design</span></p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p1-overview.jpg" alt="Echo Ritual overview" loading="lazy">
+              <figcaption data-en="Project overview — research framework, design scope and full deliverables"
+                          data-zh="项目概览 — 研究框架、设计范围与成果全貌">Project overview — research framework, design scope and full deliverables</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 02 Problem Discovery -->
+        <article id="echo-problem" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="02 · Problem Discovery"
+              data-zh="02 · 问题发现">02 · Problem Discovery</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Why This Problem" data-zh="为什么关注这个问题">Why This Problem</h3>
+              <p data-en="Grief support systems almost entirely focus on the 72 hours around the funeral. Yet psychological research shows that unresolved grief continues for months or even years. Doka's (1989) theory of disenfranchised grief highlights how losses unrecognised by social structures force grief into silence, becoming a long-term psychological burden."
+                 data-zh="现有哀伤支持几乎都集中在葬礼前后 72 小时，而心理学研究表明未完成哀伤往往在此后数月乃至数年持续影响当事人。Doka（1989）提出的"剥夺性哀伤"理论指出，当一段关系或失去无法被社会结构所承认时，这种悲伤往往被迫沉默，成为长期心理负担。">Grief support systems almost entirely focus on the 72 hours around the funeral. Yet psychological research shows that unresolved grief continues for months or even years.</p>
               <div class="thinking-bubble">
-                <p class="bubble-h">THINKING...</p>
-                <p>How might we design an ongoing memorial experience that supports people beyond a single day of mourning?</p>
+                <p class="bubble-h" data-en="Core Question" data-zh="核心问题">Core Question</p>
+                <p data-en="After the ceremony ends, where do the words left unsaid go? Can we design a place for grief that continues to exist?"
+                   data-zh="仪式结束后，那些没能说出口的话去哪里？我们能否为"继续存在的悲伤"设计一个场所？">After the ceremony ends, where do the words left unsaid go? Can we design a place for grief that continues to exist?</p>
+              </div>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="User Pain Points" data-zh="用户痛点">User Pain Points</h3>
+              <ul class="exp-list">
+                <li><b data-en="Broken expression:" data-zh="表达断裂：">Broken expression:</b> <span data-en="When the funeral ends, it signals 'time to move on' — yet there is nowhere left for emotions to go." data-zh="葬礼结束即意味着"应该走出来了"，情感无处表达。">When the funeral ends, it signals 'time to move on' — yet there is nowhere left for emotions to go.</span></li>
+                <li><b data-en="Homeless memories:" data-zh="记忆无处安放：">Homeless memories:</b> <span data-en="Objects, sounds, and memories connected to the deceased lack a carrier." data-zh="与逝者相关的物品、声音、记忆缺乏承载载体。">Objects, sounds, and memories connected to the deceased lack a carrier.</span></li>
+                <li><b data-en="Social isolation:" data-zh="社交孤立：">Social isolation:</b> <span data-en="Those around gradually withdraw, unsure how to respond, deepening loneliness." data-zh="周围人因不知如何回应而逐渐回避，当事人愈发孤独。">Those around gradually withdraw, unsure how to respond, deepening loneliness.</span></li>
+                <li><b data-en="Missing ritual:" data-zh="仪式缺失：">Missing ritual:</b> <span data-en="With no place to return to, grief is processed alone in private." data-zh="没有可以持续回来的地方，悲伤只能私下独自消化。">With no place to return to, grief is processed alone in private.</span></li>
+              </ul>
+              <h3 class="block-label label-purple" data-en="Design Opportunity" data-zh="设计机会点">Design Opportunity</h3>
+              <p data-en="Design an emotional space people can return to repeatedly — not a one-time ritual. Let grief unfold at its own rhythm rather than being forced toward closure."
+                 data-zh="设计一个可以持续回来的情感空间，而非一次性仪式。让悲伤有节奏地展开，而非被强迫走向"closure"（终结）。">Design an emotional space people can return to repeatedly — not a one-time ritual. Let grief unfold at its own rhythm rather than being forced toward closure.</p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p1-problem.jpg" alt="Journey Map" loading="lazy">
+              <figcaption data-en="Funeral experience Journey Map — the gap between collective ritual and personal emotional closure"
+                          data-zh="葬礼体验 Journey Map — 集体仪式 vs 个人情感闭合的断层">Funeral experience Journey Map — the gap between collective ritual and personal emotional closure</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 03 User Research -->
+        <article id="echo-research" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="03 · User Research"
+              data-zh="03 · 用户研究">03 · User Research</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Research Methods" data-zh="研究方法">Research Methods</h3>
+              <ul class="exp-list">
+                <li><b data-en="Semi-structured interviews:" data-zh="半结构化访谈：">Semi-structured interviews:</b> <span data-en="In-depth interviews with 6 participants who experienced sudden bereavement, focusing on the specific moments emotional support broke down." data-zh="深访 6 位有过突发离世经历的受访者，重点探索情感断裂的具体时刻。">In-depth interviews with 6 participants who experienced sudden bereavement.</span></li>
+                <li><b data-en="Desk research:" data-zh="桌面研究：">Desk research:</b> <span data-en="Grief psychology, anthropology of mourning rituals, existing memorial space case studies." data-zh="梳理哀伤心理学、悼念仪式人类学、已有纪念空间案例。">Grief psychology, anthropology of mourning rituals, existing memorial space case studies.</span></li>
+                <li><b data-en="Competitive analysis:" data-zh="现有产品分析：">Competitive analysis:</b> <span data-en="Experience gaps in digital memorial platforms and physical memorial spaces." data-zh="对比数字纪念平台、实体悼念空间的体验缺口。">Experience gaps in digital memorial platforms and physical memorial spaces.</span></li>
+              </ul>
+              <h3 class="block-label label-purple" data-en="Key Interview Quotes" data-zh="关键访谈摘录">Key Interview Quotes</h3>
+              <p class="caption-italic" data-en='"Everyone went back to work after the funeral, but I had no idea what I was supposed to do."'
+                 data-zh='"葬礼结束后大家都回去上班了，但我不知道我该怎么办。"'>"Everyone went back to work after the funeral, but I had no idea what I was supposed to do."</p>
+              <p class="caption-italic" data-en='"There were so many things I never said. I don't know where to put them."'
+                 data-zh='"有很多话没有说出来，我不知道放在哪里。"'>"There were so many things I never said. I don't know where to put them."</p>
+              <p class="caption-italic" data-en='"I want to go back to that place, but that place doesn't exist."'
+                 data-zh='"我想回到那个地方，但那个地方不存在。"'>"I want to go back to that place, but that place doesn't exist."</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Journey Map Key Findings" data-zh="Journey Map 核心发现">Journey Map Key Findings</h3>
+              <p data-en="Mapping the emotional journey before and after the funeral identified three critical fracture points:"
+                 data-zh="通过绘制"葬礼前后情感旅程图"，识别出三个关键断层：">Mapping the emotional journey before and after the funeral identified three critical fracture points:</p>
+              <ul class="exp-list">
+                <li><b>T+24h:</b> <span data-en="Social support rapidly withdraws; the person faces their emotional peak alone." data-zh="社会支持急剧撤退，当事人独自面对情感高峰。">Social support rapidly withdraws; the person faces their emotional peak alone.</span></li>
+                <li><b>T+2w:</b> <span data-en="External pressure to 'return to normal' forces grief underground." data-zh="外部压力要求"恢复正常"，悲伤被迫压抑。">External pressure to 'return to normal' forces grief underground.</span></li>
+                <li><b data-en="Long-term:" data-zh="长期：">Long-term:</b> <span data-en="Anniversaries, holidays, and other triggers repeatedly reactivate unresolved emotions." data-zh="节日、周年等触发节点反复激活未解决的情感。">Anniversaries, holidays, and other triggers repeatedly reactivate unresolved emotions.</span></li>
+              </ul>
+              <h3 class="block-label label-purple" data-en="Affinity Map Clusters" data-zh="Affinity Map 聚类">Affinity Map Clusters</h3>
+              <p data-en="Interview content was grouped into four emotional themes: unsaid words / homeless memories / isolated grief / longing for ritual. These four themes directly map to the four design modules."
+                 data-zh="将访谈内容归纳为四个情感主题：未说出口的话 / 无处安放的记忆 / 被孤立的悲伤 / 对仪式的渴望。这四个主题直接对应了后续的四个设计模块。">Interview content was grouped into four emotional themes: unsaid words / homeless memories / isolated grief / longing for ritual. These four themes directly map to the four design modules.</p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p1-overview.jpg" alt="User research" loading="lazy">
+              <figcaption data-en="User research process — interview records, Journey Map and Affinity Map"
+                          data-zh="用户研究过程 — 访谈记录、Journey Map 与 Affinity Map">User research process — interview records, Journey Map and Affinity Map</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 04 Insights -->
+        <article id="echo-insight" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="04 · Insights &amp; Design Principles"
+              data-zh="04 · 洞察与设计原则">04 · Insights &amp; Design Principles</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Key Insights</h3>
+              <ul class="exp-list">
+                <li><b>Insight 01:</b> <span data-en="Grief needs to be witnessed, not solved — people need to feel their grief is accepted, not to move past it." data-zh="悲伤需要被"见证"，而不是被"解决"——当事人最需要的不是走出悲伤，而是感到悲伤被接纳。">Grief needs to be witnessed, not solved — people need to feel their grief is accepted, not to move past it.</span></li>
+                <li><b>Insight 02:</b> <span data-en="Ritual activates emotional expression — rhythmic, repeatable ritual behaviour helps emotions release in an ordered way." data-zh="仪式感可以激活情感表达——有节奏的、可重复的仪式行为，帮助情感有序释放。">Ritual activates emotional expression — rhythmic, repeatable ritual behaviour helps emotions release in an ordered way.</span></li>
+                <li><b>Insight 03:</b> <span data-en="Collectivity makes loneliness bearable — knowing 'others feel the same' is more powerful than direct emotional support." data-zh="集体性让孤独变得可承受——知道"有人和我一样"比直接的情感支持更有力量。">Collectivity makes loneliness bearable — knowing 'others feel the same' is more powerful than direct emotional support.</span></li>
+                <li><b>Insight 04:</b> <span data-en="The unfinished conversation is the most lasting pain — giving people the chance to 'speak' to the deceased can repair emotional fractures." data-zh="未完成的"对话"是最持久的痛——给逝者"说话"的机会，可以修复情感断裂。">The unfinished conversation is the most lasting pain — giving people the chance to 'speak' to the deceased can repair emotional fractures.</span></li>
+              </ul>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Design Principles</h3>
+              <ul class="exp-list">
+                <li><b data-en="Slow pace first:" data-zh="慢节奏优先：">Slow pace first:</b> <span data-en="Spatial design does not pursue efficiency — it allows grief to unfold at its own speed." data-zh="空间设计不追求效率，而是允许悲伤以它自己的速度展开。">Spatial design does not pursue efficiency — it allows grief to unfold at its own speed.</span></li>
+                <li><b data-en="Private and shared coexist:" data-zh="私密与共享并存：">Private and shared coexist:</b> <span data-en="Protect personal emotion while offering optional moments of collective connection." data-zh="保护个人情感的同时，提供可选择的集体联结时刻。">Protect personal emotion while offering optional moments of collective connection.</span></li>
+                <li><b data-en="Return repeatedly:" data-zh="可以反复回来：">Return repeatedly:</b> <span data-en="The experience is not one-time; the space allows continuous visits and accumulation." data-zh="体验不是一次性的，空间允许持续造访和积累。">The experience is not one-time; the space allows continuous visits and accumulation.</span></li>
+                <li><b data-en="Atmosphere as interaction:" data-zh="氛围即交互：">Atmosphere as interaction:</b> <span data-en="Light, sound, and floating sensations are themselves the design language." data-zh="光线、声音、漂浮感等环境元素本身就是设计语言。">Light, sound, and floating sensations are themselves the design language.</span></li>
+              </ul>
+              <div class="thinking-bubble">
+                <p class="bubble-h" data-en="Design Translation Logic" data-zh="设计转化逻辑">Design Translation Logic</p>
+                <p data-en="4 Insights → 4 Design Principles → 4 spatial modules. A clear derivation chain links research to design."
+                   data-zh="4 个 Insight → 4 个 Design Principles → 4 个空间模块，研究与设计之间存在明确的推导关系。">4 Insights → 4 Design Principles → 4 spatial modules. A clear derivation chain links research to design.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 Iteration -->
+        <article id="echo-iteration" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="05 · Design Exploration"
+              data-zh="05 · 方案探索">05 · Design Exploration</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Early Concepts → Discarded" data-zh="早期方案 → 被推翻">Early Concepts → Discarded</h3>
+              <p><b data-en="Concept A (Digital Memorial App):" data-zh="方案 A（数字纪念 App）：">Concept A (Digital Memorial App):</b> <span data-en="Initially considered a mobile app for uploading memories and creating profiles for the deceased. User testing showed that the everyday feel of a phone screen conflicted with mourning emotions — users couldn't enter an emotional state." data-zh="最初考虑设计一款手机 App，让用户上传记忆、创建逝者档案。但测试反馈显示，手机屏幕的"日常感"与哀悼情绪产生冲突，用户无法进入情感状态。">Initially considered a mobile app for uploading memories. Testing showed that the everyday feel of a phone screen conflicted with mourning emotions.</span></p>
+              <p><b data-en="Concept B (Single Memorial Device):" data-zh="方案 B（单一纪念装置）：">Concept B (Single Memorial Device):</b> <span data-en="Designed a physical device for leaving voice messages. But interviews revealed users needed not a one-time outpouring, but a place they could keep returning to." data-zh="设计一个可以录音留言的实体装置，但访谈揭示用户需要的不是一次性倾诉，而是可以持续回来的"地方"。">Designed a physical device for leaving voice messages. Interviews revealed users needed a place to keep returning to.</span></p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Key Pivot → Spatial Narrative" data-zh="关键转向 → 空间叙事">Key Pivot → Spatial Narrative</h3>
+              <p data-en="After two rounds of rejection, we realised: grief is fundamentally a journey, not a moment. This meant the design medium had to shift from 'product' to 'space', and from 'single interaction' to 'emotional journey'."
+                 data-zh="两轮推翻后，我们意识到：悲伤本质上是一段旅程，而不是一个时刻。这意味着设计载体必须从"产品"转向"空间"，从"单次交互"转向"情感旅程"。">After two rounds of rejection, we realised: grief is fundamentally a journey, not a moment. The design medium had to shift from 'product' to 'space'.</p>
+              <p data-en="We settled on a floating spatial system as the framework — the act of moving through space itself becomes the process of grief gradually unfolding and being held."
+                 data-zh="最终确定以漂浮空间系统为框架，让用户在空间中移动的过程本身，就是悲伤逐步展开和被承接的过程。">We settled on a floating spatial system as the framework — the act of moving through space itself becomes the process of grief unfolding.</p>
+              <div class="thinking-bubble">
+                <p class="bubble-h" data-en="Iteration Logic" data-zh="迭代逻辑">Iteration Logic</p>
+                <p data-en="① Digital product → ② Physical device → ③ Spatial experience system. Each rejection was based on user testing feedback, not subjective judgement."
+                   data-zh="① 数字产品 → ② 实体装置 → ③ 空间体验系统。每次推翻都基于用户测试反馈，而非主观判断。">① Digital product → ② Physical device → ③ Spatial experience system. Each rejection was based on user testing feedback.</p>
               </div>
             </div>
           </div>
           <div class="proj-image-row">
-            <figure class="proj-fig" data-lightbox>
-              <img src="assets/images/p1-overview.jpg" alt="Echo Ritual project overview spread" loading="lazy">
-              <figcaption>Project Overview — research, inspiration, and framing.</figcaption>
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p1-moves.jpg" alt="Design iteration" loading="lazy">
+              <figcaption data-en="Design iteration process — sketches, concept models and three rounds of pivots"
+                          data-zh="方案迭代过程 — 草图、概念模型与三轮设计转向">Design iteration process — sketches, concept models and three rounds of pivots</figcaption>
             </figure>
           </div>
         </article>
 
-        <article id="echo-problem" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">PROBLEM SPACE</h2>
-          <div class="proj-cols-2">
-            <div class="proj-col">
-              <h3 class="block-label label-purple">PROBLEM STATEMENT</h3>
-              <p>The issue is not the absence of mourning rituals, but the lack of ongoing emotional space after formal rituals end.</p>
-              <h3 class="block-label label-purple">INTERVIEW</h3>
-              <p class="caption-italic">"There were things I never got to tell them."</p>
-            </div>
-            <div class="proj-col">
-              <h3 class="block-label label-purple">KEY INSIGHT</h3>
-              <p>Grief often continues silently after formal rituals end. People need ongoing emotional spaces to express unresolved memories, regret, and continuing bonds.</p>
-              <h3 class="block-label label-purple">DESIGN OPPORTUNITY</h3>
-              <p>Design a slow ritual experience that supports reflection, memory, and reconnection beyond formal mourning.</p>
-            </div>
-          </div>
-          <div class="proj-image-row">
-            <figure class="proj-fig" data-lightbox>
-              <img src="assets/images/p1-problem.jpg" alt="Funeral experience journey map" loading="lazy">
-              <figcaption>Funeral experience journey map — collective ritual vs personal closure.</figcaption>
-            </figure>
-          </div>
-        </article>
-
-        <article id="echo-moves" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">DESIGN MOVES</h2>
-          <div class="proj-cols-2">
-            <div class="proj-col">
-              <h3 class="block-label label-purple">DESIGN CONCEPT</h3>
-              <p>A drifting ritual experience that supports unresolved grief through memory, reflection, and collective connection.</p>
-              <h3 class="block-label label-purple">DESIGN TRANSITION</h3>
-              <p>Rather than designing a single memorial object, we designed a slow emotional journey that allows grief to unfold over time.</p>
-            </div>
-            <div class="proj-col">
-              <h3 class="block-label label-purple">EXPERIENCE COMPONENTS</h3>
-              <ul class="exp-list">
-                <li><b>Memory Kiosk</b> — private reflection · voice / note / upload</li>
-                <li><b>Memory Wall</b> — shared archive · continuing bonds</li>
-                <li><b>Gathering Table</b> — collective remembrance, conversation, reconstruction</li>
-              </ul>
-              <h3 class="block-label label-purple">ITERATION FLOW</h3>
-              <p>① Early Concept → ② Testing + Feedback → ③ Final Experience</p>
-            </div>
-          </div>
-          <div class="proj-image-row">
-            <figure class="proj-fig" data-lightbox>
-              <img src="assets/images/p1-moves.jpg" alt="Echo Ritual design moves" loading="lazy">
-              <figcaption>Design Moves — storyboards, spatial sketch, iteration flow.</figcaption>
-            </figure>
-          </div>
-        </article>
-
+        <!-- 06 Final Design -->
         <article id="echo-solution" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">FINAL OUTCOME</h2>
-          <p class="proj-lead">Echo Ritual transforms grieving into a slow spatial ritual. Visitors move through floating memorial spaces that support private reflection, shared remembrance, and collective reconnection. Rather than forcing closure, the experience gives grief a place to unfold over time.</p>
+          <h2 class="proj-h2 graffiti-green"
+              data-en="06 · Final Design"
+              data-zh="06 · 最终方案">06 · Final Design</h2>
+          <p class="proj-lead"
+             data-en="Echo Ritual is an emotional experience system comprising four spatial modules. Users move along a floating pathway, progressing from private reflection toward collective connection. Each module corresponds to a core emotional need, and together they form a complete emotional journey."
+             data-zh="Echo Ritual 是一个由四个空间模块构成的情感体验系统。用户沿着漂浮路径移动，从私密反思逐渐走向集体联结，每个模块对应一个核心情感需求，系统整体形成一段完整的情感旅程。">Echo Ritual is an emotional experience system comprising four spatial modules. Users move along a floating pathway, progressing from private reflection toward collective connection.</p>
+
+          <div class="proj-cols-2" style="margin-top:28px;">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Module 01 · Lily Pad Pathway</h3>
+              <p><b data-en="User action:" data-zh="用户行为：">User action:</b> <span data-en="Step slowly across floating lily pads; your pace sets the movement rhythm." data-zh="踩踏漂浮莲叶缓慢前行，步伐决定移动节奏。">Step slowly across floating lily pads; your pace sets the movement rhythm.</span></p>
+              <p><b data-en="System response:" data-zh="系统反馈：">System response:</b> <span data-en="Each step triggers ripples and low-frequency ambient sounds; the path shifts slightly with mood." data-zh="每一步触发涟漪与低频环境音，路径随情绪轻微偏移。">Each step triggers ripples and low-frequency ambient sounds; the path shifts slightly with mood.</span></p>
+              <p><b data-en="Design goal:" data-zh="设计目标：">Design goal:</b> <span data-en="Use movement itself to establish emotional ritual, entering a state of mourning at a slow pace." data-zh="用"移动本身"建立情感仪式感，慢节奏进入哀悼状态。">Use movement itself to establish emotional ritual, entering a state of mourning at a slow pace.</span></p>
+              <p><b data-en="Linked insight:" data-zh="对应洞察：">Linked insight:</b> <span data-en="Insight 02 — Ritual activates emotional expression." data-zh="Insight 02 — 仪式感可以激活情感表达。">Insight 02 — Ritual activates emotional expression.</span></p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Module 02 · Memory Tree</h3>
+              <p><b data-en="User action:" data-zh="用户行为：">User action:</b> <span data-en="Speak to the trunk, upload a photo or recording — content attaches to branches as points of light." data-zh="向树干说话、上传照片或录音，内容以光点形式附着于枝条。">Speak to the trunk, upload a photo or recording — content attaches to branches as points of light.</span></p>
+              <p><b data-en="System response:" data-zh="系统反馈：">System response:</b> <span data-en="The tree grows slowly as content accumulates; the light points gently breathe at night." data-zh="树随内容积累缓慢生长，光点在夜间微微呼吸。">The tree grows slowly as content accumulates; the light points gently breathe at night.</span></p>
+              <p><b data-en="Design goal:" data-zh="设计目标：">Design goal:</b> <span data-en="Provide a concrete physical vessel for 'words that were never said'." data-zh="为"没能说出的话"提供具体的物理承载体。">Provide a concrete physical vessel for 'words that were never said'.</span></p>
+              <p><b data-en="Linked insight:" data-zh="对应洞察：">Linked insight:</b> <span data-en="Insight 04 — The unfinished conversation is the most lasting pain." data-zh="Insight 04 — 未完成的对话是最持久的痛。">Insight 04 — The unfinished conversation is the most lasting pain.</span></p>
+            </div>
+          </div>
+
+          <div class="proj-cols-2" style="margin-top:22px;">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Module 03 · Poem Making Island</h3>
+              <p><b data-en="User action:" data-zh="用户行为：">User action:</b> <span data-en="Select from floating word fragments, assembling a poem that belongs only to you." data-zh="从漂浮词语碎片中选取，拼合一首只属于自己的诗。">Select from floating word fragments, assembling a poem that belongs only to you.</span></p>
+              <p><b data-en="System response:" data-zh="系统反馈：">System response:</b> <span data-en="Once complete, the poem drifts into the water as a paper of light, encountering others' poems along the current." data-zh="诗完成后以光纸形式飘入水中，随水流与他人的诗相遇。">Once complete, the poem drifts into the water as a paper of light, encountering others' poems along the current.</span></p>
+              <p><b data-en="Design goal:" data-zh="设计目标：">Design goal:</b> <span data-en="Transform hard-to-articulate emotions into creative action, lowering the barrier to expression." data-zh="将难以言说的情感转化为可创作的行为，降低表达门槛。">Transform hard-to-articulate emotions into creative action, lowering the barrier to expression.</span></p>
+              <p><b data-en="Linked insight:" data-zh="对应洞察：">Linked insight:</b> <span data-en="Insight 01 — Grief needs to be witnessed, not solved." data-zh="Insight 01 — 悲伤需要被见证，而不是被解决。">Insight 01 — Grief needs to be witnessed, not solved.</span></p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Module 04 · Memory Wall</h3>
+              <p><b data-en="User action:" data-zh="用户行为：">User action:</b> <span data-en="Browse memory fragments left by others; light up one to say 'me too'." data-zh="浏览他人留下的记忆碎片，可以点亮某一块表示"我也是"。">Browse memory fragments left by others; light up one to say 'me too'.</span></p>
+              <p><b data-en="System response:" data-zh="系统反馈：">System response:</b> <span data-en="Lit memories briefly glow and emit a soft resonant sound." data-zh="被点亮的记忆短暂发光并发出轻微共鸣声。">Lit memories briefly glow and emit a soft resonant sound.</span></p>
+              <p><b data-en="Design goal:" data-zh="设计目标：">Design goal:</b> <span data-en="Create collective emotional connection without exposing privacy." data-zh="在不暴露隐私的前提下创造集体情感联结。">Create collective emotional connection without exposing privacy.</span></p>
+              <p><b data-en="Linked insight:" data-zh="对应洞察：">Linked insight:</b> <span data-en="Insight 03 — Collectivity makes loneliness bearable." data-zh="Insight 03 — 集体性让孤独变得可承受。">Insight 03 — Collectivity makes loneliness bearable.</span></p>
+            </div>
+          </div>
 
           <div class="proj-image-row">
             <figure class="proj-fig wide" data-lightbox>
-              <img src="assets/images/p1-solution.jpg" alt="Echo Ritual emotional journey" loading="lazy">
-              <figcaption>Final Solution — atmosphere, emotional journey, storyboard.</figcaption>
+              <img src="assets/images/p1-solution.jpg" alt="Echo Ritual final design" loading="lazy">
+              <figcaption data-en="Final design overview — four-module spatial experience system and emotional journey path"
+                          data-zh="最终方案全景 — 四模块空间体验系统与情感旅程路径">Final design overview — four-module spatial experience system and emotional journey path</figcaption>
             </figure>
             <figure class="proj-fig wide" data-lightbox>
-              <img src="assets/images/p1-atmosphere.jpg" alt="Echo Ritual atmospheric details" loading="lazy">
-              <figcaption>Atmospheric details — before & after, key interaction logic.</figcaption>
+              <img src="assets/images/p1-atmosphere.jpg" alt="Spatial atmosphere" loading="lazy">
+              <figcaption data-en="Spatial atmosphere and interaction details — overall design language of light, material, and sound"
+                          data-zh="空间氛围与交互细节 — 光线、材质、声音的整体设计语言">Spatial atmosphere and interaction details — overall design language of light, material, and sound</figcaption>
             </figure>
           </div>
-
-          <h3 class="block-label label-purple">KEY INTERACTION LOGIC</h3>
-          <ol class="solution-list">
-            <li>Drifting spatial movement</li>
-            <li>Breathing ambient lighting</li>
-            <li>Memory upload and reflection</li>
-            <li>Collective remembrance table</li>
-            <li>Symbolic floating pathway</li>
-          </ol>
         </article>
 
+        <!-- 07 Video Prototype -->
+        <article id="echo-prototype" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="07 · Video Prototype"
+              data-zh="07 · 视频原型">07 · Video Prototype</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Why Video, Not Figma" data-zh="为什么选择视频原型">Why Video, Not Figma</h3>
+              <p data-en="The core experience of this project depends on atmosphere, rhythm, and spatial depth — qualities impossible to convey through a Figma prototype. Figma is excellent at expressing interaction flows, but cannot render sensations like 'floating', 'breathing quality', or 'low-frequency resonance'."
+                 data-zh="这个项目的核心体验依赖于氛围、节奏和空间感——这些要素无法通过 Figma 界面原型传达。Figma 擅长表达交互流程，但无法呈现"漂浮""呼吸感""低频共鸣"这类情感维度的体验。">The core experience depends on atmosphere, rhythm, and spatial depth — qualities impossible to convey through a Figma prototype.</p>
+              <p data-en="The video prototype allows reviewers and users to fully experience the emotional journey in 90 seconds, rather than clicking through a screen-by-screen interface prototype."
+                 data-zh="视频原型让评审者和用户在 90 秒内完整感受情感旅程，而不是逐屏点击一个界面原型。">The video prototype allows reviewers to fully experience the emotional journey in 90 seconds.</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Production Process" data-zh="制作方式">Production Process</h3>
+              <ul class="exp-list">
+                <li><b>Blender:</b> <span data-en="Built high-fidelity 3D scenes for each of the four spatial modules, controlling light, material, and atmosphere." data-zh="搭建四个空间模块的高保真三维场景，控制光线、材质与氛围。">Built high-fidelity 3D scenes for each of the four spatial modules.</span></li>
+                <li><b data-en="AI video generation:" data-zh="AI 视频生成：">AI video generation:</b> <span data-en="Assisted in generating part of the environmental motion effects in the dynamic prototype, improving production efficiency." data-zh="辅助生成动态原型中的部分环境动效，提升制作效率。">Assisted in generating part of the environmental motion effects in the dynamic prototype.</span></li>
+                <li><b data-en="Narrative structure:" data-zh="叙事结构：">Narrative structure:</b> <span data-en="The video is ordered by the user's emotional journey, not by function demonstration order." data-zh="视频按用户情感旅程排序，而非功能演示顺序。">The video is ordered by the user's emotional journey, not by function demonstration order.</span></li>
+              </ul>
+              <div class="thinking-bubble">
+                <p class="bubble-h" data-en="AI's Role in the Design Process" data-zh="AI 在设计流程中的角色">AI's Role in the Design Process</p>
+                <p data-en="AI tools handled 'efficiency layer' tasks (motion generation, scene rendering assistance). Design decisions were still driven by research insights. AI accelerated expression but did not replace design judgement."
+                   data-zh="AI 工具承担的是"效率层"任务（动效生成、场景渲染辅助），设计决策仍由研究洞察驱动。AI 加快了表达速度，但没有替代设计判断。">AI tools handled 'efficiency layer' tasks. Design decisions were still driven by research insights. AI accelerated expression but did not replace design judgement.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 08 Reflection -->
         <article id="echo-future" class="proj-block">
-          <h2 class="proj-h2 proj-h2-blue">FUTURE DIRECTIONS</h2>
+          <h2 class="proj-h2 proj-h2-blue"
+              data-en="08 · Reflection"
+              data-zh="08 · 项目反思">08 · Reflection</h2>
           <div class="future-cols">
             <div class="future-col">
-              <h3 class="block-label label-purple">WHAT I DID</h3>
-              <ul>
-                <li>Researched unresolved grief through interviews and journey mapping.</li>
-                <li>Designed a ritual-based memorial experience focused on reflection and reconnection.</li>
-                <li>Developed spatial concepts, storyboards, iterations, and final visualisations.</li>
-              </ul>
-              <h3 class="block-label label-purple">WHAT I LEARNED</h3>
-              <ul>
-                <li>Atmosphere and pacing can be more meaningful than screen-based interaction.</li>
-                <li>User feedback strengthened the emotional direction of the project.</li>
-                <li>Research helped guide and justify design decisions.</li>
+              <h3 class="block-label label-purple" data-en="Biggest Challenge" data-zh="最大挑战">Biggest Challenge</h3>
+              <p data-en="Finding the balance between 'design aesthetics' and 'genuine emotional weight'. Early concepts were too visually polished — users said they didn't feel like 'a real place for grief', which created distance. This pushed us to deliberately introduce roughness and incompleteness: a tree shouldn't be perfect, a poem shouldn't rhyme."
+                 data-zh="如何在"设计感"和"真实情感重量"之间找到平衡。早期方案因视觉过于精致，用户反馈"不像真实悲伤的地方"，反而产生疏离感。这促使我们在后期刻意引入粗糙感和不完整性——一棵树不应该是完美的，一首诗不应该押韵。">Finding the balance between 'design aesthetics' and 'genuine emotional weight'. Early concepts were too visually polished — users said they didn't feel like 'a real place for grief'.</p>
+              <h3 class="block-label label-purple" data-en="Next Iterations" data-zh="如果继续迭代">Next Iterations</h3>
+              <ul class="exp-list">
+                <li data-en="Collaborate with grief counsellors to validate the actual effectiveness of the spatial experience on grief processing."
+                    data-zh="与心理咨询师合作，验证空间体验对哀伤处理的实际有效性。">Collaborate with grief counsellors to validate the actual effectiveness of the spatial experience.</li>
+                <li data-en="Develop an accessible digital twin version so users who cannot visit the physical space can still participate."
+                    data-zh="开发可触达的数字孪生版本，让无法到访实体空间的用户同样可参与。">Develop an accessible digital twin version so remote users can still participate.</li>
+                <li data-en="Introduce a time dimension — let the space change as the user's number of visits and time elapsed increases."
+                    data-zh="引入时间维度设计——让空间随用户造访次数和时间推移发生变化。">Introduce a time dimension — let the space change as visits and time accumulate.</li>
               </ul>
             </div>
             <div class="future-col">
-              <h3 class="block-label label-purple">WHAT I WOULD IMPROVE</h3>
+              <h3 class="block-label label-purple" data-en="Key Takeaways" data-zh="核心收获">Key Takeaways</h3>
               <ul class="future-blocks">
-                <li>Test the experience in a more physical and interactive environment.</li>
-                <li>Refine environmental details and interaction fidelity.</li>
-                <li>Develop a higher-fidelity embodied prototype.</li>
+                <li data-en="Spatial rhythm and atmosphere can become an independent interaction language, independent of screens and interfaces."
+                    data-zh="空间节奏和氛围可以成为独立的交互语言，不依赖屏幕和界面。">Spatial rhythm and atmosphere can become an independent interaction language, independent of screens and interfaces.</li>
+                <li data-en="The value of research-driven design: every spatial module can be traced back to a specific user insight."
+                    data-zh="研究驱动设计的价值：每个空间模块都能追溯到具体的用户洞察。">The value of research-driven design: every spatial module can be traced back to a specific user insight.</li>
+                <li data-en="AI tools significantly improved design communication efficiency during the prototyping stage."
+                    data-zh="AI 工具在原型表达阶段显著提升了设计沟通效率。">AI tools significantly improved design communication efficiency during the prototyping stage.</li>
               </ul>
               <figure class="proj-fig" data-lightbox>
-                <img src="assets/images/p1-future.jpg" alt="Echo Ritual future directions" loading="lazy">
+                <img src="assets/images/p1-future.jpg" alt="Future directions" loading="lazy">
+                <figcaption data-en="Next iteration directions" data-zh="下一步迭代方向">Next iteration directions</figcaption>
               </figure>
             </div>
           </div>
@@ -522,7 +1245,6 @@
       </div>
     </div>
   </section>
-
   <!-- ============================================================
        PROJECT 02 — HELENSBURGH GLOW WORM MICROSITE
   ============================================================ -->
@@ -532,14 +1254,14 @@
         <span class="folder-chip-folder" aria-hidden="true">
           <svg viewBox="0 0 36 26" width="36" height="26"><rect x="1" y="6" width="34" height="19" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/><polygon points="1,6 13,6 17,2 1,2" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/></svg>
         </span>
-        <span class="folder-chip">3 Weeks</span>
-        <span class="folder-chip">HTML/CSS</span>
+        <span class="folder-chip" data-en="3 Weeks"     data-zh="3 周">3 Weeks</span>
+        <span class="folder-chip">HTML / CSS</span>
         <span class="folder-chip">Figma</span>
-        <span class="folder-chip">Individual</span>
+        <span class="folder-chip" data-en="Individual"  data-zh="独立完成">Individual</span>
       </div>
       <div class="folder-chip-row pill-row-right">
-        <span class="folder-chip pill-outline">Project 2</span>
-        <span class="folder-chip pill-outline">Web Design</span>
+        <span class="folder-chip pill-outline" data-en="Responsive Web Design" data-zh="响应式网页设计">Responsive Web Design</span>
+        <span class="folder-chip pill-outline" data-en="Front-end Prototype"   data-zh="前端原型">Front-end Prototype</span>
       </div>
     </div>
 
@@ -547,164 +1269,275 @@
       <aside class="project-sidemenu sidemenu-dark">
         <p class="sm-brand sm-brand-green">HELENSBURGH</p>
         <ol class="sm-list">
-          <li><a href="#glow-overview" class="sm-link active">01 · Overview</a></li>
-          <li><a href="#glow-problem" class="sm-link">02 · Problem Space</a></li>
-          <li><a href="#glow-moves" class="sm-link">03 · Design Moves</a></li>
-          <li><a href="#glow-solution" class="sm-link">04 · Final Outcome</a></li>
-          <li><a href="#glow-future" class="sm-link">05 · Future Direction</a></li>
+          <li><a href="#glow-overview"  class="sm-link active"  data-en="01 · Overview"        data-zh="01 · 项目概述">01 · Overview</a></li>
+          <li><a href="#glow-problem"   class="sm-link"         data-en="02 · Problem"          data-zh="02 · 问题发现">02 · Problem</a></li>
+          <li><a href="#glow-research"  class="sm-link"         data-en="03 · User Research"    data-zh="03 · 用户研究">03 · User Research</a></li>
+          <li><a href="#glow-insight"   class="sm-link"         data-en="04 · Insights"         data-zh="04 · 洞察与原则">04 · Insights</a></li>
+          <li><a href="#glow-iteration" class="sm-link"         data-en="05 · Iteration"        data-zh="05 · 方案探索">05 · Iteration</a></li>
+          <li><a href="#glow-solution"  class="sm-link"         data-en="06 · Final Design"     data-zh="06 · 最终方案">06 · Final Design</a></li>
+          <li><a href="#glow-future"    class="sm-link"         data-en="07 · Reflection"       data-zh="07 · 项目反思">07 · Reflection</a></li>
         </ol>
         <p class="sm-meta">2025.10 — 2025.11 · Web Design</p>
       </aside>
 
       <div class="project-content content-dark">
 
+        <!-- HERO -->
         <header class="project-hero project-hero-glow">
           <h1 class="proj-title proj-title-glow">HELENSBURGH<br>GLOW WORM<br>MICROSITE</h1>
-          <p class="proj-tagline">Responsive ecological tourism platform for safer low-impact night exploration.</p>
-          <p class="proj-pullquote glow-quote">A responsive microsite helping visitors plan safer, low-impact visits to a fragile glow worm habitat.</p>
+          <p class="proj-tagline"
+             data-en="Responsive ecological tourism microsite for safer, low-impact night exploration"
+             data-zh="为低影响夜间探访设计的响应式生态旅游微网站">Responsive ecological tourism microsite for safer, low-impact night exploration</p>
+          <p class="proj-pullquote glow-quote"
+             data-en="Visitors often arrive without guidance. We designed the preparation they never had."
+             data-zh="游客常常毫无准备地到访。我们设计的，是他们从未拥有过的行前指引。">Visitors often arrive without guidance. We designed the preparation they never had.</p>
           <div class="role-identity role-identity-dark">
-            <p class="role-h">Role identity</p>
+            <p class="role-h" data-en="My Role" data-zh="我的职责">My Role</p>
             <div class="role-chips">
-              <span># UX Research</span>
-              <span># Information Architecture</span>
-              <span># Responsive Web Design</span>
-              <span># Vibe Coding</span>
+              <span data-en="# UX Research"              data-zh="# 用户研究"># UX Research</span>
+              <span data-en="# Information Architecture" data-zh="# 信息架构"># Information Architecture</span>
+              <span data-en="# Responsive Web Design"    data-zh="# 响应式网页设计"># Responsive Web Design</span>
+              <span data-en="# Front-end Development"    data-zh="# 前端开发"># Front-end Development</span>
             </div>
           </div>
           <div class="proj-hero-img">
-            <img src="assets/images/p2-cover.jpg" alt="Glow Worm microsite hero" loading="lazy">
+            <img src="assets/images/p2-cover.jpg" alt="Helensburgh Glow Worm Microsite" loading="lazy">
           </div>
         </header>
 
+        <!-- 01 Overview -->
         <article id="glow-overview" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">PROJECT OVERVIEW</h2>
+          <h2 class="proj-h2 graffiti-green"
+              data-en="01 · Project Overview"
+              data-zh="01 · 项目概述">01 · Project Overview</h2>
+          <p class="proj-lead"
+             data-en="The Helensburgh Glow Worm Tunnel is a fragile ecological habitat and a popular night-visit destination in NSW. This project designed a responsive microsite that helps visitors plan safe, informed, and low-impact visits — bridging the gap between access information, ecological guidance, and immersive site identity."
+             data-zh="新南威尔士州萤火虫隧道是一处脆弱的生态栖息地，同时也是热门的夜间探访地点。本项目设计了一个响应式微网站，帮助游客进行安全、知情且低影响的游览规划，填补了交通信息、生态指导与沉浸式场地体验之间的空白。">The Helensburgh Glow Worm Tunnel is a fragile ecological habitat and a popular night-visit destination in NSW. This project designed a responsive microsite to help visitors plan safe, informed, and low-impact visits.</p>
           <div class="proj-cols-3">
             <div class="proj-col">
-              <h3 class="block-label label-purple">INSPIRATION</h3>
-              <p>The Glow Worm Tunnel is both a tourist destination and a fragile ecological habitat. Night visitors often lack clear guidance for safe and low-impact exploration.</p>
+              <h3 class="block-label label-purple" data-en="Background" data-zh="项目背景">Background</h3>
+              <p data-en="Located near Helensburgh, NSW, the tunnel was originally historic railway infrastructure, later transformed into a glow worm habitat. It attracts photographers, hikers, and night explorers — yet the site has no official digital presence to guide visitor behaviour."
+                 data-zh="隧道位于新南威尔士州海伦斯堡附近，原为铁路遗址，后来演变为萤火虫栖息地。它吸引了摄影师、徒步者和夜间探险者，但该地点没有任何官方数字平台来引导游客行为。">Located near Helensburgh, NSW, the tunnel was originally historic railway infrastructure, later transformed into a glow worm habitat. It attracts night explorers — yet there is no official digital presence to guide visitor behaviour.</p>
             </div>
             <div class="proj-col">
-              <h3 class="block-label label-purple">LOCATION + HISTORY</h3>
-              <p>Located near Helensburgh, NSW, the tunnel attracts photographers, hikers, and night explorers. Historic railway infrastructure later transformed into a glow worm habitat.</p>
+              <h3 class="block-label label-purple" data-en="Project Value" data-zh="项目价值">Project Value</h3>
+              <p data-en="Demonstrate how responsible UX design can protect fragile natural environments: by making ecological rules, planning information, and on-site guidance more accessible, the site reduces harmful visitor behaviour before it happens."
+                 data-zh="展示负责任的 UX 设计如何保护脆弱的自然环境：通过让生态规则、规划信息和现场指导更易获取，从源头上减少游客的破坏性行为。">Demonstrate how responsible UX design can protect fragile natural environments by making ecological rules and planning information more accessible, reducing harmful visitor behaviour before it happens.</p>
             </div>
             <div class="proj-col">
-              <h3 class="block-label label-purple">BACKGROUND</h3>
-              <p>Visitors need accessible planning tools, environmental guidance, and clearer behavioural expectations before entering the tunnel.</p>
+              <h3 class="block-label label-purple" data-en="Tools &amp; Timeline" data-zh="工具 &amp; 周期">Tools &amp; Timeline</h3>
+              <p><b data-en="Duration:" data-zh="周期：">Duration:</b> <span data-en="3 weeks" data-zh="3 周">3 weeks</span></p>
+              <p><b data-en="Research:" data-zh="研究："  >Research:</b> <span data-en="Competitive analysis · User scenario mapping" data-zh="竞品分析 · 用户场景映射">Competitive analysis · User scenario mapping</span></p>
+              <p><b data-en="Design:" data-zh="设计工具：">Design:</b> Figma · HTML · CSS</p>
+              <p><b data-en="Collaboration:" data-zh="协作方式：">Collaboration:</b> <span data-en="Individual project" data-zh="独立完成">Individual project</span></p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p2-overview.jpg" alt="Helensburgh overview" loading="lazy">
+              <figcaption data-en="Project overview — research scope, site analysis and design deliverables"
+                          data-zh="项目概览 — 研究范围、场地分析与设计成果">Project overview — research scope, site analysis and design deliverables</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 02 Problem -->
+        <article id="glow-problem" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="02 · Problem Discovery"
+              data-zh="02 · 问题发现">02 · Problem Discovery</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Why This Problem" data-zh="为什么关注这个问题">Why This Problem</h3>
+              <p data-en="Glow worms are extremely sensitive to light and noise. Yet most visitors arrive without knowing this. There is no single source of reliable information — existing travel blogs, forums, and council pages are fragmented, outdated, or hard to use on mobile while in the field."
+                 data-zh="萤火虫对光线和噪音极度敏感，但大多数游客到访时对此一无所知。目前没有可靠的单一信息来源——现有的旅游博客、论坛和政府页面内容零散、过时，且在户外使用手机时难以操作。">Glow worms are extremely sensitive to light and noise. Yet most visitors arrive without knowing this. Existing travel blogs, forums, and council pages are fragmented, outdated, or hard to use on mobile in the field.</p>
               <div class="thinking-bubble">
-                <p class="bubble-h">THINKING...</p>
-                <p>How might we help visitors explore the tunnel safely while protecting a fragile glow worm colony?</p>
+                <p class="bubble-h" data-en="Core Question" data-zh="核心问题">Core Question</p>
+                <p data-en="How might we help visitors explore the tunnel safely and confidently while protecting a fragile glow worm colony?"
+                   data-zh="如何帮助游客安全、自信地探访隧道，同时保护脆弱的萤火虫种群？">How might we help visitors explore the tunnel safely and confidently while protecting a fragile glow worm colony?</p>
               </div>
             </div>
-          </div>
-          <div class="proj-image-row">
-            <figure class="proj-fig" data-lightbox>
-              <img src="assets/images/p2-overview.jpg" alt="Helensburgh project overview" loading="lazy">
-            </figure>
-          </div>
-        </article>
-
-        <article id="glow-problem" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">PROBLEM SPACE</h2>
-          <div class="proj-cols-2">
             <div class="proj-col">
-              <h3 class="block-label label-purple">PROBLEM STATEMENT</h3>
-              <p>Visitors often arrive without clear planning support, environmental guidance, or behavioural expectations.</p>
-              <h3 class="block-label label-purple">USER NEEDS</h3>
-              <ul>
-                <li>Clear transport and access info</li>
-                <li>Real-time site status updates</li>
-                <li>Low-impact behaviour guidance</li>
-                <li>Confidence before night visits</li>
-              </ul>
-            </div>
-            <div class="proj-col">
-              <h3 class="block-label label-purple">KEY INSIGHTS</h3>
-              <p>Visitors need faster trip planning, clear behavioural guidance, and confidence before arrival.</p>
-              <h3 class="block-label label-purple">DESIGN OPPORTUNITY</h3>
-              <ul>
-                <li>Explore → site history + ecology</li>
-                <li>Visit → transport + planning</li>
-                <li>Guidelines → low-impact behaviour</li>
-                <li>Gallery → community updates + photos</li>
-              </ul>
-            </div>
-          </div>
-          <div class="proj-image-row">
-            <figure class="proj-fig" data-lightbox>
-              <img src="assets/images/p2-problem.jpg" alt="Helensburgh problem space" loading="lazy">
-            </figure>
-          </div>
-        </article>
-
-        <article id="glow-moves" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">DESIGN MOVES</h2>
-          <div class="proj-cols-2">
-            <div class="proj-col">
-              <h3 class="block-label label-purple">DESIGN CONCEPT</h3>
-              <p>Designing a low-impact digital exploration experience for a fragile natural environment.</p>
-            </div>
-            <div class="proj-col">
-              <h3 class="block-label label-purple">KEY DESIGN DECISIONS</h3>
-              <ul>
-                <li><b>Move 01 — Dropdown Navigation:</b> hover dropdowns let users access sub-pages quickly without overwhelming the main navigation.</li>
-                <li><b>Move 02 — Planning Support:</b> search bar, embedded map, mini map, weather/status widgets.</li>
-                <li><b>Move 03 — Eco-behaviour Guidance:</b> Do/Don't guidelines and CTA prompts toward low-impact behaviour.</li>
-                <li><b>Move 04 — Atmosphere as Interaction:</b> animated firefly/glow effects create immersion and reinforce tunnel identity.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="proj-image-row">
-            <figure class="proj-fig" data-lightbox>
-              <img src="assets/images/p2-moves.jpg" alt="Helensburgh design moves" loading="lazy">
-            </figure>
-          </div>
-        </article>
-
-        <article id="glow-solution" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">FINAL OUTCOME</h2>
-          <p class="proj-lead">A responsive microsite supporting safe, informed, and eco-conscious exploration of the Glow Worm Tunnel.</p>
-          <div class="proj-cols-2">
-            <div class="proj-col">
-              <h3 class="block-label label-purple">INTERFACE DETAILS</h3>
-              <ul>
-                <li><b>Real-time Visit Planning:</b> weather / map / transport / status</li>
-                <li><b>Eco-safe Visitor Guidance:</b> low-light rules / noise control / safety tips</li>
-                <li><b>Immersive Site Identity:</b> dark UI / glow particles / tunnel textures</li>
-              </ul>
-            </div>
-            <div class="proj-col">
-              <h3 class="block-label label-purple">TOOLS: HTML + CSS</h3>
-              <ul>
-                <li>Responsive layouts</li>
-                <li>Hover dropdown navigation</li>
-                <li>Animated glow/firefly effects</li>
-                <li>Embedded maps and travel support</li>
-                <li>Structured information hierarchy</li>
+              <h3 class="block-label label-purple" data-en="User Pain Points" data-zh="用户痛点">User Pain Points</h3>
+              <ul class="exp-list">
+                <li><b data-en="No trip planning support:" data-zh="缺乏行程规划支持：">No trip planning support:</b> <span data-en="Transport options, opening status, and safety conditions are scattered across multiple sources." data-zh="交通方式、开放状态和安全条件分散在多个来源。">Transport options, opening status, and safety conditions are scattered across multiple sources.</span></li>
+                <li><b data-en="No behavioural guidance:" data-zh="缺乏行为指导：">No behavioural guidance:</b> <span data-en="Visitors don't know what lighting, noise level, or conduct is appropriate around glow worms." data-zh="游客不知道在萤火虫附近什么样的光线、噪音水平和行为是合适的。">Visitors don't know what lighting, noise level, or conduct is appropriate around glow worms.</span></li>
+                <li><b data-en="Poor mobile experience:" data-zh="手机体验差：">Poor mobile experience:</b> <span data-en="All existing information sources are not optimised for mobile use at the site." data-zh="所有现有信息来源均未针对现场手机使用进行优化。">All existing information sources are not optimised for mobile use at the site.</span></li>
+                <li><b data-en="Low confidence:" data-zh="游客信心不足：">Low confidence:</b> <span data-en="Without clear guidance, visitors are unsure whether their visit will be worthwhile or safe." data-zh="缺乏清晰指导，游客不确定此行是否值得或安全。">Without clear guidance, visitors are unsure whether their visit will be worthwhile or safe.</span></li>
               </ul>
             </div>
           </div>
           <div class="proj-image-row">
             <figure class="proj-fig wide" data-lightbox>
-              <img src="assets/images/p2-solution.jpg" alt="Helensburgh final outcome" loading="lazy">
+              <img src="assets/images/p2-problem.jpg" alt="Problem space" loading="lazy">
+              <figcaption data-en="Problem mapping — information fragmentation and visitor behaviour gaps"
+                          data-zh="问题映射 — 信息碎片化与游客行为空白">Problem mapping — information fragmentation and visitor behaviour gaps</figcaption>
             </figure>
           </div>
         </article>
 
+        <!-- 03 User Research -->
+        <article id="glow-research" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="03 · User Research"
+              data-zh="03 · 用户研究">03 · User Research</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Research Methods" data-zh="研究方法">Research Methods</h3>
+              <ul class="exp-list">
+                <li><b data-en="Competitive analysis:" data-zh="竞品分析：">Competitive analysis:</b> <span data-en="Audited 6 nature tourism microsites and national park information platforms for structural and content benchmarks." data-zh="审查了 6 个自然旅游微网站和国家公园信息平台，建立结构和内容基准。">Audited 6 nature tourism microsites and national park information platforms for structural and content benchmarks.</span></li>
+                <li><b data-en="User scenario mapping:" data-zh="用户场景映射：">User scenario mapping:</b> <span data-en="Mapped three visitor archetypes — first-time tourist, photography enthusiast, repeat hiker — to identify distinct information needs at each stage." data-zh="梳理了三类游客画像——初次旅游者、摄影爱好者、常规徒步者——识别不同阶段的信息需求差异。">Mapped three visitor archetypes to identify distinct information needs at each journey stage.</span></li>
+                <li><b data-en="Desk research:" data-zh="桌面研究：">Desk research:</b> <span data-en="Reviewed ecological guidance for bioluminescent habitats and low-impact tourism standards." data-zh="研究了生物发光栖息地的生态指导和低影响旅游标准。">Reviewed ecological guidance for bioluminescent habitats and low-impact tourism standards.</span></li>
+              </ul>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Key Research Findings" data-zh="核心研究发现">Key Research Findings</h3>
+              <ul class="exp-list">
+                <li data-en="Visitors make go/no-go decisions in under 3 minutes of online research — the site must surface critical information immediately." data-zh="游客在 3 分钟内完成出行决策——网站必须立即呈现关键信息。">Visitors make go/no-go decisions in under 3 minutes of online research — the site must surface critical information immediately.</li>
+                <li data-en="'Is it worth going tonight?' is the most common question — real-time status and conditions are the highest priority." data-zh=""今晚去值吗？"是最常见的问题——实时状态和条件是最高优先级信息。">'Is it worth going tonight?' is the most common question — real-time status and conditions are the highest priority.</li>
+                <li data-en="Visitors are willing to follow ecological rules if they are presented clearly and non-judgementally." data-zh="只要规则呈现清晰、不带评判语气，游客愿意遵守生态规则。">Visitors are willing to follow ecological rules if they are presented clearly and non-judgementally.</li>
+              </ul>
+              <h3 class="block-label label-purple" data-en="Information Architecture Decision" data-zh="信息架构决策">Information Architecture Decision</h3>
+              <p data-en="Structured the site around four user intents: Explore (ecology + history) / Visit (transport + planning) / Guidelines (low-impact behaviour) / Gallery (community updates). Each section maps directly to a user need identified in research."
+                 data-zh="围绕四个用户意图构建信息架构：探索（生态 + 历史）/ 游览（交通 + 规划）/ 行为准则（低影响行为）/ 图库（社区更新）。每个模块直接对应研究中识别的用户需求。">Structured the site around four user intents: Explore / Visit / Guidelines / Gallery. Each section maps directly to a user need identified in research.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04 Insights -->
+        <article id="glow-insight" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="04 · Insights &amp; Design Principles"
+              data-zh="04 · 洞察与设计原则">04 · Insights &amp; Design Principles</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Key Insights</h3>
+              <ul class="exp-list">
+                <li><b>Insight 01:</b> <span data-en="Information asymmetry causes harm — the main reason visitors damage the habitat is not malice, but ignorance." data-zh="信息不对称造成伤害——游客破坏栖息地的主要原因不是恶意，而是无知。">Information asymmetry causes harm — the main reason visitors damage the habitat is not malice, but ignorance.</span></li>
+                <li><b>Insight 02:</b> <span data-en="Atmosphere is not decoration — the visual identity of the site should convey the fragility and beauty of the environment, making users emotionally invested in protecting it." data-zh="氛围不是装饰——网站的视觉语言应传达环境的脆弱与美丽，让用户在情感上投入保护行动。">Atmosphere is not decoration — the visual identity should convey the fragility and beauty of the environment, making users emotionally invested in protecting it.</span></li>
+                <li><b>Insight 03:</b> <span data-en="Mobile-first is non-negotiable — visitors are using their phones at the trailhead, not a desktop at home." data-zh="移动优先不可妥协——游客在登山口使用手机，而非在家使用电脑。">Mobile-first is non-negotiable — visitors are using their phones at the trailhead, not a desktop at home.</span></li>
+                <li><b>Insight 04:</b> <span data-en="Real-time confidence beats long-form content — a single status widget ('Open tonight · Low crowds') is worth more than three paragraphs of description." data-zh="实时信心比长篇内容更有价值——一个状态组件（"今晚开放 · 人流较少"）胜过三段描述性文字。">Real-time confidence beats long-form content — a single status widget ('Open tonight · Low crowds') is worth more than three paragraphs of description.</span></li>
+              </ul>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Design Principles</h3>
+              <ul class="exp-list">
+                <li><b data-en="Information before arrival:" data-zh="到达前的信息准备：">Information before arrival:</b> <span data-en="All critical information must be accessible before the visitor leaves home." data-zh="所有关键信息必须在游客出发前即可获取。">All critical information must be accessible before the visitor leaves home.</span></li>
+                <li><b data-en="Guidance without moralising:" data-zh="引导而不说教：">Guidance without moralising:</b> <span data-en="Ecological rules are presented as helpful tips, not prohibitions." data-zh="生态规则以实用建议的形式呈现，而非禁令。">Ecological rules are presented as helpful tips, not prohibitions.</span></li>
+                <li><b data-en="Environment-first visual language:" data-zh="以环境为先的视觉语言：">Environment-first visual language:</b> <span data-en="Dark UI, glow particles, and tunnel textures reflect the actual experience of the site." data-zh="深色 UI、光点粒子和隧道纹理映射真实的场地体验。">Dark UI, glow particles, and tunnel textures reflect the actual experience of the site.</span></li>
+                <li><b data-en="Responsive as a baseline:" data-zh="响应式是基线要求：">Responsive as a baseline:</b> <span data-en="Every layout decision was tested at 375px mobile width first." data-zh="每个布局决策首先在 375px 移动端宽度下测试。">Every layout decision was tested at 375px mobile width first.</span></li>
+              </ul>
+              <div class="thinking-bubble">
+                <p class="bubble-h" data-en="Design Translation Logic" data-zh="设计转化逻辑">Design Translation Logic</p>
+                <p data-en="4 Insights → 4 Principles → 4 site sections. Research directly drove both the content architecture and the visual direction."
+                   data-zh="4 个洞察 → 4 个设计原则 → 4 个网站模块。研究直接驱动了内容架构和视觉方向。">4 Insights → 4 Principles → 4 site sections. Research directly drove both the content architecture and the visual direction.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 Iteration -->
+        <article id="glow-iteration" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="05 · Design Exploration"
+              data-zh="05 · 方案探索">05 · Design Exploration</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Early Concepts → Discarded" data-zh="早期方案 → 被推翻">Early Concepts → Discarded</h3>
+              <p><b data-en="Concept A (Light-themed UI):" data-zh="方案 A（亮色主题 UI）：">Concept A (Light-themed UI):</b> <span data-en="The initial wireframes used a bright, nature-documentary aesthetic with greens and whites. User feedback was that it felt like a generic hiking blog — it didn't communicate the unique darkness and intimacy of the glow worm experience." data-zh="初期线框采用明亮的自然纪录片美学，以绿色和白色为主。用户反馈认为这像一个普通的徒步博客——无法传达萤火虫体验独有的黑暗与亲密感。">Initial wireframes used a bright aesthetic. User feedback: it felt like a generic hiking blog — it didn't communicate the unique darkness and intimacy of the glow worm experience.</span></p>
+              <p><b data-en="Concept B (Single-page scroll):" data-zh="方案 B（单页滚动）：">Concept B (Single-page scroll):</b> <span data-en="A long single-page format was tested but found to bury critical planning information too deep — users abandoned before reaching transport details." data-zh="测试了长单页格式，但发现关键规划信息被埋得太深——用户在到达交通信息前就放弃了。">A long single-page format buried critical planning information — users abandoned before reaching transport details.</span></p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Key Pivot → Dark Immersive Design" data-zh="关键转向 → 深色沉浸式设计">Key Pivot → Dark Immersive Design</h3>
+              <p data-en="Switched to a dark UI with animated glow effects and bioluminescent colour palette (#88f2b6, #00ffd5). This immediately differentiated the site from generic tourism content and created an emotional connection to the actual experience of being in the tunnel."
+                 data-zh="转向深色 UI，配合动态光点效果和生物发光色彩系统（#88f2b6、#00ffd5）。这立即将网站与普通旅游内容区分开来，并与在隧道中的真实体验建立了情感联结。">Switched to a dark UI with animated glow effects and a bioluminescent colour palette. This immediately differentiated the site and created an emotional connection to the actual tunnel experience.</p>
+              <p data-en="Multi-page architecture replaced the single-page layout, with a persistent hover dropdown navigation allowing users to jump directly to the section most relevant to their intent."
+                 data-zh="多页架构取代了单页布局，持久悬停下拉导航让用户可以直接跳转到最相关的内容模块。">Multi-page architecture with a persistent hover dropdown navigation replaced the single-page layout, letting users jump directly to their most relevant section.</p>
+              <div class="thinking-bubble">
+                <p class="bubble-h" data-en="Iteration Logic" data-zh="迭代逻辑">Iteration Logic</p>
+                <p data-en="① Generic tourism site → ② Single-page information dump → ③ Dark immersive multi-section experience. Each pivot was driven by user testing feedback."
+                   data-zh="① 普通旅游网站 → ② 单页信息堆砌 → ③ 深色沉浸式多模块体验。每次转向均基于用户测试反馈。">① Generic tourism → ② Single-page dump → ③ Dark immersive multi-section. Each pivot driven by user testing feedback.</p>
+              </div>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p2-moves.jpg" alt="Design iteration" loading="lazy">
+              <figcaption data-en="Design iteration — wireframes, visual direction pivots and navigation structure"
+                          data-zh="方案迭代 — 线框图、视觉方向转向与导航结构">Design iteration — wireframes, visual direction pivots and navigation structure</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 06 Final Design -->
+        <article id="glow-solution" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="06 · Final Design"
+              data-zh="06 · 最终方案">06 · Final Design</h2>
+          <p class="proj-lead"
+             data-en="A dark, immersive responsive microsite that gives visitors everything they need before, during, and after their visit — while embedding ecological responsibility into every interaction."
+             data-zh="一个深色、沉浸式的响应式微网站，为游客提供游览前、游览中和游览后所需的一切信息，同时将生态责任融入每一个交互环节。">A dark, immersive responsive microsite that gives visitors everything they need before, during, and after their visit — while embedding ecological responsibility into every interaction.</p>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Key Design Decisions" data-zh="核心设计决策">Key Design Decisions</h3>
+              <ul class="exp-list">
+                <li><b data-en="Move 01 — Hover Dropdown Navigation:" data-zh="决策 01 — 悬停下拉导航：">Move 01 — Hover Dropdown Navigation:</b> <span data-en="Lets users access any sub-section from any page without cognitive overload." data-zh="让用户从任意页面快速进入任意子模块，避免认知过载。">Lets users access any sub-section from any page without cognitive overload.</span></li>
+                <li><b data-en="Move 02 — Planning Widget Cluster:" data-zh="决策 02 — 规划信息组件群：">Move 02 — Planning Widget Cluster:</b> <span data-en="Search bar, embedded map, weather widget, and site status indicator grouped together to answer 'Can I go tonight?' in one glance." data-zh="搜索栏、嵌入地图、天气组件和场地状态指示器集中展示，一眼回答"今晚能去吗？"。">Search bar, embedded map, weather widget, and site status indicator grouped together to answer 'Can I go tonight?' in one glance.</span></li>
+                <li><b data-en="Move 03 — Eco-Behaviour Guidelines:" data-zh="决策 03 — 生态行为准则：">Move 03 — Eco-Behaviour Guidelines:</b> <span data-en="Do/Don't format with positive framing — 'Bring a red-light torch' rather than 'Don't use white light'." data-zh="采用积极表述的"做 / 不做"格式——"携带红光手电"而非"不要使用白光"。">Do/Don't format with positive framing — 'Bring a red-light torch' rather than 'Don't use white light'.</span></li>
+                <li><b data-en="Move 04 — Atmosphere as Interaction:" data-zh="决策 04 — 氛围即交互：">Move 04 — Atmosphere as Interaction:</b> <span data-en="Animated firefly/glow particles on scroll create immersion and reinforce the site's tunnel identity." data-zh="滚动触发的萤火虫光点动效创造沉浸感，强化网站的隧道场地识别。">Animated firefly/glow particles on scroll create immersion and reinforce the site's tunnel identity.</span></li>
+              </ul>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Technical Implementation" data-zh="技术实现">Technical Implementation</h3>
+              <ul class="exp-list">
+                <li data-en="Fully responsive layout — tested at 375px, 768px, and 1280px breakpoints" data-zh="全响应式布局 — 在 375px、768px 和 1280px 断点测试">Fully responsive layout — tested at 375px, 768px, and 1280px breakpoints</li>
+                <li data-en="CSS animation for glow particle effects — no JavaScript dependency" data-zh="CSS 动画实现光点粒子效果——无需依赖 JavaScript">CSS animation for glow particle effects — no JavaScript dependency</li>
+                <li data-en="Semantic HTML structure for accessibility" data-zh="语义化 HTML 结构确保可访问性">Semantic HTML structure for accessibility</li>
+                <li data-en="Embedded Google Maps integration for transport planning" data-zh="嵌入 Google Maps 支持交通规划">Embedded Google Maps integration for transport planning</li>
+              </ul>
+              <div class="thinking-bubble">
+                <p class="bubble-h" data-en="Design ↔ Code" data-zh="设计与代码">Design ↔ Code</p>
+                <p data-en="Every visual decision was validated by writing the actual CSS — if it couldn't be built cleanly, the design was revised."
+                   data-zh="每一个视觉决策都通过实际编写 CSS 来验证——如果无法干净地实现，就修改设计。">Every visual decision was validated by writing the actual CSS — if it couldn't be built cleanly, the design was revised.</p>
+              </div>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p2-solution.jpg" alt="Helensburgh final design" loading="lazy">
+              <figcaption data-en="Final design — responsive layouts, navigation system and eco-guidance modules"
+                          data-zh="最终方案 — 响应式布局、导航系统与生态指导模块">Final design — responsive layouts, navigation system and eco-guidance modules</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 07 Reflection -->
         <article id="glow-future" class="proj-block">
-          <h2 class="proj-h2 proj-h2-blue">FUTURE DIRECTIONS</h2>
+          <h2 class="proj-h2 proj-h2-blue"
+              data-en="07 · Reflection"
+              data-zh="07 · 项目反思">07 · Reflection</h2>
           <div class="future-cols">
             <div class="future-col">
-              <h3 class="block-label label-purple">WHAT I DID</h3>
-              <p>Designed and built a responsive microsite with information architecture, visual identity, navigation, map support, visitor guidelines, and front-end implementation.</p>
-              <h3 class="block-label label-purple">WHAT I LEARNED</h3>
-              <p>How web design can guide visitor behaviour by making ecological rules, planning information, and navigation easier to access.</p>
+              <h3 class="block-label label-purple" data-en="Biggest Challenge" data-zh="最大挑战">Biggest Challenge</h3>
+              <p data-en="Balancing information density with visual atmosphere. A tourism microsite needs to be informative, but overloading the dark UI with text would destroy the immersive quality that differentiates it. The solution was a strict hierarchy: atmosphere first, critical information second, supporting detail third — each with a distinct visual weight."
+                 data-zh="在信息密度和视觉氛围之间寻求平衡。旅游微网站需要提供足够信息，但在深色 UI 上堆砌文字会破坏使其与众不同的沉浸品质。解决方案是严格的层级：氛围第一、关键信息第二、支撑细节第三——每层都有明确的视觉权重。">Balancing information density with visual atmosphere. The solution was a strict hierarchy: atmosphere first, critical information second, supporting detail third — each with a distinct visual weight.</p>
+              <h3 class="block-label label-purple" data-en="Next Iterations" data-zh="如果继续迭代">Next Iterations</h3>
+              <ul class="exp-list">
+                <li data-en="Integrate live API data for real-time weather and site status updates" data-zh="接入实时 API 数据，提供即时天气和场地状态更新">Integrate live API data for real-time weather and site status updates</li>
+                <li data-en="Conduct usability testing with first-time visitors on-site to validate navigation decisions" data-zh="与初次游客在现场进行可用性测试，验证导航设计决策">Conduct usability testing with first-time visitors on-site to validate navigation decisions</li>
+                <li data-en="Develop an offline mode so visitors can access guidelines without mobile signal in the tunnel" data-zh="开发离线模式，让游客在隧道内无信号时仍可访问行为准则">Develop an offline mode so visitors can access guidelines without mobile signal in the tunnel</li>
+              </ul>
             </div>
             <div class="future-col">
-              <h3 class="block-label label-purple">WHAT I WOULD IMPROVE</h3>
-              <p>Add live API data for weather/status, conduct usability testing with visitors, and further refine accessibility for mobile users.</p>
-              <p class="caption-italic">"The future of exploration is not just discovery, but protection."</p>
+              <h3 class="block-label label-purple" data-en="Key Takeaways" data-zh="核心收获">Key Takeaways</h3>
+              <ul class="future-blocks">
+                <li data-en="Information architecture is the backbone of UX — getting the structure right made every visual and interaction decision easier." data-zh="信息架构是 UX 的骨骼——正确的结构让每一个视觉和交互决策都更加清晰。">Information architecture is the backbone of UX — getting the structure right made every visual and interaction decision easier.</li>
+                <li data-en="Design has a responsibility beyond aesthetics: in this case, visual design choices directly influenced ecological behaviour." data-zh="设计的责任不止于美学：在这个项目中，视觉设计选择直接影响了生态行为。">Design has a responsibility beyond aesthetics: in this case, visual design choices directly influenced ecological behaviour.</li>
+                <li data-en="Designing and building simultaneously forces honest design decisions — if you can't code it cleanly, reconsider the design." data-zh="同步设计和开发迫使你做出诚实的设计决策——如果无法干净地实现，就重新审视设计。">Designing and building simultaneously forces honest design decisions — if you can't code it cleanly, reconsider the design.</li>
+              </ul>
               <figure class="proj-fig" data-lightbox>
-                <img src="assets/images/p2-future.jpg" alt="Helensburgh future" loading="lazy">
+                <img src="assets/images/p2-future.jpg" alt="Future directions" loading="lazy">
+                <figcaption data-en="Next iteration directions" data-zh="下一步迭代方向">Next iteration directions</figcaption>
               </figure>
             </div>
           </div>
@@ -723,43 +1556,49 @@
         <span class="folder-chip-folder" aria-hidden="true">
           <svg viewBox="0 0 36 26" width="36" height="26"><rect x="1" y="6" width="34" height="19" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/><polygon points="1,6 13,6 17,2 1,2" fill="#ffe35a" stroke="#1a1a1a" stroke-width="1.5"/></svg>
         </span>
-        <span class="folder-chip">2 Months</span>
-        <span class="folder-chip">Canva</span>
+        <span class="folder-chip" data-en="2 Months"   data-zh="2 个月">2 Months</span>
         <span class="folder-chip">Figma</span>
-        <span class="folder-chip">Individual</span>
+        <span class="folder-chip" data-en="Individual"  data-zh="独立完成">Individual</span>
       </div>
       <div class="folder-chip-row pill-row-right">
-        <span class="folder-chip pill-outline">Project 3</span>
-        <span class="folder-chip pill-outline">Product Design</span>
+        <span class="folder-chip pill-outline" data-en="Interaction Design" data-zh="交互设计">Interaction Design</span>
+        <span class="folder-chip pill-outline" data-en="Product Design"     data-zh="产品设计">Product Design</span>
       </div>
     </div>
 
     <div class="project-shell">
       <aside class="project-sidemenu">
-        <p class="sm-brand sm-brand-brown">AI MUSIC LEARNING</p>
+        <p class="sm-brand sm-brand-brown">AI MUSIC</p>
         <ol class="sm-list">
-          <li><a href="#ai-overview" class="sm-link active">01 · Overview</a></li>
-          <li><a href="#ai-problem" class="sm-link">02 · Problem Space</a></li>
-          <li><a href="#ai-moves" class="sm-link">03 · Design Moves</a></li>
-          <li><a href="#ai-solution" class="sm-link">04 · Final Outcome</a></li>
-          <li><a href="#ai-future" class="sm-link">05 · Future Direction</a></li>
+          <li><a href="#ai-overview"  class="sm-link active"  data-en="01 · Overview"      data-zh="01 · 项目概述">01 · Overview</a></li>
+          <li><a href="#ai-problem"   class="sm-link"         data-en="02 · Problem"        data-zh="02 · 问题发现">02 · Problem</a></li>
+          <li><a href="#ai-research"  class="sm-link"         data-en="03 · User Research"  data-zh="03 · 用户研究">03 · User Research</a></li>
+          <li><a href="#ai-insight"   class="sm-link"         data-en="04 · Insights"       data-zh="04 · 洞察与原则">04 · Insights</a></li>
+          <li><a href="#ai-iteration" class="sm-link"         data-en="05 · Iteration"      data-zh="05 · 方案探索">05 · Iteration</a></li>
+          <li><a href="#ai-solution"  class="sm-link"         data-en="06 · Final Design"   data-zh="06 · 最终方案">06 · Final Design</a></li>
+          <li><a href="#ai-future"    class="sm-link"         data-en="07 · Reflection"     data-zh="07 · 项目反思">07 · Reflection</a></li>
         </ol>
         <p class="sm-meta">2025.03 — 2025.05 · Product Design</p>
       </aside>
 
       <div class="project-content">
 
+        <!-- HERO -->
         <header class="project-hero project-hero-ai">
-          <h1 class="proj-title proj-title-ai">AI MUSIC<br>LEARNING SYSTEM<br><span class="ai-small">APP</span> <span class="note-emoji" aria-hidden="true">♪</span></h1>
-          <p class="proj-tagline">AI-assisted music learning experience focused on adaptive feedback and emotional engagement.</p>
-          <p class="proj-pullquote ai-quote">Practice is not only about accuracy.<br>Motivation and emotional support matter too.</p>
+          <h1 class="proj-title proj-title-ai">AI MUSIC<br>LEARNING<br><span class="ai-small">SYSTEM</span> <span class="note-emoji" aria-hidden="true">♪</span></h1>
+          <p class="proj-tagline"
+             data-en="AI-assisted music learning app centred on adaptive feedback and emotional engagement"
+             data-zh="以自适应反馈和情感参与为核心的 AI 辅助音乐学习应用">AI-assisted music learning app centred on adaptive feedback and emotional engagement</p>
+          <p class="proj-pullquote ai-quote"
+             data-en="Practice is not just about accuracy.<br>Motivation and emotional connection matter just as much."
+             data-zh="练习不只是关于准确性。<br>动力和情感联结同样至关重要。">Practice is not just about accuracy.<br>Motivation and emotional connection matter just as much.</p>
           <div class="role-identity">
-            <p class="role-h">Role identity</p>
+            <p class="role-h" data-en="My Role" data-zh="我的职责">My Role</p>
             <div class="role-chips">
-              <span># UX Research</span>
-              <span># Interaction Design</span>
-              <span># Interface Prototyping</span>
-              <span># User Testing</span>
+              <span data-en="# UX Research &amp; Interviews"  data-zh="# 用户研究 &amp; 访谈"># UX Research &amp; Interviews</span>
+              <span data-en="# Interaction Design"           data-zh="# 交互设计"># Interaction Design</span>
+              <span data-en="# Interface Prototyping"        data-zh="# 界面原型制作"># Interface Prototyping</span>
+              <span data-en="# User Testing"                 data-zh="# 用户测试"># User Testing</span>
             </div>
           </div>
           <div class="piano-strip" aria-hidden="true">
@@ -767,130 +1606,242 @@
           </div>
         </header>
 
+        <!-- 01 Overview -->
         <article id="ai-overview" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">PROJECT OVERVIEW</h2>
+          <h2 class="proj-h2 graffiti-green"
+              data-en="01 · Project Overview"
+              data-zh="01 · 项目概述">01 · Project Overview</h2>
+          <p class="proj-lead"
+             data-en="AI Music Learning System is an interaction design project that reimagines AI's role in music education — shifting it from a correction tool to a collaborative emotional partner. Through user research, insight synthesis, and Figma prototyping, the project builds a learning experience that adapts to both technical performance and emotional state."
+             data-zh="AI 音乐学习系统是一个交互设计项目，重新定义 AI 在音乐教育中的角色——将其从纠错工具转变为协作式情感伙伴。通过用户研究、洞察提炼和 Figma 原型制作，构建了一套能同时适应技术水平和情感状态的学习体验。">AI Music Learning System reimagines AI's role in music education — shifting it from a correction tool to a collaborative emotional partner. Through user research and Figma prototyping, the project builds a learning experience that adapts to both technical performance and emotional state.</p>
           <div class="proj-cols-3">
             <div class="proj-col">
-              <h3 class="block-label label-purple">INSPIRATION</h3>
-              <p>Many music learning apps focus only on technical correction, while motivation and emotional engagement are often ignored.</p>
+              <h3 class="block-label label-purple" data-en="Background" data-zh="项目背景">Background</h3>
+              <p data-en="With the rapid growth of AI in education, music learning apps increasingly use AI for technical feedback — detecting wrong notes, timing errors, and pitch issues. However, motivation, emotional engagement, and the human joy of making music are consistently ignored."
+                 data-zh="随着 AI 在教育领域的快速发展，音乐学习应用越来越多地将 AI 用于技术性反馈——检测错误音符、节奏失误和音准问题。然而，学习动力、情感参与和音乐创作的人文乐趣却被持续忽视。">With the rapid growth of AI in education, music apps use AI for technical feedback but consistently ignore motivation, emotional engagement, and the human joy of making music.</p>
             </div>
             <div class="proj-col">
-              <h3 class="block-label label-purple">PHENOMENON</h3>
-              <p>Advantages of AI-supported music learning include personalised learning paths, in-time feedback, accessibility & cost-effectiveness, and enhancing the fun of learning.</p>
-              <p>Disadvantages: tech dependency, limited accuracy in feedback, lack of human nuance.</p>
+              <h3 class="block-label label-purple" data-en="Project Value" data-zh="项目价值">Project Value</h3>
+              <p data-en="Explore what it means to design AI as an emotionally intelligent partner rather than an assessment tool — and how adaptive pacing, encouraging feedback, and personalised practice paths can keep learners engaged over time."
+                 data-zh="探索将 AI 设计为情感智能伙伴而非评估工具的意义——以及自适应节奏、鼓励性反馈和个性化练习路径如何让学习者保持长期参与。">Explore what it means to design AI as an emotionally intelligent partner rather than an assessment tool, and how adaptive pacing and encouraging feedback can keep learners engaged over time.</p>
             </div>
             <div class="proj-col">
-              <h3 class="block-label label-purple">BACKGROUND</h3>
-              <p>With the rapid development of AI, its use in education is increasing. In music learning, however, AI is mostly used for drills and simple feedback.</p>
+              <h3 class="block-label label-purple" data-en="Tools &amp; Timeline" data-zh="工具 &amp; 周期">Tools &amp; Timeline</h3>
+              <p><b data-en="Duration:" data-zh="周期：">Duration:</b> <span data-en="2 months" data-zh="2 个月">2 months</span></p>
+              <p><b data-en="Research:" data-zh="研究：">Research:</b> <span data-en="Semi-structured interviews · Competitive analysis" data-zh="半结构化访谈 · 竞品分析">Semi-structured interviews · Competitive analysis</span></p>
+              <p><b data-en="Design:" data-zh="设计工具：">Design:</b> Figma · AI ideation tools</p>
+              <p><b data-en="Collaboration:" data-zh="协作方式：">Collaboration:</b> <span data-en="Individual project" data-zh="独立完成">Individual project</span></p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p3-overview.jpg" alt="AI Music project overview" loading="lazy">
+              <figcaption data-en="Project overview — research framing, opportunity space and design scope"
+                          data-zh="项目概览 — 研究框架、机会空间与设计范围">Project overview — research framing, opportunity space and design scope</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 02 Problem -->
+        <article id="ai-problem" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="02 · Problem Discovery"
+              data-zh="02 · 问题发现">02 · Problem Discovery</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Why This Problem" data-zh="为什么关注这个问题">Why This Problem</h3>
+              <p data-en="The dropout rate for self-taught music learners is extremely high. Research suggests that the primary reason is not difficulty — it's a lack of motivation and emotional connection to the practice process. Existing AI tools double down on correctness, which actually increases anxiety for beginners."
+                 data-zh="自学音乐学习者的流失率极高。研究表明，主要原因不是难度，而是缺乏动力和对练习过程的情感联结。现有 AI 工具过度强调正确性，这实际上增加了初学者的焦虑感。">The dropout rate for self-taught music learners is extremely high. The primary reason is not difficulty — it's a lack of motivation and emotional connection to practice. Existing AI tools double down on correctness, which increases anxiety for beginners.</p>
               <div class="thinking-bubble">
-                <p class="bubble-h">THINKING...</p>
-                <p>How might AI support music learners through both real-time feedback and emotional engagement?</p>
+                <p class="bubble-h" data-en="Core Question" data-zh="核心问题">Core Question</p>
+                <p data-en="How might AI support music learners not just technically, but emotionally — keeping them motivated through the long, repetitive process of building skill?"
+                   data-zh="AI 如何在技术层面之外，还能在情感层面支持音乐学习者——在漫长、重复的技能建构过程中保持他们的学习动力？">How might AI support music learners not just technically, but emotionally — keeping them motivated through the long, repetitive process of building skill?</p>
               </div>
             </div>
-          </div>
-          <div class="proj-image-row">
-            <figure class="proj-fig" data-lightbox>
-              <img src="assets/images/p3-overview.jpg" alt="AI music project overview" loading="lazy">
-            </figure>
-          </div>
-        </article>
-
-        <article id="ai-problem" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">PROBLEM SPACE</h2>
-          <div class="proj-cols-2">
             <div class="proj-col">
-              <h3 class="block-label label-purple">PROBLEM STATEMENT</h3>
-              <p>Existing music learning systems prioritise technical accuracy over emotional engagement and adaptive motivation.</p>
-              <h3 class="block-label label-purple">INTERVIEW</h3>
-              <p class="caption-italic">"AI is creative and informative but lacks emotional depth." — Rose</p>
-              <p class="caption-italic">"AI is not very good at human emotions." — Milikiauk</p>
-            </div>
-            <div class="proj-col">
-              <h3 class="block-label label-purple">KEY INSIGHTS</h3>
-              <p>Learners value emotional guidance and adaptive feedback during repetitive practice.</p>
-              <h3 class="block-label label-purple">DESIGN OPPORTUNITY</h3>
-              <p>Design a music learning experience that supports emotional engagement, adaptive pacing, and real-time guidance.</p>
-            </div>
-          </div>
-          <div class="proj-image-row">
-            <figure class="proj-fig" data-lightbox>
-              <img src="assets/images/p3-problem.jpg" alt="AI music problem space" loading="lazy">
-            </figure>
-          </div>
-        </article>
-
-        <article id="ai-moves" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">DESIGN MOVES</h2>
-          <div class="proj-cols-2">
-            <div class="proj-col">
-              <h3 class="block-label label-purple">DESIGN CONCEPT</h3>
-              <p>Reimagining AI as a collaborative music learning partner rather than a passive correction tool.</p>
-              <h3 class="block-label label-purple">DESIGN TRANSITION</h3>
-              <p>I started by sketching an AI-assisted practice app, then translated the concept into a clearer interaction system focused on feedback, motivation, and adaptive learning.</p>
-            </div>
-            <div class="proj-col">
-              <h3 class="block-label label-purple">EXPERIENCE COMPONENTS</h3>
-              <ol>
-                <li><b>Real-time Feedback</b> — AI responds instantly to performance and mistakes.</li>
-                <li><b>Emotional Motivation</b> — rewards and visual feedback encourage continued practice.</li>
-                <li><b>Adaptive Learning Path</b> — practice adjusts to user progress and pacing.</li>
-              </ol>
-              <h3 class="block-label label-purple">ITERATION FLOW</h3>
-              <p>① user plays music → ② AI analyses performance → ③ emotion + performance feedback → ④ adaptive practice suggestions → ⑤ user continues practice.</p>
-            </div>
-          </div>
-          <div class="proj-image-row">
-            <figure class="proj-fig" data-lightbox>
-              <img src="assets/images/p3-moves.jpg" alt="AI music design moves" loading="lazy">
-            </figure>
-          </div>
-        </article>
-
-        <article id="ai-solution" class="proj-block">
-          <h2 class="proj-h2 graffiti-green">FINAL OUTCOME</h2>
-          <p class="proj-lead">An AI-supported music learning experience focused on feedback, motivation, and adaptive practice.</p>
-          <div class="proj-cols-2">
-            <div class="proj-col">
-              <h3 class="block-label label-purple">INTERFACE DETAILS</h3>
-              <ul>
-                <li><b>Library:</b> users can browse instruments and explore music categories through a structured filtering system.</li>
-                <li><b>Practice:</b> the screen combines sheet music, playback controls, and AI suggestions to support real-time learning feedback.</li>
-                <li><b>Furniture & Frames:</b> editable home content from the shop helps users decorate their personalised homepage.</li>
-              </ul>
-            </div>
-            <div class="proj-col">
-              <h3 class="block-label label-purple">TOOLS</h3>
-              <ul>
-                <li><b>Figma</b> — to prototype interface structure, interaction flow, and adaptive feedback systems.</li>
-                <li><b>AI-assisted ideation</b> — to explore interaction concepts and emotional learning features during early development.</li>
+              <h3 class="block-label label-purple" data-en="User Pain Points" data-zh="用户痛点">User Pain Points</h3>
+              <ul class="exp-list">
+                <li><b data-en="Correction-only feedback:" data-zh="仅有纠错的反馈：">Correction-only feedback:</b> <span data-en="Apps constantly highlight mistakes without acknowledging progress, making practice feel punishing rather than rewarding." data-zh="应用持续标注错误而不认可进步，使练习感觉像惩罚而非奖励。">Apps constantly highlight mistakes without acknowledging progress, making practice feel punishing rather than rewarding.</span></li>
+                <li><b data-en="No adaptive pacing:" data-zh="缺乏自适应节奏：">No adaptive pacing:</b> <span data-en="Practice difficulty doesn't adjust to the learner's current energy, mood, or progress — leading to frustration or boredom." data-zh="练习难度不随学习者当前的状态、情绪或进度调整——导致挫败感或无聊感。">Practice difficulty doesn't adjust to the learner's current energy, mood, or progress — leading to frustration or boredom.</span></li>
+                <li><b data-en="Impersonal experience:" data-zh="缺乏个人化体验：">Impersonal experience:</b> <span data-en="Generic feedback that doesn't feel like it was written for this learner's specific journey." data-zh="通用的反馈内容，感觉并非为这位学习者的具体旅程而写。">Generic feedback that doesn't feel like it was written for this learner's specific journey.</span></li>
+                <li><b data-en="No celebration of effort:" data-zh="不认可努力付出：">No celebration of effort:</b> <span data-en="The emotional dimension of learning — the pride in a difficult passage finally played correctly — is never acknowledged." data-zh="学习的情感维度——终于演奏好一段困难片段的成就感——从未被认可。">The emotional dimension of learning — pride in finally playing a difficult passage correctly — is never acknowledged.</span></li>
               </ul>
             </div>
           </div>
           <div class="proj-image-row">
             <figure class="proj-fig wide" data-lightbox>
-              <img src="assets/images/p3-solution.jpg" alt="AI music final outcome" loading="lazy">
+              <img src="assets/images/p3-problem.jpg" alt="Problem space" loading="lazy">
+              <figcaption data-en="Problem mapping — the emotional gap in existing AI music learning tools"
+                          data-zh="问题映射 — 现有 AI 音乐学习工具中的情感缺口">Problem mapping — the emotional gap in existing AI music learning tools</figcaption>
             </figure>
           </div>
         </article>
 
+        <!-- 03 User Research -->
+        <article id="ai-research" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="03 · User Research"
+              data-zh="03 · 用户研究">03 · User Research</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Research Methods" data-zh="研究方法">Research Methods</h3>
+              <ul class="exp-list">
+                <li><b data-en="Semi-structured interviews:" data-zh="半结构化访谈：">Semi-structured interviews:</b> <span data-en="Interviewed 5 music learners at different skill levels (beginner to intermediate) about their current practice experience, emotional relationship with music, and experiences with AI learning tools." data-zh="访谈了 5 位不同水平（初学者到中级）的音乐学习者，了解他们当前的练习体验、与音乐的情感关系以及使用 AI 学习工具的经历。">Interviewed 5 music learners at different skill levels about their practice experience, emotional relationship with music, and experiences with AI tools.</span></li>
+                <li><b data-en="Competitive analysis:" data-zh="竞品分析：">Competitive analysis:</b> <span data-en="Analysed Simply Piano, Yousician, and Flowkey to map feature gaps, emotional tone, and feedback mechanisms." data-zh="分析了 Simply Piano、Yousician 和 Flowkey，梳理功能缺口、情感基调和反馈机制。">Analysed Simply Piano, Yousician, and Flowkey to map feature gaps, emotional tone, and feedback mechanisms.</span></li>
+              </ul>
+              <h3 class="block-label label-purple" data-en="Key Interview Quotes" data-zh="关键访谈摘录">Key Interview Quotes</h3>
+              <p class="caption-italic" data-en='"AI is creative and informative but lacks emotional depth." — Rose'
+                 data-zh='"AI 很有创意、信息丰富，但缺乏情感深度。" — Rose'>"AI is creative and informative but lacks emotional depth." — Rose</p>
+              <p class="caption-italic" data-en='"AI is not very good at human emotions." — Milikiauk'
+                 data-zh='"AI 不太擅长处理人类情感。" — Milikiauk'>"AI is not very good at human emotions." — Milikiauk</p>
+              <p class="caption-italic" data-en='"When I finally get a piece right, I want something to celebrate with me — not just tell me the next mistake."'
+                 data-zh='"当我终于演奏对一首曲子时，我希望有什么东西和我一起庆祝——而不只是告诉我下一个错误。"'>"When I finally get a piece right, I want something to celebrate with me — not just tell me the next mistake."</p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Competitive Analysis Findings" data-zh="竞品分析发现">Competitive Analysis Findings</h3>
+              <ul class="exp-list">
+                <li data-en="All existing apps prioritise technical correctness metrics over emotional engagement indicators." data-zh="所有现有应用都将技术正确性指标置于情感参与指标之上。">All existing apps prioritise technical correctness metrics over emotional engagement indicators.</li>
+                <li data-en="None offer adaptive difficulty based on detected emotional state (frustration, fatigue, excitement)." data-zh="没有应用提供基于检测到的情感状态（挫败、疲劳、兴奋）的自适应难度调整。">None offer adaptive difficulty based on detected emotional state (frustration, fatigue, excitement).</li>
+                <li data-en="Reward systems are limited to streaks and badges — no acknowledgement of the quality or feeling of a session." data-zh="奖励系统仅限于连续打卡和徽章——不认可练习的质量或感受。">Reward systems are limited to streaks and badges — no acknowledgement of the quality or feeling of a session.</li>
+              </ul>
+              <h3 class="block-label label-purple" data-en="User Journey Map Insight" data-zh="用户旅程图洞察">User Journey Map Insight</h3>
+              <p data-en="Mapping the practice session journey revealed a consistent emotional pattern: early optimism → mid-session frustration (at mistakes) → potential abandon point → if pushed through, pride. The design needed to support the transition at the abandon point."
+                 data-zh="梳理练习课程旅程揭示了一致的情感模式：初期乐观 → 中期挫败（面对错误）→ 潜在放弃节点 → 若坚持下去则是成就感。设计需要在放弃节点支持情感转化。">Mapping the practice session journey revealed a consistent emotional pattern: early optimism → mid-session frustration → potential abandon point → pride if pushed through. The design needed to support that transition.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04 Insights -->
+        <article id="ai-insight" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="04 · Insights &amp; Design Principles"
+              data-zh="04 · 洞察与设计原则">04 · Insights &amp; Design Principles</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Key Insights</h3>
+              <ul class="exp-list">
+                <li><b>Insight 01:</b> <span data-en="Encouragement outperforms correction — users who received encouraging feedback practiced longer and returned more often than those who received correction-only feedback." data-zh="鼓励比纠错更有效——收到鼓励性反馈的用户比只收到纠错反馈的用户练习时间更长、回访更频繁。">Encouragement outperforms correction — users who received encouraging feedback practiced longer and returned more often than those who received correction-only feedback.</span></li>
+                <li><b>Insight 02:</b> <span data-en="Adaptive pacing is the most requested missing feature — learners want the app to know when they're tired and adjust accordingly, not just track their errors." data-zh="自适应节奏是最需要但缺失的功能——学习者希望应用能感知他们疲惫时并相应调整，而不只是追踪错误。">Adaptive pacing is the most requested missing feature — learners want the app to know when they're tired and adjust, not just track errors.</span></li>
+                <li><b>Insight 03:</b> <span data-en="Personalisation builds emotional investment — when the app 'knows' a learner's repertoire and goals, practice feels meaningful, not mechanical." data-zh="个性化建立情感投入——当应用"了解"学习者的曲目和目标时，练习感觉有意义，而非机械重复。">Personalisation builds emotional investment — when the app 'knows' a learner's repertoire and goals, practice feels meaningful, not mechanical.</span></li>
+                <li><b>Insight 04:</b> <span data-en="The moment of success needs to be witnessed — completing a difficult piece deserves more than a progress bar update." data-zh="成功的时刻需要被见证——完成一首困难曲目值得比进度条更新更多的回应。">The moment of success needs to be witnessed — completing a difficult piece deserves more than a progress bar update.</span></li>
+              </ul>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple">Design Principles</h3>
+              <ul class="exp-list">
+                <li><b data-en="Emotional feedback first:" data-zh="情感反馈优先：">Emotional feedback first:</b> <span data-en="Every AI response acknowledges effort before addressing errors." data-zh="每一个 AI 回应在指出错误之前先认可付出的努力。">Every AI response acknowledges effort before addressing errors.</span></li>
+                <li><b data-en="Adaptive by default:" data-zh="默认自适应：">Adaptive by default:</b> <span data-en="The system tracks not just correctness, but session length, error patterns, and interaction speed to infer emotional state and adjust difficulty." data-zh="系统不仅追踪正确性，还通过课程时长、错误模式和交互速度推断情感状态并调整难度。">The system tracks not just correctness, but session length, error patterns, and speed to infer emotional state and adjust difficulty.</span></li>
+                <li><b data-en="Celebrate progress, not just perfection:" data-zh="庆祝进步，不只是完美：">Celebrate progress, not just perfection:</b> <span data-en="The reward system responds to improvement over time, not just flawless execution." data-zh="奖励系统回应随时间的进步，而非只是无懈可击的演奏。">The reward system responds to improvement over time, not just flawless execution.</span></li>
+                <li><b data-en="Personal space design:" data-zh="个人空间设计：">Personal space design:</b> <span data-en="The home screen is a personalised 'practice space' the learner decorates and owns, increasing emotional investment." data-zh="主页是学习者可以装饰和拥有的个性化"练习空间"，增强情感投入。">The home screen is a personalised 'practice space' the learner decorates and owns, increasing emotional investment.</span></li>
+              </ul>
+              <div class="thinking-bubble">
+                <p class="bubble-h" data-en="Design Translation Logic" data-zh="设计转化逻辑">Design Translation Logic</p>
+                <p data-en="4 Insights → 4 Principles → 4 core interface features. The research chain is traceable at every design decision."
+                   data-zh="4 个洞察 → 4 个设计原则 → 4 个核心界面功能。每个设计决策都可追溯到研究链条。">4 Insights → 4 Principles → 4 core interface features. The research chain is traceable at every design decision.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05 Iteration -->
+        <article id="ai-iteration" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="05 · Design Exploration"
+              data-zh="05 · 方案探索">05 · Design Exploration</h2>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Early Concepts → Discarded" data-zh="早期方案 → 被推翻">Early Concepts → Discarded</h3>
+              <p><b data-en="Concept A (AI Tutor Avatar):" data-zh="方案 A（AI 导师虚拟形象）：">Concept A (AI Tutor Avatar):</b> <span data-en="An animated AI character that reacted to performance in real time. User testing found that a humanoid avatar created unrealistic emotional expectations — users felt more anxious when 'disappointing' the avatar." data-zh="一个对演奏实时作出反应的动画 AI 角色。用户测试发现，类人形象创造了不切实际的情感期望——用户在"让"虚拟形象"失望"时感到更加焦虑。">An animated AI character that reacted to performance. User testing found the humanoid avatar created unrealistic expectations — users felt more anxious when 'disappointing' it.</span></p>
+              <p><b data-en="Concept B (Score-only feedback):" data-zh="方案 B（仅评分反馈）：">Concept B (Score-only feedback):</b> <span data-en="A dashboard of performance metrics — accuracy %, timing score, pitch accuracy. Users found this demotivating: 'It feels like a test, not practice.'" data-zh="演奏指标仪表板——准确率%、节奏分数、音准精度。用户觉得这令人沮丧：'感觉像在考试，而不是在练习。'">A dashboard of performance metrics. Users found it demotivating: 'It feels like a test, not practice.'</span></p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Key Pivot → Companion System" data-zh="关键转向 → 伴侣式系统">Key Pivot → Companion System</h3>
+              <p data-en="Moved away from both avatar and metrics toward an ambient intelligence model — the AI responds through environmental changes (lighting shifts, sound texture, animated elements) rather than explicit statements. This created emotional resonance without creating anxiety."
+                 data-zh="从虚拟形象和指标转向环境智能模型——AI 通过环境变化（光线转换、音效纹理、动画元素）而非明确陈述来作出回应。这创造了情感共鸣而不引发焦虑。">Moved away from avatar and metrics toward an ambient intelligence model — the AI responds through environmental changes rather than explicit statements. This created emotional resonance without creating anxiety.</p>
+              <p data-en="The home screen evolved from a generic app dashboard to a personal practice room that the learner customises — creating ownership and increasing return visits."
+                 data-zh="主页从通用应用仪表板演变为学习者可自定义的个人练习空间——建立归属感并增加回访率。">The home screen evolved from a generic dashboard to a personal practice room the learner customises — creating ownership and increasing return visits.</p>
+              <div class="thinking-bubble">
+                <p class="bubble-h" data-en="Iteration Logic" data-zh="迭代逻辑">Iteration Logic</p>
+                <p data-en="① Assessment tool → ② Animated tutor → ③ Ambient companion. Each pivot addressed a specific emotional friction point identified in user testing."
+                   data-zh="① 评估工具 → ② 动画导师 → ③ 环境伴侣。每次转向都针对用户测试中识别的具体情感摩擦点。">① Assessment tool → ② Animated tutor → ③ Ambient companion. Each pivot addressed a specific emotional friction point from user testing.</p>
+              </div>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p3-moves.jpg" alt="Design iteration" loading="lazy">
+              <figcaption data-en="Design iteration — concept evolution, feedback mechanism pivots and interface direction"
+                          data-zh="方案迭代 — 概念演进、反馈机制转向与界面方向">Design iteration — concept evolution, feedback mechanism pivots and interface direction</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 06 Final Design -->
+        <article id="ai-solution" class="proj-block">
+          <h2 class="proj-h2 graffiti-green"
+              data-en="06 · Final Design"
+              data-zh="06 · 最终方案">06 · Final Design</h2>
+          <p class="proj-lead"
+             data-en="An AI-supported music learning app built around four core interaction modules — each designed to address a specific emotional need identified in research. The system adapts to both technical performance and emotional state in real time."
+             data-zh="一款围绕四个核心交互模块构建的 AI 辅助音乐学习应用——每个模块都针对研究中识别的特定情感需求而设计。系统实时适应技术水平和情感状态。">An AI-supported music learning app built around four core interaction modules — each designed to address a specific emotional need identified in research. The system adapts to both technical performance and emotional state in real time.</p>
+          <div class="proj-cols-2">
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Module 01 · Library" data-zh="模块 01 · 曲库">Module 01 · Library</h3>
+              <p><b data-en="User action:" data-zh="用户行为：">User action:</b> <span data-en="Browse instruments and music categories through a structured filtering system; save pieces to a personal repertoire." data-zh="通过结构化筛选系统浏览乐器和音乐类别；将曲目保存到个人曲目库。">Browse instruments and music categories through a structured filtering system; save pieces to a personal repertoire.</span></p>
+              <p><b data-en="Design goal:" data-zh="设计目标：">Design goal:</b> <span data-en="Let learners own their musical identity — the pieces they choose reflect who they are, not who the app tells them to be." data-zh="让学习者拥有自己的音乐身份——他们选择的曲目反映的是他们自己，而非应用要求他们成为的样子。">Let learners own their musical identity — the pieces they choose reflect who they are, not who the app tells them to be.</span></p>
+
+              <h3 class="block-label label-purple" data-en="Module 02 · Practice Screen" data-zh="模块 02 · 练习界面">Module 02 · Practice Screen</h3>
+              <p><b data-en="User action:" data-zh="用户行为：">User action:</b> <span data-en="Practice with sheet music, playback controls, and real-time AI feedback visible in a single unified view." data-zh="在单一统一视图中进行练习，同时可见乐谱、播放控制和实时 AI 反馈。">Practice with sheet music, playback controls, and real-time AI feedback in a single unified view.</span></p>
+              <p><b data-en="System response:" data-zh="系统反馈：">System response:</b> <span data-en="AI provides emotional tone-aware feedback — 'That section is coming together' before addressing specific errors." data-zh="AI 提供情感语调感知的反馈——在指出具体错误之前先说"这段越来越好了"。">AI provides emotional tone-aware feedback — 'That section is coming together' before addressing specific errors.</span></p>
+              <p><b data-en="Linked insight:" data-zh="对应洞察：">Linked insight:</b> <span data-en="Insight 01 — Encouragement outperforms correction." data-zh="Insight 01 — 鼓励比纠错更有效。">Insight 01 — Encouragement outperforms correction.</span></p>
+            </div>
+            <div class="proj-col">
+              <h3 class="block-label label-purple" data-en="Module 03 · Adaptive Practice Path" data-zh="模块 03 · 自适应练习路径">Module 03 · Adaptive Practice Path</h3>
+              <p><b data-en="System behaviour:" data-zh="系统行为：">System behaviour:</b> <span data-en="Tracks session length, error frequency, and interaction speed. If frustration signals are detected, the AI suggests a shorter warm-up piece or lowers the difficulty of the current passage." data-zh="追踪课程时长、错误频率和交互速度。若检测到挫败信号，AI 会建议一首较短的热身曲目或降低当前片段的难度。">Tracks session length, error frequency, and interaction speed. If frustration signals are detected, the AI suggests a shorter warm-up or lowers difficulty.</span></p>
+              <p><b data-en="Linked insight:" data-zh="对应洞察：">Linked insight:</b> <span data-en="Insight 02 — Adaptive pacing is the most requested missing feature." data-zh="Insight 02 — 自适应节奏是最需要但缺失的功能。">Insight 02 — Adaptive pacing is the most requested missing feature.</span></p>
+
+              <h3 class="block-label label-purple" data-en="Module 04 · Personal Practice Room" data-zh="模块 04 · 个人练习空间">Module 04 · Personal Practice Room</h3>
+              <p><b data-en="User action:" data-zh="用户行为：">User action:</b> <span data-en="Customise the home screen with furniture, plants, and decorative items unlocked through practice milestones." data-zh="通过练习里程碑解锁家具、植物和装饰品，自定义主页。">Customise the home screen with furniture, plants, and decorative items unlocked through practice milestones.</span></p>
+              <p><b data-en="Design goal:" data-zh="设计目标：">Design goal:</b> <span data-en="Create a space the learner feels belongs to them — increasing emotional investment in returning to practice." data-zh="创造一个学习者感觉属于自己的空间——增强回访练习的情感投入。">Create a space the learner feels belongs to them — increasing emotional investment in returning to practice.</span></p>
+              <p><b data-en="Linked insight:" data-zh="对应洞察：">Linked insight:</b> <span data-en="Insight 03 — Personalisation builds emotional investment." data-zh="Insight 03 — 个性化建立情感投入。">Insight 03 — Personalisation builds emotional investment.</span></p>
+            </div>
+          </div>
+          <div class="proj-image-row">
+            <figure class="proj-fig wide" data-lightbox>
+              <img src="assets/images/p3-solution.jpg" alt="AI Music final design" loading="lazy">
+              <figcaption data-en="Final design — library, practice screen, adaptive system and personal practice room"
+                          data-zh="最终方案 — 曲库、练习界面、自适应系统与个人练习空间">Final design — library, practice screen, adaptive system and personal practice room</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- 07 Reflection -->
         <article id="ai-future" class="proj-block">
-          <h2 class="proj-h2 proj-h2-blue">FUTURE DIRECTIONS</h2>
+          <h2 class="proj-h2 proj-h2-blue"
+              data-en="07 · Reflection"
+              data-zh="07 · 项目反思">07 · Reflection</h2>
           <div class="future-cols">
             <div class="future-col">
-              <h3 class="block-label label-purple">WHAT I DID</h3>
-              <p>Designed and refined an AI-supported music learning experience focused on emotional engagement, adaptive feedback, and personalised practice.</p>
-              <h3 class="block-label label-purple">WHAT I LEARNED</h3>
-              <ul>
-                <li>Users preferred encouraging feedback over strict correction.</li>
-                <li>Adaptive pacing increased engagement and motivation.</li>
-                <li>Emotional interaction made practice feel more personal.</li>
+              <h3 class="block-label label-purple" data-en="Biggest Challenge" data-zh="最大挑战">Biggest Challenge</h3>
+              <p data-en="Designing AI feedback that felt genuinely encouraging rather than condescending. Early prototypes of the encouraging feedback were described by users as 'too cheerful' or 'like a kids' app'. The solution was to calibrate tone to the learner's skill level — beginners receive warmer encouragement, while advanced users receive more concise, peer-level feedback."
+                 data-zh="设计既真正鼓励人心又不令人感到居高临下的 AI 反馈。早期鼓励性反馈原型被用户描述为"太欢快"或"像儿童应用"。解决方案是根据学习者技能水平校准语调——初学者接受更温暖的鼓励，而进阶用户接受更简洁的同伴级别反馈。">Designing AI feedback that felt genuinely encouraging rather than condescending. Early prototypes were described as 'too cheerful'. The solution: calibrate tone to skill level — warmer for beginners, more concise and peer-level for advanced users.</p>
+              <h3 class="block-label label-purple" data-en="Next Iterations" data-zh="如果继续迭代">Next Iterations</h3>
+              <ul class="exp-list">
+                <li data-en="Develop and test the adaptive difficulty algorithm with real music learners over a 4-week period to validate its emotional impact" data-zh="与真实音乐学习者进行 4 周的自适应难度算法测试，验证其情感影响">Develop and test the adaptive difficulty algorithm with real music learners over 4 weeks to validate its emotional impact</li>
+                <li data-en="Explore multimodal feedback — incorporating microphone input for pitch detection and camera input for posture feedback" data-zh="探索多模态反馈——融合麦克风输入进行音准检测和摄像头输入进行姿势反馈">Explore multimodal feedback — microphone input for pitch detection and camera input for posture feedback</li>
+                <li data-en="Design a social layer where learners can share their practice room and repertoire with friends" data-zh="设计社交层，让学习者可以与朋友分享练习空间和曲目库">Design a social layer where learners can share their practice room and repertoire with friends</li>
               </ul>
             </div>
             <div class="future-col">
-              <h3 class="block-label label-purple">WHAT I WOULD IMPROVE</h3>
-              <p>With more time, I would further develop the adaptive feedback system and test the experience with real music learners over longer periods.</p>
+              <h3 class="block-label label-purple" data-en="Key Takeaways" data-zh="核心收获">Key Takeaways</h3>
+              <ul class="future-blocks">
+                <li data-en="Emotional design is not decoration — it is the core functional requirement for any product that depends on sustained user motivation." data-zh="情感设计不是装饰——对于任何依赖持续用户动力的产品，它是核心功能需求。">Emotional design is not decoration — it is the core functional requirement for any product that depends on sustained user motivation.</li>
+                <li data-en="AI's role in a product is a design decision, not a technical given — choosing between corrector, coach, and companion has profound UX implications." data-zh="AI 在产品中的角色是一个设计决策，而非技术既定——在纠错者、教练和伴侣之间的选择具有深远的 UX 影响。">AI's role in a product is a design decision, not a technical given — choosing between corrector, coach, and companion has profound UX implications.</li>
+                <li data-en="User testing at the concept stage (not just prototype stage) saved significant design time by revealing fundamental direction issues early." data-zh="在概念阶段（而非原型阶段）进行用户测试，通过早期发现方向性问题节省了大量设计时间。">User testing at the concept stage (not just prototype stage) saved significant design time by revealing fundamental direction issues early.</li>
+              </ul>
               <figure class="proj-fig" data-lightbox>
-                <img src="assets/images/p3-future.jpg" alt="AI music future" loading="lazy">
+                <img src="assets/images/p3-future.jpg" alt="Future directions" loading="lazy">
+                <figcaption data-en="Next iteration directions" data-zh="下一步迭代方向">Next iteration directions</figcaption>
               </figure>
             </div>
           </div>
@@ -899,7 +1850,6 @@
       </div>
     </div>
   </section>
-
   <!-- ============================================================
        SELECTED EXPERIENCE — pixel cards
   ============================================================ -->
